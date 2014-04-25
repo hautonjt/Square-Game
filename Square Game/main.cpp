@@ -343,10 +343,10 @@ void Dot::handleEvent( SDL_Event& e )
 //            case SDLK_LEFT: mAccX += DOT_ACC; break;
 //            case SDLK_RIGHT: mAccX -= DOT_ACC; break;
                 
-            case SDLK_UP: mAccY = 0; break;
-            case SDLK_DOWN: mAccY = 0; break;
-            case SDLK_LEFT: mAccX = 0; break;
-            case SDLK_RIGHT: mAccX = 0; break;
+            case SDLK_UP: mAccY += DOT_ACC; break;
+            case SDLK_DOWN: mAccY -= DOT_ACC; break;
+            case SDLK_LEFT: mAccX += DOT_ACC; break;
+            case SDLK_RIGHT: mAccX -= DOT_ACC; break;
         }
     }
 }
@@ -363,13 +363,15 @@ void Dot::move()
     }
     
     //If the dot went too far to the left or right
-    if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
+    if(mPosX < 0)
     {
         //Use conservation of momentum to rebound
-        mVelX = -mVelX-2;
-//        mAccX = -mAccX;
-      
-        
+        mVelX = -mVelX+1;
+    }
+    else if (mPosX + DOT_WIDTH > SCREEN_WIDTH)
+    {
+        //Use conservation of momentum to rebound
+        mVelX = -mVelX-1;
     }
     
     //Move the dot up or down
@@ -382,12 +384,14 @@ void Dot::move()
     }
     
     //If the dot went too far up or down
-    if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
+    if(mPosY < 0)
     {
-        //Move back
-        mVelY = -mVelY-2;
-//        mAccY = -mAccY;
+        //Use conservation of momentum to rebound
+        mVelY = -mVelY+1;
       
+    }else if (mPosY + DOT_HEIGHT > SCREEN_HEIGHT){
+        //Use conservation of momentum to rebound
+        mVelY = -mVelY-1;
     }
 }
 
