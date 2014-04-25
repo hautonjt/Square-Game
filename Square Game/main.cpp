@@ -349,8 +349,13 @@ void Dot::handleEvent( SDL_Event& e )
 void Dot::move()
 {
     //Move the dot left or right
-    mVelX += mAccX;
-    mPosX += mVelX;
+        mVelX += mAccX;
+        mPosX += mVelX;
+    if (-5 >= mVelX) {
+        mVelX = -5;
+    }else if (mVelX >=5){
+        mVelX = 5;
+    }
     
     //If the dot went too far to the left or right
     if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
@@ -361,8 +366,13 @@ void Dot::move()
     }
     
     //Move the dot up or down
-    mVelY += mAccY;
-    mPosY += mVelY;
+        mVelY += mAccY;
+        mPosY += mVelY;
+    if (-5 >= mVelY) {
+        mVelY = -5;
+    }else if (mVelY >=5){
+        mVelY = 5;
+    }
     
     //If the dot went too far up or down
     if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
