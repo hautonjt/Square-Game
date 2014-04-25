@@ -3,7 +3,7 @@
 
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL2_image/SDL_image.h>
 #include <stdio.h>
 #include <string>
 
@@ -105,6 +105,7 @@ public:
     
     //Maximum axis velocity of the dot
     static const int DOT_VEL = 10;
+    static const int DOT_ACC = 1;
     
     //Initializes the variables
     Dot();
@@ -124,6 +125,9 @@ private:
     
     //The velocity of the dot
     int mVelX, mVelY;
+    
+    //The acceleration of the dot
+    int mAccX, mAccY;
 };
 
 //Starts up SDL and creates window
@@ -270,7 +274,7 @@ void LTexture::setAlpha( Uint8 alpha )
 void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
     counter++;
-    if (counter%35==0) {
+    if (counter%30==0 && !(mHeight==30)) {
         mWidth--;
         mHeight--;
     }
@@ -310,6 +314,8 @@ Dot::Dot()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
+    mAccX = 0;
+    mAccY = 0;
 }
 
 void Dot::handleEvent( SDL_Event& e )
@@ -317,25 +323,25 @@ void Dot::handleEvent( SDL_Event& e )
     //If a key was pressed
 	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
     {
-        //Adjust the velocity
+        //Adjust the acceleration
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mVelY -= DOT_VEL; break;
-            case SDLK_DOWN: mVelY += DOT_VEL; break;
-            case SDLK_LEFT: mVelX -= DOT_VEL; break;
-            case SDLK_RIGHT: mVelX += DOT_VEL; break;
+            case SDLK_UP: mAccY -= DOT_ACC; break;
+            case SDLK_DOWN: mAccY += DOT_ACC; break;
+            case SDLK_LEFT: mAccX -= DOT_ACC; break;
+            case SDLK_RIGHT: mAccX += DOT_ACC; break;
         }
     }
     //If a key was released
     else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
     {
-        //Adjust the velocity
+        //Adjust the acceleration
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mVelY += DOT_VEL; break;
-            case SDLK_DOWN: mVelY -= DOT_VEL; break;
-            case SDLK_LEFT: mVelX += DOT_VEL; break;
-            case SDLK_RIGHT: mVelX -= DOT_VEL; break;
+            case SDLK_UP: mAccY += DOT_ACC; break;
+            case SDLK_DOWN: mAccY -= DOT_ACC; break;
+            case SDLK_LEFT: mAccX += DOT_ACC; break;
+            case SDLK_RIGHT: mAccX -= DOT_ACC; break;
         }
     }
 }
@@ -343,30 +349,34 @@ void Dot::handleEvent( SDL_Event& e )
 void Dot::move()
 {
     //Move the dot left or right
+    mVelX += mAccX;
     mPosX += mVelX;
     
     //If the dot went too far to the left or right
     if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
     {
-        //Move back
-        mPosX -= mVelX;
+        //Use conservation of momentum to rebound
+        mVelX = -mVelX;
+        mAccX = -mAccX;
     }
     
     //Move the dot up or down
+    mVelY += mAccY;
     mPosY += mVelY;
     
     //If the dot went too far up or down
     if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
     {
         //Move back
-        mPosY -= mVelY;
+        mVelY = -mVelY;
+        mAccY = -mAccY;
     }
 }
 
 void Dot::render()
 {
     dotCounter++;
-    if (dotCounter%35==0) {
+    if (dotCounter%30==0 && !(DOT_HEIGHT==30)) {
         DOT_HEIGHT--;
         DOT_WIDTH--;
     }
