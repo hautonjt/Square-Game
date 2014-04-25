@@ -47,7 +47,6 @@ public:
     //Gets image dimensions
     int getWidth();
     int getHeight();
-    
     //Image dimensions
     int mWidth;
     int mHeight;
@@ -106,6 +105,7 @@ public:
     //Maximum axis velocity of the dot
     static const int DOT_VEL = 10;
     static const int DOT_ACC = 1;
+    static const int MAX_VEL = 5;
     
     //Initializes the variables
     Dot();
@@ -308,8 +308,8 @@ int LTexture::getHeight()
 Dot::Dot()
 {
     //Initialize the offsets
-    mPosX = 0;
-    mPosY = 0;
+    mPosX = 240;
+    mPosY = 320;
     
     //Initialize the velocity
     mVelX = 0;
@@ -338,10 +338,15 @@ void Dot::handleEvent( SDL_Event& e )
         //Adjust the acceleration
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mAccY += DOT_ACC; break;
-            case SDLK_DOWN: mAccY -= DOT_ACC; break;
-            case SDLK_LEFT: mAccX += DOT_ACC; break;
-            case SDLK_RIGHT: mAccX -= DOT_ACC; break;
+//            case SDLK_UP: mAccY += DOT_ACC; break;
+//            case SDLK_DOWN: mAccY -= DOT_ACC; break;
+//            case SDLK_LEFT: mAccX += DOT_ACC; break;
+//            case SDLK_RIGHT: mAccX -= DOT_ACC; break;
+                
+            case SDLK_UP: mAccY = 0; break;
+            case SDLK_DOWN: mAccY = 0; break;
+            case SDLK_LEFT: mAccX = 0; break;
+            case SDLK_RIGHT: mAccX = 0; break;
         }
     }
 }
@@ -351,10 +356,10 @@ void Dot::move()
     //Move the dot left or right
         mVelX += mAccX;
         mPosX += mVelX;
-    if (-5 >= mVelX) {
-        mVelX = -5;
-    }else if (mVelX >=5){
-        mVelX = 5;
+    if (-MAX_VEL >= mVelX) {
+        mVelX = -MAX_VEL;
+    }else if (mVelX >=MAX_VEL){
+        mVelX = MAX_VEL;
     }
     
     //If the dot went too far to the left or right
@@ -363,15 +368,17 @@ void Dot::move()
         //Use conservation of momentum to rebound
         mVelX = -mVelX;
         mAccX = -mAccX;
+      
+        
     }
     
     //Move the dot up or down
         mVelY += mAccY;
         mPosY += mVelY;
-    if (-5 >= mVelY) {
-        mVelY = -5;
-    }else if (mVelY >=5){
-        mVelY = 5;
+    if (-MAX_VEL >= mVelY) {
+        mVelY = -MAX_VEL;
+    }else if (mVelY >=MAX_VEL){
+        mVelY = MAX_VEL`;
     }
     
     //If the dot went too far up or down
@@ -380,6 +387,7 @@ void Dot::move()
         //Move back
         mVelY = -mVelY;
         mAccY = -mAccY;
+      
     }
 }
 
