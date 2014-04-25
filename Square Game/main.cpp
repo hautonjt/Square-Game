@@ -366,8 +366,8 @@ void Dot::move()
     if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
     {
         //Use conservation of momentum to rebound
-        mVelX = -mVelX;
-        mAccX = -mAccX;
+        mVelX = -mVelX-2;
+//        mAccX = -mAccX;
       
         
     }
@@ -385,8 +385,8 @@ void Dot::move()
     if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
     {
         //Move back
-        mVelY = -mVelY;
-        mAccY = -mAccY;
+        mVelY = -mVelY-2;
+//        mAccY = -mAccY;
       
     }
 }
