@@ -378,7 +378,7 @@ void Dot::move()
     if (-MAX_VEL >= mVelY) {
         mVelY = -MAX_VEL;
     }else if (mVelY >=MAX_VEL){
-        mVelY = MAX_VEL`;
+        mVelY = MAX_VEL;
     }
     
     //If the dot went too far up or down
