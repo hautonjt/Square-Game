@@ -93,22 +93,22 @@ private:
 };
 
 //The dot that will move around on the screen
-class Dot
+class Square
 {
 public:
-    //The dimensions of the dot
-    int DOT_WIDTH = 80;
-    int DOT_HEIGHT = 80;
+    //The dimensions of the square
+    int SQUARE_WIDTH = 80;
+    int SQUARE_HEIGHT = 80;
     //counter
-    int dotCounter = 0;
+    int squareCounter = 0;
     
     //Maximum axis velocity of the dot
-    static const int DOT_VEL = 10;
-    static const int DOT_ACC = 1;
+    static const int SQ_VEL = 10;
+    static const int SQ_ACC = 1;
     static const int MAX_VEL = 5;
     
     //Initializes the variables
-    Dot();
+    Square();
     
     //Takes key presses and adjusts the dot's velocity
     void handleEvent( SDL_Event& e );
@@ -130,6 +130,28 @@ private:
     int mAccX, mAccY;
 };
 
+class Food
+{
+public:
+    //The dimensions of the food
+    int FOOD_WIDTH = 20;
+    int FOOD_HEIGHT = 20;
+    
+    //Initializes the variables
+    Food();
+    
+    //Takes key presses and adjusts the dot's velocity
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the food on the screen
+    void render();
+    
+private:
+    //The X and Y offsets of the food
+    int mPosX, mPosY;
+    
+};
+
 //Starts up SDL and creates window
 bool init();
 
@@ -146,7 +168,11 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 
 //Scene textures
-LTexture gDotTexture;
+LTexture gSqTexture;
+LTexture gFoodTexture;
+LTexture gBackTexture;
+LTexture gButtonTexture;
+
 
 LTexture::LTexture()
 {
@@ -305,7 +331,7 @@ int LTexture::getHeight()
 }
 
 
-Dot::Dot()
+Square::Square()
 {
     //Initialize the offsets
     mPosX = 240;
@@ -318,7 +344,7 @@ Dot::Dot()
     mAccY = 0;
 }
 
-void Dot::handleEvent( SDL_Event& e )
+void Square::handleEvent( SDL_Event& e )
 {
     //If a key was pressed
 	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
@@ -326,10 +352,10 @@ void Dot::handleEvent( SDL_Event& e )
         //Adjust the acceleration
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mAccY -= DOT_ACC; break;
-            case SDLK_DOWN: mAccY += DOT_ACC; break;
-            case SDLK_LEFT: mAccX -= DOT_ACC; break;
-            case SDLK_RIGHT: mAccX += DOT_ACC; break;
+            case SDLK_UP: mAccY -= SQ_ACC; break;
+            case SDLK_DOWN: mAccY += SQ_ACC; break;
+            case SDLK_LEFT: mAccX -= SQ_ACC; break;
+            case SDLK_RIGHT: mAccX += SQ_ACC; break;
         }
     }
     //If a key was released
@@ -338,22 +364,22 @@ void Dot::handleEvent( SDL_Event& e )
         //Adjust the acceleration
         switch( e.key.keysym.sym )
         {
-//            case SDLK_UP: mAccY += DOT_ACC; break;
-//            case SDLK_DOWN: mAccY -= DOT_ACC; break;
-//            case SDLK_LEFT: mAccX += DOT_ACC; break;
-//            case SDLK_RIGHT: mAccX -= DOT_ACC; break;
+//            case SDLK_UP: mAccY += SQ_ACC; break;
+//            case SDLK_DOWN: mAccY -= SQ_ACC; break;
+//            case SDLK_LEFT: mAccX += SQ_ACC; break;
+//            case SDLK_RIGHT: mAccX -= SQ_ACC; break;
                 
-            case SDLK_UP: mAccY += DOT_ACC; break;
-            case SDLK_DOWN: mAccY -= DOT_ACC; break;
-            case SDLK_LEFT: mAccX += DOT_ACC; break;
-            case SDLK_RIGHT: mAccX -= DOT_ACC; break;
+            case SDLK_UP: mAccY += SQ_ACC; break;
+            case SDLK_DOWN: mAccY -= SQ_ACC; break;
+            case SDLK_LEFT: mAccX += SQ_ACC; break;
+            case SDLK_RIGHT: mAccX -= SQ_ACC; break;
         }
     }
 }
 
-void Dot::move()
+void Square::move()
 {
-    //Move the dot left or right
+    //Move the square left or right
         mVelX += mAccX;
         mPosX += mVelX;
     if (-MAX_VEL >= mVelX) {
@@ -362,13 +388,13 @@ void Dot::move()
         mVelX = MAX_VEL;
     }
     
-    //If the dot went too far to the left or right
+    //If the square went too far to the left or right
     if(mPosX < 0)
     {
         //Use conservation of momentum to rebound
         mVelX = -mVelX+1;
     }
-    else if (mPosX + DOT_WIDTH > SCREEN_WIDTH)
+    else if (mPosX + SQUARE_WIDTH > SCREEN_WIDTH)
     {
         //Use conservation of momentum to rebound
         mVelX = -mVelX-1;
@@ -389,22 +415,22 @@ void Dot::move()
         //Use conservation of momentum to rebound
         mVelY = -mVelY+1;
       
-    }else if (mPosY + DOT_HEIGHT > SCREEN_HEIGHT){
+    }else if (mPosY + SQUARE_HEIGHT > SCREEN_HEIGHT){
         //Use conservation of momentum to rebound
         mVelY = -mVelY-1;
     }
 }
 
-void Dot::render()
+void Square::render()
 {
-    dotCounter++;
-    if (dotCounter%30==0 && !(DOT_HEIGHT==30)) {
-        DOT_HEIGHT--;
-        DOT_WIDTH--;
+    squareCounter++;
+    if (squareCounter%30==0 && !(SQUARE_HEIGHT==30)) {
+        SQUARE_HEIGHT--;
+        SQUARE_WIDTH--;
     }
 
     //Show the dot
-	gDotTexture.render( mPosX, mPosY );
+	gSqTexture.render( mPosX, mPosY );
     
 }
 
@@ -474,9 +500,9 @@ bool loadMedia()
 	bool success = true;
     
 	//Load dot texture
-	if( !gDotTexture.loadFromFile( "26_motion/dot.bmp" ) )
+	if( !gSqTexture.loadFromFile( "26_motion/dot.bmp" ) )
 	{
-		printf( "Failed to load dot texture!\n" );
+		printf( "Failed to load square texture!\n" );
 		success = false;
 	}
     
@@ -486,7 +512,7 @@ bool loadMedia()
 void close()
 {
 	//Free loaded images
-	gDotTexture.free();
+	gSqTexture.free();
     
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
@@ -521,8 +547,8 @@ int main( int argc, char* args[] )
 			//Event handler
 			SDL_Event e;
             
-			//The dot that will be moving around on the screen
-			Dot dot;
+			//The square that will be moving around on the screen
+			Square square;
             
 			//While application is running
 			while( !quit )
@@ -537,18 +563,18 @@ int main( int argc, char* args[] )
 					}
                     
 					//Handle input for the dot
-					dot.handleEvent( e );
+					square.handleEvent( e );
 				}
                 
 				//Move the dot
-				dot.move();
+				square.move();
                 
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( gRenderer );
                 
 				//Render objects
-				dot.render();
+				square.render();
                 
 				//Update screen
 				SDL_RenderPresent( gRenderer );

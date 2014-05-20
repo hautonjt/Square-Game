@@ -18,7 +18,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = 26_motion;
-			dstSubfolderSpec = 16;
+			dstSubfolderSpec = 7;
 			files = (
 				17D9CB0F1881AB4E00318FB9 /* dot.bmp in CopyFiles */,
 			);
