@@ -13,6 +13,7 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 bool defeat;
+float fade = 0;
 
 //Texture wrapper class
 class LTexture
@@ -193,9 +194,6 @@ public:
     //Initializes the variables
     Food();
     
-    //Takes key presses and adjusts the dot's velocity
-    void handleEvent( SDL_Event& e );
-    
     //Shows the food on the screen
     void render();
     
@@ -209,6 +207,23 @@ private:
     //The X and Y offsets of the food
     int mPosX, mPosY;
     
+};
+
+class Defeat
+{
+public:
+    //Dimensions
+    int DEFEAT_WIDTH = SCREEN_WIDTH;
+    int DEFEAT_HEIGHT = SCREEN_HEIGHT;
+    //Initializes the variables
+    Defeat();
+    
+    //Shows the image on the screen
+    void render();
+
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
 };
 
 //Starts up SDL and creates window
@@ -235,6 +250,7 @@ FTexture gFoodTexture;
 FTexture gBackgroundTexture;
 FTexture gBackTexture;
 FTexture gButtonTexture;
+FTexture gDefeatTexture;
 
 
 LTexture::LTexture()
@@ -573,6 +589,11 @@ Food::Food()
     foodCollider.y = mPosY;
 }
 
+Defeat::Defeat(){
+    mPosX = 0;
+    mPosY = 0;
+}
+
 void Food::move()
 {
 
@@ -583,6 +604,11 @@ void Food::move()
     foodCollider.y = mPosY;
 
 }
+
+void Defeat::render(){
+    gDefeatTexture.render(mPosX, mPosY);
+}
+
 
 void Food::render()
 {
@@ -682,7 +708,7 @@ void Square::render()
         defeat = true;
     }
 
-    //Show the dot
+    //Show the square
 	gSqTexture.render( mPosX, mPosY );
     
 }
@@ -807,6 +833,10 @@ bool loadMedia()
         printf( "Failed to load food texture!\n" );
 		success = false;
     }
+    if( !gDefeatTexture.loadFromFile("sprites/defeated.png")){
+        printf( "Failed to load defeat texture!\n" );
+		success = false;
+    }
     
 	return success;
 }
@@ -816,6 +846,7 @@ void close()
 	//Free loaded images
 	gSqTexture.free();
     gFoodTexture.free();
+    gDefeatTexture.free();
     
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
@@ -853,6 +884,7 @@ int main( int argc, char* args[] )
 			//The square that will be moving around on the screen
 			Square square;
             Food food;
+            Defeat lost;
             
 			//While application is running
 			while( !quit )
@@ -873,7 +905,21 @@ int main( int argc, char* args[] )
                 if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                         printf("Focus lost");
                 }else if(defeat){
-                    printf("defeat");
+                    
+                    //Clear screen
+                    SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+                    SDL_RenderClear( gRenderer );
+                    
+                    //Render defeat
+                    fade = fade + 0.8f;
+                    if(fade < 256){
+                        Uint8 alpha = fade;
+                        gDefeatTexture.setAlpha(alpha);
+                    }
+                    lost.render();
+                    
+                    //Update screen
+                    SDL_RenderPresent( gRenderer );
                 }
                 else{
                         //Move the dot
