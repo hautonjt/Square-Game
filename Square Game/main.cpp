@@ -128,6 +128,9 @@ private:
     
     //The acceleration of the dot
     int mAccX, mAccY;
+    
+    //collisions
+    SDL_Rect sqCollider;
 };
 
 class Food
@@ -150,6 +153,9 @@ private:
     //The X and Y offsets of the food
     int mPosX, mPosY;
     
+    //collisions
+    SDL_Rect foodCollider;
+    
 };
 
 //Starts up SDL and creates window
@@ -160,6 +166,9 @@ bool loadMedia();
 
 //Frees media and shuts down SDL
 void close();
+
+//Collision
+bool checkCollision(SDL_Rect collider1, SDL_Rect collider2);
 
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -342,6 +351,19 @@ Square::Square()
     mVelY = 0;
     mAccX = 0;
     mAccY = 0;
+    
+    sqCollider.w = SQUARE_WIDTH;
+    sqCollider.h = SQUARE_HEIGHT;
+    
+}
+
+Food::Food()
+{
+    mPosX = 10;
+    mPosY = 10;
+    
+    foodCollider.w = FOOD_WIDTH;
+    foodCollider.h = FOOD_HEIGHT;
 }
 
 void Square::handleEvent( SDL_Event& e )
