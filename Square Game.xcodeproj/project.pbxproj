@@ -18,7 +18,7 @@
 		17C5981417FD1EA70034DC39 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
-			dstPath = 26_motion;
+			dstPath = sprites;
 			dstSubfolderSpec = 7;
 			files = (
 				17483F09192DF62F00A8EF03 /* dot.png in CopyFiles */,
@@ -71,18 +71,19 @@
 		17C5981817FD1EA70034DC39 /* Square Game */ = {
 			isa = PBXGroup;
 			children = (
-				17D9CB0D1881AB3000318FB9 /* 26_motion */,
+				17D9CB0D1881AB3000318FB9 /* sprites */,
 				17C5981917FD1EA70034DC39 /* main.cpp */,
 			);
 			path = "Square Game";
 			sourceTree = "<group>";
 		};
-		17D9CB0D1881AB3000318FB9 /* 26_motion */ = {
+		17D9CB0D1881AB3000318FB9 /* sprites */ = {
 			isa = PBXGroup;
 			children = (
 				17483F07192DF5D900A8EF03 /* dot.png */,
 				17483F08192DF5D900A8EF03 /* square.bmp */,
 			);
+			name = sprites;
 			path = 26_motion;
 			sourceTree = "<group>";
 		};

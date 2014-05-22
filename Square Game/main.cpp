@@ -721,12 +721,12 @@ bool loadMedia()
 	bool success = true;
     
 	//Load dot texture
-	if( !gSqTexture.loadFromFile( "26_motion/square.bmp" ) )
+	if( !gSqTexture.loadFromFile( "sprites/square.bmp" ) )
 	{
 		printf( "Failed to load square texture!\n" );
 		success = false;
 	}
-    if( !gFoodTexture.loadFromFile( "26_motion/dot.png")){
+    if( !gFoodTexture.loadFromFile( "sprites/dot.png")){
         printf( "Failed to load food texture!\n" );
 		success = false;
     }
