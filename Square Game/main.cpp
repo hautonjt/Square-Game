@@ -454,14 +454,14 @@ void LTexture::setAlpha( Uint8 alpha )
 void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
     counter++;
-    if (counter%30==0) {
-        if(mWidth > 0){
+   
+    if(mWidth > 0){
+        if (counter%30==0) {
             mWidth--;
             mHeight--;
-        }else{
-            printf("Defeat");
         }
     }
+   
 
 
 	//Set rendering space and render to screen
@@ -674,11 +674,15 @@ void Square::move()
 void Square::render()
 {
     squareCounter++;
-    if (squareCounter%30==0 && SQUARE_HEIGHT > 0) {
-        SQUARE_HEIGHT--;
-        SQUARE_WIDTH--;
-        sqCollider.w = SQUARE_WIDTH;
-        sqCollider.h = SQUARE_HEIGHT;
+    if (SQUARE_HEIGHT > 0) {
+        if(squareCounter%30==0){
+            SQUARE_HEIGHT--;
+            SQUARE_WIDTH--;
+            sqCollider.w = SQUARE_WIDTH;
+            sqCollider.h = SQUARE_HEIGHT;
+        }
+    }else{
+        printf("Defeat");
     }
 
     //Show the dot
