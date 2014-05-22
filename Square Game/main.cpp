@@ -60,6 +60,51 @@ private:
 
 };
 
+//duplicate texture class for food
+class FTexture
+{
+public:
+    //Initializes variables
+    FTexture();
+    
+    //Deallocates memory
+    ~FTexture();
+    
+    //Loads image at specified path
+    bool loadFromFile( std::string path );
+    
+#ifdef _SDL_TTF_H
+    //Creates image from font string
+    bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
+#endif
+    
+    //Deallocates texture
+    void free();
+    
+    //Set color modulation
+    void setColor( Uint8 red, Uint8 green, Uint8 blue );
+    
+    //Set blending
+    void setBlendMode( SDL_BlendMode blending );
+    
+    //Set alpha modulation
+    void setAlpha( Uint8 alpha );
+    
+    //Renders texture at given point
+    void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
+    
+    //Gets image dimensions
+    int getWidth();
+    int getHeight();
+    //Image dimensions
+    int mWidth;
+    int mHeight;
+    
+private:
+    //The actual hardware texture
+    SDL_Texture* mTexture;
+};
+
 //The application time based timer
 class LTimer
 {
@@ -178,9 +223,9 @@ SDL_Renderer* gRenderer = NULL;
 
 //Scene textures
 LTexture gSqTexture;
-LTexture gFoodTexture;
-LTexture gBackTexture;
-LTexture gButtonTexture;
+FTexture gFoodTexture;
+FTexture gBackTexture;
+FTexture gButtonTexture;
 
 
 LTexture::LTexture()
@@ -192,7 +237,21 @@ LTexture::LTexture()
     counter = 0;
 }
 
+FTexture::FTexture()
+{
+	//Initialize
+	mTexture = NULL;
+	mWidth = 0;
+	mHeight = 0;
+}
+
 LTexture::~LTexture()
+{
+	//Deallocate
+	free();
+}
+
+FTexture::~FTexture()
 {
 	//Deallocate
 	free();
@@ -239,8 +298,85 @@ bool LTexture::loadFromFile( std::string path )
 	return mTexture != NULL;
 }
 
+bool FTexture::loadFromFile( std::string path )
+{
+	//Get rid of preexisting texture
+	free();
+    
+	//The final texture
+	SDL_Texture* newTexture = NULL;
+    
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+	if( loadedSurface == NULL )
+	{
+		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
+	}
+	else
+	{
+		//Color key image
+		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
+        
+		//Create texture from surface pixels
+        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
+		if( newTexture == NULL )
+		{
+			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+		}
+		else
+		{
+			//Get image dimensions
+			mWidth = loadedSurface->w;
+			mHeight = loadedSurface->h;
+		}
+        
+		//Get rid of old loaded surface
+		SDL_FreeSurface( loadedSurface );
+	}
+    
+	//Return success
+	mTexture = newTexture;
+	return mTexture != NULL;
+}
+
+
 #ifdef _SDL_TTF_H
 bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
+{
+	//Get rid of preexisting texture
+	free();
+    
+	//Render text surface
+	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
+	if( textSurface != NULL )
+	{
+		//Create texture from surface pixels
+        mTexture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
+		if( mTexture == NULL )
+		{
+			printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
+		}
+		else
+		{
+			//Get image dimensions
+			mWidth = textSurface->w;
+			mHeight = textSurface->h;
+		}
+        
+		//Get rid of old surface
+		SDL_FreeSurface( textSurface );
+	}
+	else
+	{
+		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
+	}
+    
+	
+	//Return success
+	return mTexture != NULL;
+}
+
+bool FTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
 {
 	//Get rid of preexisting texture
 	free();
@@ -340,6 +476,64 @@ int LTexture::getHeight()
 }
 
 
+void FTexture::free()
+{
+	//Free texture if it exists
+	if( mTexture != NULL )
+	{
+		SDL_DestroyTexture( mTexture );
+		mTexture = NULL;
+		mWidth = 0;
+		mHeight = 0;
+	}
+}
+
+void FTexture::setColor( Uint8 red, Uint8 green, Uint8 blue )
+{
+	//Modulate texture rgb
+	SDL_SetTextureColorMod( mTexture, red, green, blue );
+}
+
+void FTexture::setBlendMode( SDL_BlendMode blending )
+{
+	//Set blending function
+	SDL_SetTextureBlendMode( mTexture, blending );
+}
+
+void FTexture::setAlpha( Uint8 alpha )
+{
+	//Modulate texture alpha
+	SDL_SetTextureAlphaMod( mTexture, alpha );
+}
+
+void FTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
+{
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
+    
+	//Set clip rendering dimensions
+	if( clip != NULL )
+	{
+		renderQuad.w = clip->w;
+		renderQuad.h = clip->h;
+	}
+    
+	//Render to screen
+	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
+}
+
+int FTexture::getWidth()
+{
+	return mWidth;
+}
+
+int FTexture::getHeight()
+{
+	return mHeight;
+}
+
+
+
 Square::Square()
 {
     //Initialize the offsets
@@ -359,11 +553,16 @@ Square::Square()
 
 Food::Food()
 {
-    mPosX = 10;
-    mPosY = 10;
+    mPosX = 50;
+    mPosY = 50;
     
     foodCollider.w = FOOD_WIDTH;
     foodCollider.h = FOOD_HEIGHT;
+}
+
+void Food::render()
+{
+    gFoodTexture.render(mPosX, mPosY);
 }
 
 void Square::handleEvent( SDL_Event& e )
@@ -522,11 +721,15 @@ bool loadMedia()
 	bool success = true;
     
 	//Load dot texture
-	if( !gSqTexture.loadFromFile( "26_motion/dot.bmp" ) )
+	if( !gSqTexture.loadFromFile( "26_motion/square.bmp" ) )
 	{
 		printf( "Failed to load square texture!\n" );
 		success = false;
 	}
+    if( !gFoodTexture.loadFromFile( "26_motion/dot.png")){
+        printf( "Failed to load food texture!\n" );
+		success = false;
+    }
     
 	return success;
 }
@@ -535,6 +738,7 @@ void close()
 {
 	//Free loaded images
 	gSqTexture.free();
+    gFoodTexture.free();
     
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
@@ -571,6 +775,7 @@ int main( int argc, char* args[] )
             
 			//The square that will be moving around on the screen
 			Square square;
+            Food food;
             
 			//While application is running
 			while( !quit )
@@ -597,6 +802,7 @@ int main( int argc, char* args[] )
                 
 				//Render objects
 				square.render();
+                food.render();
                 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
