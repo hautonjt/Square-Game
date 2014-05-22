@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		17483F09192DF62F00A8EF03 /* dot.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17483F07192DF5D900A8EF03 /* dot.png */; };
-		17483F0A192DF63100A8EF03 /* square.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17483F08192DF5D900A8EF03 /* square.bmp */; };
+		17483F11192E21A300A8EF03 /* defeated.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17483F0C192E218E00A8EF03 /* defeated.png */; };
+		17483F12192E21A600A8EF03 /* square.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17483F10192E218E00A8EF03 /* square.bmp */; };
+		17483F13192E21A800A8EF03 /* dot.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17483F0D192E218E00A8EF03 /* dot.png */; };
 		17C5981A17FD1EA70034DC39 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17C5981917FD1EA70034DC39 /* main.cpp */; };
 		AD78A836190A279800E2360C /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD78A834190A279800E2360C /* SDL2_image.framework */; };
 		AD78A837190A279800E2360C /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD78A835190A279800E2360C /* SDL2.framework */; };
@@ -21,16 +22,20 @@
 			dstPath = sprites;
 			dstSubfolderSpec = 7;
 			files = (
-				17483F09192DF62F00A8EF03 /* dot.png in CopyFiles */,
-				17483F0A192DF63100A8EF03 /* square.bmp in CopyFiles */,
+				17483F13192E21A800A8EF03 /* dot.png in CopyFiles */,
+				17483F11192E21A300A8EF03 /* defeated.png in CopyFiles */,
+				17483F12192E21A600A8EF03 /* square.bmp in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		17483F07192DF5D900A8EF03 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
-		17483F08192DF5D900A8EF03 /* square.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = square.bmp; sourceTree = "<group>"; };
+		17483F0C192E218E00A8EF03 /* defeated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defeated.png; sourceTree = "<group>"; };
+		17483F0D192E218E00A8EF03 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
+		17483F0E192E218E00A8EF03 /* dot2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = dot2.bmp; sourceTree = "<group>"; };
+		17483F0F192E218E00A8EF03 /* dot3.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = dot3.bmp; sourceTree = "<group>"; };
+		17483F10192E218E00A8EF03 /* square.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = square.bmp; sourceTree = "<group>"; };
 		17C5981617FD1EA70034DC39 /* Square Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Square Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17C5981917FD1EA70034DC39 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AD78A834190A279800E2360C /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
@@ -50,6 +55,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17483F0B192E218E00A8EF03 /* sprites */ = {
+			isa = PBXGroup;
+			children = (
+				17483F0C192E218E00A8EF03 /* defeated.png */,
+				17483F0D192E218E00A8EF03 /* dot.png */,
+				17483F0E192E218E00A8EF03 /* dot2.bmp */,
+				17483F0F192E218E00A8EF03 /* dot3.bmp */,
+				17483F10192E218E00A8EF03 /* square.bmp */,
+			);
+			path = sprites;
+			sourceTree = "<group>";
+		};
 		17C5980D17FD1EA70034DC39 = {
 			isa = PBXGroup;
 			children = (
@@ -71,20 +88,10 @@
 		17C5981817FD1EA70034DC39 /* Square Game */ = {
 			isa = PBXGroup;
 			children = (
-				17D9CB0D1881AB3000318FB9 /* sprites */,
+				17483F0B192E218E00A8EF03 /* sprites */,
 				17C5981917FD1EA70034DC39 /* main.cpp */,
 			);
 			path = "Square Game";
-			sourceTree = "<group>";
-		};
-		17D9CB0D1881AB3000318FB9 /* sprites */ = {
-			isa = PBXGroup;
-			children = (
-				17483F07192DF5D900A8EF03 /* dot.png */,
-				17483F08192DF5D900A8EF03 /* square.bmp */,
-			);
-			name = sprites;
-			path = 26_motion;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

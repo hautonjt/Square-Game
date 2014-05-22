@@ -454,12 +454,9 @@ void LTexture::setAlpha( Uint8 alpha )
 void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
     counter++;
-   
-    if(mWidth > 0){
-        if (counter%30==0) {
+    if (counter%30==0 && mWidth > 0) {
             mWidth--;
             mHeight--;
-        }
     }
    
 
@@ -682,7 +679,7 @@ void Square::render()
             sqCollider.h = SQUARE_HEIGHT;
         }
     }else{
-        printf("Defeat");
+        defeat = true;
     }
 
     //Show the dot
@@ -873,23 +870,27 @@ int main( int argc, char* args[] )
 					square.handleEvent( e );
 				}
                 
-				//Move the dot
-				square.move();
-                
-				//Clear screen
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-				SDL_RenderClear( gRenderer );
-                
-				//Render objects
-                food.render();
-                if(checkCollision(square.sqCollider, food.foodCollider)){
-                    food.move();
+                if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+                        printf("Focus lost");
+                }else if(defeat){
+                    printf("defeat");
                 }
-				square.render();
-                
-                
-				//Update screen
-				SDL_RenderPresent( gRenderer );
+                else{
+                        //Move the dot
+                        square.move();
+                        //Clear screen
+                        SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+                        SDL_RenderClear( gRenderer );
+                        
+                        //Render objects
+                        square.render();
+                        food.render();
+                        if(checkCollision(square.sqCollider, food.foodCollider)){
+                            food.move();
+                        }
+                        //Update screen
+                        SDL_RenderPresent( gRenderer );
+                }
 			}
 		}
 	}
