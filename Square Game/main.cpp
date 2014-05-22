@@ -164,6 +164,9 @@ public:
     //Shows the dot on the screen
     void render();
     
+    //collisions
+    SDL_Rect sqCollider;
+    
 private:
     //The X and Y offsets of the dot
     int mPosX, mPosY;
@@ -174,8 +177,7 @@ private:
     //The acceleration of the dot
     int mAccX, mAccY;
     
-    //collisions
-    SDL_Rect sqCollider;
+
 };
 
 class Food
@@ -194,12 +196,12 @@ public:
     //Shows the food on the screen
     void render();
     
+    //collisions
+    SDL_Rect foodCollider;
+    
 private:
     //The X and Y offsets of the food
     int mPosX, mPosY;
-    
-    //collisions
-    SDL_Rect foodCollider;
     
 };
 
@@ -558,6 +560,8 @@ Food::Food()
     
     foodCollider.w = FOOD_WIDTH;
     foodCollider.h = FOOD_HEIGHT;
+    foodCollider.x = mPosX;
+    foodCollider.y = mPosY;
 }
 
 void Food::render()
@@ -601,8 +605,9 @@ void Square::handleEvent( SDL_Event& e )
 void Square::move()
 {
     //Move the square left or right
-        mVelX += mAccX;
-        mPosX += mVelX;
+    mVelX += mAccX;
+    mPosX += mVelX;
+    sqCollider.x = mPosX;
     if (-MAX_VEL >= mVelX) {
         mVelX = -MAX_VEL;
     }else if (mVelX >=MAX_VEL){
@@ -622,8 +627,9 @@ void Square::move()
     }
     
     //Move the dot up or down
-        mVelY += mAccY;
-        mPosY += mVelY;
+    mVelY += mAccY;
+    mPosY += mVelY;
+    sqCollider.y = mPosY;
     if (-MAX_VEL >= mVelY) {
         mVelY = -MAX_VEL;
     }else if (mVelY >=MAX_VEL){
@@ -653,6 +659,51 @@ void Square::render()
     //Show the dot
 	gSqTexture.render( mPosX, mPosY );
     
+}
+
+bool checkCollision( SDL_Rect collider1, SDL_Rect collider2 )
+{
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+    
+    //Calculate the sides of rect A
+    leftA = collider1.x;
+    rightA = collider1.x + collider1.w;
+    topA = collider1.y;
+    bottomA = collider1.y + collider1.h;
+    
+    //Calculate the sides of rect B
+    leftB = collider2.x;
+    rightB = collider2.x + collider2.w;
+    topB = collider2.y;
+    bottomB = collider2.y + collider2.h;
+    
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB )
+    {
+        return false;
+    }
+    
+    if( topA >= bottomB )
+    {
+        return false;
+    }
+    
+    if( rightA <= leftB )
+    {
+        return false;
+    }
+    
+    if( leftA >= rightB )
+    {
+        return false;
+    }
+    
+    //If none of the sides from A are outside B
+    return true;
 }
 
 bool init()
@@ -801,8 +852,11 @@ int main( int argc, char* args[] )
 				SDL_RenderClear( gRenderer );
                 
 				//Render objects
-				square.render();
                 food.render();
+                if(checkCollision(square.sqCollider, food.foodCollider)){
+                }
+				square.render();
+                
                 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
