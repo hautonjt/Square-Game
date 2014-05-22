@@ -12,6 +12,7 @@
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
+bool defeat;
 
 //Texture wrapper class
 class LTexture
@@ -231,6 +232,7 @@ SDL_Renderer* gRenderer = NULL;
 //Scene textures
 LTexture gSqTexture;
 FTexture gFoodTexture;
+FTexture gBackgroundTexture;
 FTexture gBackTexture;
 FTexture gButtonTexture;
 
@@ -452,9 +454,13 @@ void LTexture::setAlpha( Uint8 alpha )
 void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
     counter++;
-    if (counter%30==0 && !(mHeight==30)) {
-        mWidth--;
-        mHeight--;
+    if (counter%30==0) {
+        if(mWidth > 0){
+            mWidth--;
+            mHeight--;
+        }else{
+            printf("Defeat");
+        }
     }
 
 
@@ -560,7 +566,7 @@ Square::Square()
 
 Food::Food()
 {
-    srand(time(NULL));
+    srand((int)time(NULL));
     mPosX = rand()%(640-FOOD_WIDTH);
     mPosY = rand()%(480-FOOD_HEIGHT);
     
@@ -573,7 +579,7 @@ Food::Food()
 void Food::move()
 {
 
-    srand(time(NULL));
+    srand((int)time(NULL));
     mPosX = rand()%(640-FOOD_WIDTH);
     mPosY = rand()%(480-FOOD_HEIGHT);
     foodCollider.x = mPosX;
@@ -668,7 +674,7 @@ void Square::move()
 void Square::render()
 {
     squareCounter++;
-    if (squareCounter%30==0 && !(SQUARE_HEIGHT==30)) {
+    if (squareCounter%30==0 && SQUARE_HEIGHT > 0) {
         SQUARE_HEIGHT--;
         SQUARE_WIDTH--;
         sqCollider.w = SQUARE_WIDTH;
