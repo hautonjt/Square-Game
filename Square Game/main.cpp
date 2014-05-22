@@ -6,6 +6,8 @@
 #include <SDL2_image/SDL_image.h>
 #include <stdio.h>
 #include <string>
+#include <time.h>
+#include <stdlib.h>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -158,10 +160,10 @@ public:
     //Takes key presses and adjusts the dot's velocity
     void handleEvent( SDL_Event& e );
     
-    //Moves the dot
+    //Moves the square
     void move();
     
-    //Shows the dot on the screen
+    //Shows the square on the screen
     void render();
     
     //collisions
@@ -195,6 +197,9 @@ public:
     
     //Shows the food on the screen
     void render();
+    
+    //Moves the food
+    void move();
     
     //collisions
     SDL_Rect foodCollider;
@@ -555,13 +560,25 @@ Square::Square()
 
 Food::Food()
 {
-    mPosX = 50;
-    mPosY = 50;
+    srand(time(NULL));
+    mPosX = rand()%(640-FOOD_WIDTH);
+    mPosY = rand()%(480-FOOD_HEIGHT);
     
     foodCollider.w = FOOD_WIDTH;
     foodCollider.h = FOOD_HEIGHT;
     foodCollider.x = mPosX;
     foodCollider.y = mPosY;
+}
+
+void Food::move()
+{
+
+    srand(time(NULL));
+    mPosX = rand()%(640-FOOD_WIDTH);
+    mPosY = rand()%(480-FOOD_HEIGHT);
+    foodCollider.x = mPosX;
+    foodCollider.y = mPosY;
+
 }
 
 void Food::render()
@@ -654,6 +671,8 @@ void Square::render()
     if (squareCounter%30==0 && !(SQUARE_HEIGHT==30)) {
         SQUARE_HEIGHT--;
         SQUARE_WIDTH--;
+        sqCollider.w = SQUARE_WIDTH;
+        sqCollider.h = SQUARE_HEIGHT;
     }
 
     //Show the dot
@@ -854,6 +873,7 @@ int main( int argc, char* args[] )
 				//Render objects
                 food.render();
                 if(checkCollision(square.sqCollider, food.foodCollider)){
+                    food.move();
                 }
 				square.render();
                 
