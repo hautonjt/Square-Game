@@ -10,6 +10,7 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 bool defeat;
+bool started;
 float fade = 0;
 
 //Texture wrapper class
@@ -223,6 +224,23 @@ private:
     int mPosX, mPosY;
 };
 
+class Start
+{
+public:
+    //Dimensions
+    int START_WIDTH = SCREEN_WIDTH;
+    int START_HEIGHT = SCREEN_HEIGHT;
+    //Initializes the variables
+    Start();
+    
+    //Shows the image on the screen
+    void render();
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
 //Starts up SDL and creates window
 bool init();
 
@@ -245,9 +263,12 @@ SDL_Renderer* gRenderer = NULL;
 LTexture gSqTexture;
 FTexture gFoodTexture;
 FTexture gBackgroundTexture;
-FTexture gBackTexture;
-FTexture gButtonTexture;
+FTexture gButtonStartTexture;
+FTexture gButtonOptionsTexture;
+FTexture gButtonHelpTexture;
 FTexture gDefeatTexture;
+FTexture gRetryTexture;
+FTexture gStartTexture;
 
 
 LTexture::LTexture()
@@ -591,6 +612,11 @@ Defeat::Defeat(){
     mPosY = 0;
 }
 
+Start::Start(){
+    mPosX = 0;
+    mPosY = 0;
+}
+
 void Food::move()
 {
 
@@ -606,6 +632,9 @@ void Defeat::render(){
     gDefeatTexture.render(mPosX, mPosY);
 }
 
+void Start::render(){
+    gStartTexture.render(mPosX, mPosY);
+}
 
 void Food::render()
 {
@@ -834,6 +863,10 @@ bool loadMedia()
         printf( "Failed to load defeat texture!\n" );
 		success = false;
     }
+    if( !gStartTexture.loadFromFile("sprites/opening.png")){
+        printf( "Failed to load defeat texture!\n" );
+		success = false;
+    }
     
 	return success;
 }
@@ -898,41 +931,52 @@ int main( int argc, char* args[] )
 					//Handle input for the dot
 					square.handleEvent( e );
 				}
-                
-                if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                        printf("Focus lost");
-                }else if(defeat){
-                    
-                    //Clear screen
-                    SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-                    SDL_RenderClear( gRenderer );
-                    
-                    //Render defeat
-                    fade = fade + 0.8f;
-                    if(fade < 256){
-                        Uint8 alpha = fade;
-                        gDefeatTexture.setAlpha(alpha);
-                    }
-                    lost.render();
-                    
-                    //Update screen
-                    SDL_RenderPresent( gRenderer );
-                }
-                else{
-                        //Move the dot
-                        square.move();
+
+                if( e.key.keysym.sym == SDLK_s || started)
+                {
+                    started = true;
+                    if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+                            printf("Focus lost");
+                    }else if(defeat){
+                        
                         //Clear screen
                         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                         SDL_RenderClear( gRenderer );
                         
-                        //Render objects
-                        square.render();
-                        food.render();
-                        if(checkCollision(square.sqCollider, food.foodCollider)){
-                            food.move();
+                        //Render defeat
+                        fade = fade + 3.4f;
+                        if(fade < 256){
+                            Uint8 alpha = fade;
+                            gDefeatTexture.setAlpha(alpha);
                         }
+                        lost.render();
+                        
                         //Update screen
                         SDL_RenderPresent( gRenderer );
+                    }
+                    else{
+                            //Move the dot
+                            square.move();
+                            //Clear screen
+                            SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+                            SDL_RenderClear( gRenderer );
+                            
+                            //Render objects
+                            square.render();
+                            food.render();
+                            if(checkCollision(square.sqCollider, food.foodCollider)){
+                                food.move();
+                            }
+                            //Update screen
+                            SDL_RenderPresent( gRenderer );
+                    }
+                }else{
+                    SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+                    SDL_RenderClear( gRenderer );
+                    Start start;
+                    start.render();
+                    //Update screen
+                    SDL_RenderPresent( gRenderer );
                 }
 			}
 		}
