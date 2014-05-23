@@ -932,7 +932,7 @@ int main( int argc, char* args[] )
 					square.handleEvent( e );
 				}
 
-                if( e.key.keysym.sym == SDLK_s || started)
+                if( e.key.keysym.sym == SDLK_RETURN || started)
                 {
                     started = true;
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
