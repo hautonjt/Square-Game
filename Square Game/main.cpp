@@ -12,6 +12,7 @@ const int SCREEN_HEIGHT = 480;
 bool defeat;
 bool started;
 float fade = 0;
+int score = 0;
 
 //Texture wrapper class
 class LTexture
@@ -146,6 +147,7 @@ public:
     //The dimensions of the square
     int SQUARE_WIDTH = 80;
     int SQUARE_HEIGHT = 80;
+    
     //counter
     int squareCounter = 0;
     
@@ -488,7 +490,7 @@ void LTexture::setAlpha( Uint8 alpha )
 void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
     counter++;
-    if (counter%30==0 && mWidth > 0) {
+    if (counter%(50/(score+3)+12)==0 && mWidth > 0) {
             mWidth--;
             mHeight--;
     }
@@ -724,7 +726,8 @@ void Square::render()
 {
     squareCounter++;
     if (SQUARE_HEIGHT > 0) {
-        if(squareCounter%30==0){
+
+        if(squareCounter%(50/(score+3)+12)==0){
             SQUARE_HEIGHT--;
             SQUARE_WIDTH--;
             sqCollider.w = SQUARE_WIDTH;
@@ -966,6 +969,17 @@ int main( int argc, char* args[] )
                             food.render();
                             if(checkCollision(square.sqCollider, food.foodCollider)){
                                 food.move();
+                                if (square.SQUARE_WIDTH + score/2 < 80) {
+                                    square.SQUARE_WIDTH = square.SQUARE_WIDTH + 2;
+                                    square.SQUARE_HEIGHT = square.SQUARE_HEIGHT + 2;
+                                    gSqTexture.mWidth = gSqTexture.mWidth + 2;
+                                    gSqTexture.mHeight = gSqTexture.mHeight + 2;
+                                    score++;
+                                    printf("score: %d\n", score);
+                                    printf("square: %d\n", square.SQUARE_WIDTH);
+                                    printf("texture: %d\n", gSqTexture.mWidth);
+
+                                }
                             }
                             //Update screen
                             SDL_RenderPresent( gRenderer );
