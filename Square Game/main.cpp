@@ -11,6 +11,7 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 bool defeat;
 bool started;
+bool pressed;
 float fade = 0;
 int score = 0;
 
@@ -243,6 +244,26 @@ private:
     int mPosX, mPosY;
 };
 
+class ButtonStart
+{
+public:
+    //Dimensions
+    int BSTART_WIDTH = 310;
+    int BSTART_HEIGHT = 70;
+    //Initializes the variables
+    ButtonStart();
+    
+    //Handles mouse event
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the image on the screen
+    void render();
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
 //Starts up SDL and creates window
 bool init();
 
@@ -271,6 +292,7 @@ FTexture gButtonHelpTexture;
 FTexture gDefeatTexture;
 FTexture gRetryTexture;
 FTexture gStartTexture;
+FTexture gButtonStartPressedTexture;
 
 
 LTexture::LTexture()
@@ -619,6 +641,11 @@ Start::Start(){
     mPosY = 0;
 }
 
+ButtonStart::ButtonStart(){
+    mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
+    mPosY = 200;
+}
+
 void Food::move()
 {
 
@@ -637,6 +664,75 @@ void Defeat::render(){
 void Start::render(){
     gStartTexture.render(mPosX, mPosY);
 }
+
+void ButtonStart::render(){
+    if (pressed) {
+        gButtonStartPressedTexture.render(mPosX, mPosY);
+    }else{
+        gButtonStartTexture.render(mPosX, mPosY);
+
+    }
+}
+
+void ButtonStart::handleEvent( SDL_Event& e)
+{
+    //If mouse event happened
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < mPosX )
+        {
+            inside = false;
+            
+        }
+        //Mouse is right of the button
+        else if( x > mPosX + BSTART_WIDTH )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < mPosY )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > mPosY + BSTART_HEIGHT )
+        {
+            inside = false;
+        }
+        //Mouse is outside button
+        if( !inside )
+        {
+            pressed = false;
+        }
+        //Mouse is inside button
+        else
+        {
+            //Set mouse over sprite
+            switch( e.type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                    pressed = true;
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    started = true;
+                    pressed = false;
+                    break;
+            }
+
+            
+        }
+    }
+}
+
 
 void Food::render()
 {
@@ -867,8 +963,16 @@ bool loadMedia()
 		success = false;
     }
     if( !gStartTexture.loadFromFile("sprites/opening.png")){
-        printf( "Failed to load defeat texture!\n" );
+        printf( "Failed to load opening screen texture!\n" );
 		success = false;
+    }
+    if( !gButtonStartTexture.loadFromFile("sprites/start.png")){
+        printf( "Failed to load button start texture!\n" );
+        success = false;
+    }
+    if( !gButtonStartPressedTexture.loadFromFile("sprites/startPressed.png")){
+        printf( "Failed to load button start texture!\n" );
+        success = false;
     }
     
 	return success;
@@ -918,6 +1022,8 @@ int main( int argc, char* args[] )
 			Square square;
             Food food;
             Defeat lost;
+            ButtonStart bStart;
+            Start start;
             
 			//While application is running
 			while( !quit )
@@ -933,11 +1039,11 @@ int main( int argc, char* args[] )
                     
 					//Handle input for the dot
 					square.handleEvent( e );
+                    bStart.handleEvent( e );
 				}
 
-                if( e.key.keysym.sym == SDLK_RETURN || started)
+                if(started)
                 {
-                    started = true;
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                             printf("Focus lost");
                     }else if(defeat){
@@ -987,8 +1093,8 @@ int main( int argc, char* args[] )
                 }else{
                     SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                     SDL_RenderClear( gRenderer );
-                    Start start;
                     start.render();
+                    bStart.render();
                     //Update screen
                     SDL_RenderPresent( gRenderer );
                 }
