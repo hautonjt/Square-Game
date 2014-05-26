@@ -13,7 +13,9 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 bool defeat;
 bool started;
+bool restarted;
 bool pressed;
+bool retryPressed = false;
 float fade = 0;
 int score = 0;
 
@@ -254,6 +256,26 @@ public:
     int BSTART_HEIGHT = 70;
     //Initializes the variables
     ButtonStart();
+    
+    //Handles mouse event
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the image on the screen
+    void render();
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
+class RetryStart
+{
+public:
+    //Dimensions
+    int BSTART_WIDTH = 310;
+    int BSTART_HEIGHT = 70;
+    //Initializes the variables
+    RetryStart();
     
     //Handles mouse event
     void handleEvent( SDL_Event& e );
@@ -679,6 +701,11 @@ ButtonStart::ButtonStart(){
     mPosY = 200;
 }
 
+RetryStart::RetryStart(){
+    mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
+    mPosY = 200;
+}
+
 void Food::move()
 {
     int x = rand()%(640-FOOD_WIDTH);
@@ -712,6 +739,15 @@ void ButtonStart::render(){
     }else{
         gButtonStartTexture.render(mPosX, mPosY);
 
+    }
+}
+
+void RetryStart::render(){
+    if (retryPressed) {
+       gButtonRetryTexture.render(mPosX, mPosY);
+    }else{
+        gButtonRetryTexturePressed.render(mPosX, mPosY);
+        
     }
 }
 
@@ -769,6 +805,67 @@ void ButtonStart::handleEvent( SDL_Event& e)
                     break;
             }
 
+            
+        }
+    }
+}
+
+void RetryStart::handleEvent( SDL_Event& e)
+{
+    //If mouse event happened
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < mPosX )
+        {
+            inside = false;
+            
+        }
+        //Mouse is right of the button
+        else if( x > mPosX + BSTART_WIDTH )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < mPosY )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > mPosY + BSTART_HEIGHT )
+        {
+            inside = false;
+        }
+        //Mouse is outside button
+        if( !inside )
+        {
+            retryPressed = false;
+        }
+        //Mouse is inside button
+        else
+        {
+            //Set mouse over sprite
+            switch( e.type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                    retryPressed = true;
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    restarted = true;
+                    defeat = true;
+                    started = false;
+                   retryPressed = false;
+                    break;
+            }
+            
             
         }
     }
@@ -1128,6 +1225,7 @@ int main( int argc, char* args[] )
             ButtonStart bStart;
             Start start;
             Background background;
+            RetryStart rStart;
             
 			//While application is running
 			while( !quit )
@@ -1144,6 +1242,8 @@ int main( int argc, char* args[] )
 					//Handle input for the dot
 					square.handleEvent( e );
                     bStart.handleEvent( e );
+                    rStart.handleEvent(e);
+                    
 				}
 
                 if(started)
@@ -1163,7 +1263,7 @@ int main( int argc, char* args[] )
                             gDefeatTexture.setAlpha(alpha);
                         }
                         lost.render();
-                        gButtonRetryTexture.render(300, 300);
+                        rStart.render();
                         
                         //Update screen
                         SDL_RenderPresent( gRenderer );
@@ -1233,7 +1333,8 @@ int main( int argc, char* args[] )
                     //Update screen
                     SDL_RenderPresent( gRenderer );
                 }
-			}
+                
+            }
 		}
 	}
     
