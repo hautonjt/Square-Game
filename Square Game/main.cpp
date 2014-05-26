@@ -263,6 +263,8 @@ public:
     //Shows the image on the screen
     void render();
     
+
+    
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -283,9 +285,20 @@ public:
     //Shows the image on the screen
     void render();
     
+    
 private:
     //The X and Y offsets
     int mPosX, mPosY;
+};
+
+class ScoreCounter
+{
+public:
+    ScoreCounter();
+    
+    void render();
+    
+    void update();
 };
 
 class Background
@@ -703,7 +716,12 @@ ButtonStart::ButtonStart(){
 
 RetryStart::RetryStart(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 400;
+    mPosY = 200;
+}
+
+ScoreCounter::ScoreCounter(){
+    
+    
 }
 
 void Food::move()
@@ -750,6 +768,52 @@ void RetryStart::render(){
         
     }
 }
+
+void ScoreCounter::render(){
+    
+    int imgFlags = IMG_INIT_PNG;
+    if( !( IMG_Init( imgFlags ) & imgFlags ) )
+    {
+        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+        
+    }
+    
+    //Initialize SDL_ttf
+    if( TTF_Init() == -1 )
+    {
+        printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+        
+    }
+    
+    std::string scoreString;
+    std::ostringstream stream;
+    stream << score;
+    scoreString = stream.str();
+    SDL_Color textColor = { 255, 255, 255 };
+    if( !gScoreCounter.loadFromRenderedText( scoreString, textColor ) )
+    {
+        printf( "Failed to render text texture!\n" );
+    }
+    gScoreCounter.render((SCREEN_WIDTH/2)-60, (SCREEN_HEIGHT/2)-100);
+    
+    
+}
+
+void ScoreCounter::update(){
+    
+    std::string scoreString;
+    std::ostringstream stream;
+    stream << score;
+    scoreString = stream.str();
+    SDL_Color textColor = { 255, 255, 255 };
+    if( !gScoreCounter.loadFromRenderedText( scoreString, textColor ) )
+    {
+        printf( "Failed to render text texture!\n" );
+    }
+
+}
+
+
 
 void ButtonStart::handleEvent( SDL_Event& e)
 {
@@ -858,19 +922,19 @@ void RetryStart::handleEvent2( SDL_Event& e)
             switch( e.type )
             {
                 case SDL_MOUSEBUTTONDOWN:
-                    retryPressed = true;
                     break;
                     
                 case SDL_MOUSEBUTTONUP:
-                    started = false;
                     defeat = false;
-                   retryPressed = false;
+                    started = false;
+                    score = 0;
                     break;
             }
             
             
         }
     }
+    
 }
 
 
@@ -1143,7 +1207,7 @@ bool loadMedia()
         success = false;
     }
     //Open the font
-    gFont = TTF_OpenFont( "sprites/Track.ttf", 28 );
+    gFont = TTF_OpenFont( "sprites/Track.ttf", 200 );
     if( gFont == NULL )
     {
         printf( "Failed to load  font! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -1156,6 +1220,7 @@ bool loadMedia()
         std::ostringstream stream;
         stream << score;
         scoreString = stream.str();
+        
         //Render text
         SDL_Color textColor = { 0, 0, 0 };
         if( !gScoreCounter.loadFromRenderedText( scoreString, textColor ) )
@@ -1219,7 +1284,7 @@ int main( int argc, char* args[] )
             
 			//Event handler
 			SDL_Event e;
-            SDL_Event f;
+          
             
 			//The square that will be moving around on the screen
 			Square square;
@@ -1229,6 +1294,7 @@ int main( int argc, char* args[] )
             ButtonStart bStart;
             Start start;
             Background background;
+            ScoreCounter counter;
             
             
 			//While application is running
@@ -1247,10 +1313,15 @@ int main( int argc, char* args[] )
                     if (e.key.keysym.sym == SDLK_d) {
                         defeat = true;
                     }
+
+                    if(started){
+                        //Handle input for the dot
+                        square.handleEvent( e );
+                    }
                     
-					//Handle input for the dot
-					square.handleEvent( e );
-                    bStart.handleEvent( e );
+                    if(!defeat && !started){
+                        bStart.handleEvent( e );
+                    }
                     
                     
 				}
@@ -1274,16 +1345,22 @@ int main( int argc, char* args[] )
                             gDefeatTexture.setAlpha(alpha);
                         }
                         
-                        
                             rStart.handleEvent2( e );
                             lost.render();
                             rStart.render();
+                            square.SQUARE_WIDTH = 80;
+                            square.SQUARE_HEIGHT = 80;
+                            gSqTexture.mWidth = 80;
+                            gSqTexture.mHeight = 80;
+                            square.sqCollider.w = 80;
+                            square.sqCollider.h = 80;
                         
                         
                         //Update screen
                         SDL_RenderPresent( gRenderer );
                     }
                     else{
+                        
                         //Move the dot
                         square.move();
                         //Clear screen
@@ -1292,9 +1369,11 @@ int main( int argc, char* args[] )
                         
                         //Render objects
                         background.render();
-                        gScoreCounter.render(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+                        counter.render();
                         square.render();
                         food.render();
+                        
+                        
                         if(checkCollision(square.sqCollider, food.foodCollider)){
                             food.move();
                             if (square.SQUARE_WIDTH + score/2 < 80) {
@@ -1304,39 +1383,16 @@ int main( int argc, char* args[] )
                                 gSqTexture.mHeight = gSqTexture.mHeight + 2;
                             }
                             score++;
-                            
-                            //Update Score Counter
-                            int imgFlags = IMG_INIT_PNG;
-                            if( !( IMG_Init( imgFlags ) & imgFlags ) )
-                            {
-                                printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-                                
-                            }
-                            
-                            //Initialize SDL_ttf
-                            if( TTF_Init() == -1 )
-                            {
-                                printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
-                                
-                            }
-
-                            std::string scoreString;
-                            std::ostringstream stream;
-                            stream << score;
-                            scoreString = stream.str();
-                            SDL_Color textColor = { 0, 0, 0 };
-                            if( !gScoreCounter.loadFromRenderedText( scoreString, textColor ) )
-                            {
-                                printf( "Failed to render text texture!\n" );
-                            }
-                            gScoreCounter.render(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-                            
-                            //Print statements
-                            printf("score: %d\n", score);
-                            printf("square: %d\n", square.SQUARE_WIDTH);
-                            printf("texture: %d\n", gSqTexture.mWidth);
 
                         }
+                        //Update Score Counter
+                        counter.update();
+                        
+                        
+                        //Print statements
+                        printf("score: %d\n", score);
+                        printf("square: %d\n", square.SQUARE_WIDTH);
+                        printf("texture: %d\n", gSqTexture.mWidth);
                         //Update screen
                         SDL_RenderPresent( gRenderer );
                     }
