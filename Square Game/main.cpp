@@ -278,7 +278,7 @@ public:
     RetryStart();
     
     //Handles mouse event
-    void handleEvent( SDL_Event& e );
+    void handleEvent2( SDL_Event& e );
     
     //Shows the image on the screen
     void render();
@@ -703,7 +703,7 @@ ButtonStart::ButtonStart(){
 
 RetryStart::RetryStart(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 200;
+    mPosY = 400;
 }
 
 void Food::move()
@@ -802,6 +802,8 @@ void ButtonStart::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONUP:
                     started = true;
                     pressed = false;
+                    
+                    
                     break;
             }
 
@@ -810,7 +812,8 @@ void ButtonStart::handleEvent( SDL_Event& e)
     }
 }
 
-void RetryStart::handleEvent( SDL_Event& e)
+
+void RetryStart::handleEvent2( SDL_Event& e)
 {
     //If mouse event happened
     if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
@@ -859,9 +862,8 @@ void RetryStart::handleEvent( SDL_Event& e)
                     break;
                     
                 case SDL_MOUSEBUTTONUP:
-                    restarted = true;
-                    defeat = true;
                     started = false;
+                    defeat = false;
                    retryPressed = false;
                     break;
             }
@@ -1217,21 +1219,24 @@ int main( int argc, char* args[] )
             
 			//Event handler
 			SDL_Event e;
+            SDL_Event f;
             
 			//The square that will be moving around on the screen
 			Square square;
             Food food;
             Defeat lost;
+            RetryStart rStart;
             ButtonStart bStart;
             Start start;
             Background background;
-            RetryStart rStart;
+            
             
 			//While application is running
 			while( !quit )
 			{
+                
 				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
+				while( SDL_PollEvent( &e) != 0 )
 				{
 					//User requests quit
 					if( e.key.keysym.sym == SDLK_q || e.type == SDL_QUIT )
@@ -1239,10 +1244,14 @@ int main( int argc, char* args[] )
 						quit = true;
 					}
                     
+                    if (e.key.keysym.sym == SDLK_d) {
+                        defeat = true;
+                    }
+                    
 					//Handle input for the dot
 					square.handleEvent( e );
                     bStart.handleEvent( e );
-                    rStart.handleEvent(e);
+                    
                     
 				}
 
@@ -1250,7 +1259,9 @@ int main( int argc, char* args[] )
                 {
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                             printf("Focus lost");
-                    }else if(defeat){
+                    }
+                    
+                    else if(defeat){
                         
                         //Clear screen
                         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -1262,8 +1273,12 @@ int main( int argc, char* args[] )
                             Uint8 alpha = fade;
                             gDefeatTexture.setAlpha(alpha);
                         }
-                        lost.render();
-                        rStart.render();
+                        
+                        
+                            rStart.handleEvent2( e );
+                            lost.render();
+                            rStart.render();
+                        
                         
                         //Update screen
                         SDL_RenderPresent( gRenderer );
@@ -1335,6 +1350,7 @@ int main( int argc, char* args[] )
                 }
                 
             }
+            
 		}
 	}
     
