@@ -716,7 +716,7 @@ ButtonStart::ButtonStart(){
 
 RetryStart::RetryStart(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 200;
+    mPosY = 350;
 }
 
 ScoreCounter::ScoreCounter(){
@@ -796,10 +796,10 @@ void ScoreCounter::render(){
     }
     
     if (score>9) {
-        gScoreCounter.render((SCREEN_WIDTH/3), (SCREEN_HEIGHT/2)-100);
+        gScoreCounter.render((SCREEN_WIDTH/3)-5, (SCREEN_HEIGHT/2)-75);
     }
     else{
-        gScoreCounter.render((SCREEN_WIDTH/2)-60, (SCREEN_HEIGHT/2)-100);
+        gScoreCounter.render((SCREEN_WIDTH/2)-60, (SCREEN_HEIGHT/2)-75);
     }
     
     gScoreCounter.setAlpha(0.5);
