@@ -264,6 +264,23 @@ private:
     int mPosX, mPosY;
 };
 
+class Background
+{
+public:
+    //Dimensions
+    int BG_WIDTH = SCREEN_WIDTH;
+    int BG_HEIGHT = SCREEN_HEIGHT;
+    //Initializes the variables
+    Background();
+    
+    //Shows the image on the screen
+    void render();
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
 //Starts up SDL and creates window
 bool init();
 
@@ -287,12 +304,14 @@ LTexture gSqTexture;
 FTexture gFoodTexture;
 FTexture gBackgroundTexture;
 FTexture gButtonStartTexture;
+FTexture gButtonStartPressedTexture;
 FTexture gButtonOptionsTexture;
+FTexture gButtonOptionsPressedTexture;
 FTexture gButtonHelpTexture;
+FTexture gButtonHelpPressedTexture;
 FTexture gDefeatTexture;
 FTexture gRetryTexture;
 FTexture gStartTexture;
-FTexture gButtonStartPressedTexture;
 
 
 LTexture::LTexture()
@@ -622,6 +641,7 @@ Square::Square()
 Food::Food()
 {
     srand((int)time(NULL));
+    printf("srand called");
     mPosX = rand()%(640-FOOD_WIDTH);
     mPosY = rand()%(480-FOOD_HEIGHT);
     
@@ -632,6 +652,11 @@ Food::Food()
 }
 
 Defeat::Defeat(){
+    mPosX = 0;
+    mPosY = 0;
+}
+
+Background::Background(){
     mPosX = 0;
     mPosY = 0;
 }
@@ -648,10 +673,14 @@ ButtonStart::ButtonStart(){
 
 void Food::move()
 {
-
-    srand((int)time(NULL));
-    mPosX = rand()%(640-FOOD_WIDTH);
-    mPosY = rand()%(480-FOOD_HEIGHT);
+    int x = rand()%(640-FOOD_WIDTH);
+    int y = rand()%(480-FOOD_HEIGHT);
+    if(x>mPosX+30 || x<mPosX-30){
+        mPosX = x;
+        mPosY = y;
+    }else{
+        move();
+    }
     foodCollider.x = mPosX;
     foodCollider.y = mPosY;
 
@@ -659,6 +688,10 @@ void Food::move()
 
 void Defeat::render(){
     gDefeatTexture.render(mPosX, mPosY);
+}
+
+void Background::render(){
+    gBackgroundTexture.render(mPosX, mPosY);
 }
 
 void Start::render(){
@@ -974,6 +1007,10 @@ bool loadMedia()
         printf( "Failed to load button start texture!\n" );
         success = false;
     }
+    if( !gBackgroundTexture.loadFromFile("sprites/background.png")){
+        printf( "Failed to load button start texture!\n" );
+        success = false;
+    }
     
 	return success;
 }
@@ -984,6 +1021,15 @@ void close()
 	gSqTexture.free();
     gFoodTexture.free();
     gDefeatTexture.free();
+    gBackgroundTexture.free();
+    gButtonStartTexture.free();
+    gButtonStartPressedTexture.free();
+    gButtonHelpTexture.free();
+    gButtonHelpPressedTexture.free();
+    gButtonOptionsTexture.free();
+    gButtonOptionsPressedTexture.free();
+    gRetryTexture.free();
+    gStartTexture.free();
     
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
@@ -1024,6 +1070,7 @@ int main( int argc, char* args[] )
             Defeat lost;
             ButtonStart bStart;
             Start start;
+            Background background;
             
 			//While application is running
 			while( !quit )
@@ -1064,31 +1111,32 @@ int main( int argc, char* args[] )
                         SDL_RenderPresent( gRenderer );
                     }
                     else{
-                            //Move the dot
-                            square.move();
-                            //Clear screen
-                            SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-                            SDL_RenderClear( gRenderer );
-                            
-                            //Render objects
-                            square.render();
-                            food.render();
-                            if(checkCollision(square.sqCollider, food.foodCollider)){
-                                food.move();
-                                if (square.SQUARE_WIDTH + score/2 < 80) {
-                                    square.SQUARE_WIDTH = square.SQUARE_WIDTH + 2;
-                                    square.SQUARE_HEIGHT = square.SQUARE_HEIGHT + 2;
-                                    gSqTexture.mWidth = gSqTexture.mWidth + 2;
-                                    gSqTexture.mHeight = gSqTexture.mHeight + 2;
-                                    score++;
-                                    printf("score: %d\n", score);
-                                    printf("square: %d\n", square.SQUARE_WIDTH);
-                                    printf("texture: %d\n", gSqTexture.mWidth);
-
-                                }
+                        //Move the dot
+                        square.move();
+                        //Clear screen
+                        SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+                        SDL_RenderClear( gRenderer );
+                        
+                        //Render objects
+                        background.render();
+                        square.render();
+                        food.render();
+                        if(checkCollision(square.sqCollider, food.foodCollider)){
+                            food.move();
+                            if (square.SQUARE_WIDTH + score/2 < 80) {
+                                square.SQUARE_WIDTH = square.SQUARE_WIDTH + 2;
+                                square.SQUARE_HEIGHT = square.SQUARE_HEIGHT + 2;
+                                gSqTexture.mWidth = gSqTexture.mWidth + 2;
+                                gSqTexture.mHeight = gSqTexture.mHeight + 2;
                             }
-                            //Update screen
-                            SDL_RenderPresent( gRenderer );
+                            score++;
+                            printf("score: %d\n", score);
+                            printf("square: %d\n", square.SQUARE_WIDTH);
+                            printf("texture: %d\n", gSqTexture.mWidth);
+
+                        }
+                        //Update screen
+                        SDL_RenderPresent( gRenderer );
                     }
                 }else{
                     SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
