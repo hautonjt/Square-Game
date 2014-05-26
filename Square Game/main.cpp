@@ -1033,7 +1033,7 @@ bool loadMedia()
         success = false;
     }
     //Open the font
-    gFont = TTF_OpenFont( "sprites/DarkistheNight.ttf", 28 );
+    gFont = TTF_OpenFont( "sprites/Track.ttf", 28 );
     if( gFont == NULL )
     {
         printf( "Failed to load  font! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -1178,7 +1178,7 @@ int main( int argc, char* args[] )
                             }
                             score++;
                             
-                            //update score
+                            //Update Score Counter
                             int imgFlags = IMG_INIT_PNG;
                             if( !( IMG_Init( imgFlags ) & imgFlags ) )
                             {
