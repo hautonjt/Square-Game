@@ -23,6 +23,8 @@
 		ADAA79291932D099004A5604 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAA79271932D099004A5604 /* SDL2_ttf.framework */; };
 		ADAA79301932D435004A5604 /* DarkistheNight.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADAA792F1932D42E004A5604 /* DarkistheNight.ttf */; };
 		ADAA79321932D851004A5604 /* Track.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADAA79311932D830004A5604 /* Track.ttf */; };
+		ADAA79351932F9D8004A5604 /* retry.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADAA79331932F9D0004A5604 /* retry.png */; };
+		ADAA79361932F9D8004A5604 /* retryPressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADAA79341932F9D0004A5604 /* retryPressed.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +34,8 @@
 			dstPath = sprites;
 			dstSubfolderSpec = 7;
 			files = (
+				ADAA79351932F9D8004A5604 /* retry.png in CopyFiles */,
+				ADAA79361932F9D8004A5604 /* retryPressed.png in CopyFiles */,
 				ADAA79321932D851004A5604 /* Track.ttf in CopyFiles */,
 				ADAA79301932D435004A5604 /* DarkistheNight.ttf in CopyFiles */,
 				17EC968B1930F986008FF2A5 /* options.png in CopyFiles */,
@@ -68,6 +72,8 @@
 		ADAA79271932D099004A5604 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		ADAA792F1932D42E004A5604 /* DarkistheNight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DarkistheNight.ttf; sourceTree = "<group>"; };
 		ADAA79311932D830004A5604 /* Track.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Track.ttf; sourceTree = "<group>"; };
+		ADAA79331932F9D0004A5604 /* retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retry.png; sourceTree = "<group>"; };
+		ADAA79341932F9D0004A5604 /* retryPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retryPressed.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,8 @@
 				17483F0E192E218E00A8EF03 /* dot2.bmp */,
 				17483F0F192E218E00A8EF03 /* dot3.bmp */,
 				17483F10192E218E00A8EF03 /* square.bmp */,
+				ADAA79331932F9D0004A5604 /* retry.png */,
+				ADAA79341932F9D0004A5604 /* retryPressed.png */,
 				ADAA792F1932D42E004A5604 /* DarkistheNight.ttf */,
 				ADAA79311932D830004A5604 /* Track.ttf */,
 			);

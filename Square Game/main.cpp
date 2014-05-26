@@ -312,6 +312,8 @@ FTexture gButtonOptionsPressedTexture;
 FTexture gButtonHelpTexture;
 FTexture gButtonHelpPressedTexture;
 FTexture gDefeatTexture;
+FTexture gButtonRetryTexture;
+FTexture gButtonRetryTexturePressed;
 FTexture gRetryTexture;
 FTexture gStartTexture;
 FTexture gScoreCounter;
@@ -773,6 +775,8 @@ void ButtonStart::handleEvent( SDL_Event& e)
 }
 
 
+
+
 void Food::render()
 {
     gFoodTexture.render(mPosX, mPosY);
@@ -948,7 +952,7 @@ bool init()
 		}
         
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Square", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -1016,6 +1020,13 @@ bool loadMedia()
     if( !gBackgroundTexture.loadFromFile("sprites/background.png")){
         printf( "Failed to load button start texture!\n" );
         success = false;
+    }
+    if (!gButtonRetryTexture.loadFromFile("sprites/retry.png")) {
+        printf("Failed to load button retry texture!\n");
+    }
+    
+    if (!gButtonRetryTexturePressed.loadFromFile("sprites/retryPressed.png")) {
+        printf("Failed to load button retry texture!\n");
     }
     
     //Initialize PNG loading
@@ -1152,6 +1163,7 @@ int main( int argc, char* args[] )
                             gDefeatTexture.setAlpha(alpha);
                         }
                         lost.render();
+                        gButtonRetryTexture.render(300, 300);
                         
                         //Update screen
                         SDL_RenderPresent( gRenderer );
