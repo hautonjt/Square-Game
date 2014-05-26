@@ -1,10 +1,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_mixer/SDL_mixer.h>
+#include <SDL2_ttf/SDL_ttf.h>
 #include <stdio.h>
 #include <string>
 #include <time.h>
 #include <stdlib.h>
+#include <sstream>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -312,6 +314,10 @@ FTexture gButtonHelpPressedTexture;
 FTexture gDefeatTexture;
 FTexture gRetryTexture;
 FTexture gStartTexture;
+FTexture gScoreCounter;
+
+//Font
+TTF_Font *gFont;
 
 
 LTexture::LTexture()
@@ -1012,6 +1018,44 @@ bool loadMedia()
         success = false;
     }
     
+    //Initialize PNG loading
+    int imgFlags = IMG_INIT_PNG;
+    if( !( IMG_Init( imgFlags ) & imgFlags ) )
+    {
+        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+        success = false;
+    }
+    
+    //Initialize SDL_ttf
+    if( TTF_Init() == -1 )
+    {
+        printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+        success = false;
+    }
+    //Open the font
+    gFont = TTF_OpenFont( "sprites/DarkistheNight.ttf", 28 );
+    if( gFont == NULL )
+    {
+        printf( "Failed to load  font! SDL_ttf Error: %s\n", TTF_GetError() );
+        success = false;
+    }
+    else
+    {
+        
+        std::string scoreString;
+        std::ostringstream stream;
+        stream << score;
+        scoreString = stream.str();
+        //Render text
+        SDL_Color textColor = { 0, 0, 0 };
+        if( !gScoreCounter.loadFromRenderedText( scoreString, textColor ) )
+        {
+            printf( "Failed to render text texture!\n" );
+            success = false;
+        }
+    }
+   
+    
 	return success;
 }
 
@@ -1060,6 +1104,8 @@ int main( int argc, char* args[] )
 		{
 			//Main loop flag
 			bool quit = false;
+            
+            
             
 			//Event handler
 			SDL_Event e;
@@ -1119,6 +1165,7 @@ int main( int argc, char* args[] )
                         
                         //Render objects
                         background.render();
+                        gScoreCounter.render(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
                         square.render();
                         food.render();
                         if(checkCollision(square.sqCollider, food.foodCollider)){
@@ -1130,6 +1177,34 @@ int main( int argc, char* args[] )
                                 gSqTexture.mHeight = gSqTexture.mHeight + 2;
                             }
                             score++;
+                            
+                            //update score
+                            int imgFlags = IMG_INIT_PNG;
+                            if( !( IMG_Init( imgFlags ) & imgFlags ) )
+                            {
+                                printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+                                
+                            }
+                            
+                            //Initialize SDL_ttf
+                            if( TTF_Init() == -1 )
+                            {
+                                printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+                                
+                            }
+
+                            std::string scoreString;
+                            std::ostringstream stream;
+                            stream << score;
+                            scoreString = stream.str();
+                            SDL_Color textColor = { 0, 0, 0 };
+                            if( !gScoreCounter.loadFromRenderedText( scoreString, textColor ) )
+                            {
+                                printf( "Failed to render text texture!\n" );
+                            }
+                            gScoreCounter.render(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+                            
+                            //Print statements
                             printf("score: %d\n", score);
                             printf("square: %d\n", square.SQUARE_WIDTH);
                             printf("texture: %d\n", gSqTexture.mWidth);
