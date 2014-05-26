@@ -762,9 +762,9 @@ void ButtonStart::render(){
 
 void RetryStart::render(){
     if (retryPressed) {
-       gButtonRetryTexture.render(mPosX, mPosY);
+       gButtonRetryTexturePressed.render(mPosX, mPosY);
     }else{
-        gButtonRetryTexturePressed.render(mPosX, mPosY);
+        gButtonRetryTexture.render(mPosX, mPosY);
         
     }
 }
@@ -794,7 +794,15 @@ void ScoreCounter::render(){
     {
         printf( "Failed to render text texture!\n" );
     }
-    gScoreCounter.render((SCREEN_WIDTH/2)-60, (SCREEN_HEIGHT/2)-100);
+    
+    if (score>9) {
+        gScoreCounter.render((SCREEN_WIDTH/3), (SCREEN_HEIGHT/2)-100);
+    }
+    else{
+        gScoreCounter.render((SCREEN_WIDTH/2)-60, (SCREEN_HEIGHT/2)-100);
+    }
+    
+    gScoreCounter.setAlpha(0.5);
     
     
 }
@@ -810,6 +818,8 @@ void ScoreCounter::update(){
     {
         printf( "Failed to render text texture!\n" );
     }
+
+    
 
 }
 
@@ -922,9 +932,11 @@ void RetryStart::handleEvent2( SDL_Event& e)
             switch( e.type )
             {
                 case SDL_MOUSEBUTTONDOWN:
+                    retryPressed = true;
                     break;
                     
                 case SDL_MOUSEBUTTONUP:
+                    retryPressed = false;
                     defeat = false;
                     started = false;
                     score = 0;
@@ -1347,6 +1359,7 @@ int main( int argc, char* args[] )
                         
                             rStart.handleEvent2( e );
                             lost.render();
+                            counter.render();
                             rStart.render();
                             square.SQUARE_WIDTH = 80;
                             square.SQUARE_HEIGHT = 80;
