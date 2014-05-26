@@ -936,10 +936,11 @@ void RetryStart::handleEvent2( SDL_Event& e)
                     break;
                     
                 case SDL_MOUSEBUTTONUP:
-                    retryPressed = false;
-                    defeat = false;
                     started = false;
+                    defeat = false;
                     score = 0;
+                    fade = 0;
+                    retryPressed = false;
                     break;
             }
             
@@ -1261,6 +1262,11 @@ void close()
     gButtonOptionsPressedTexture.free();
     gRetryTexture.free();
     gStartTexture.free();
+    gButtonRetryTexture.free();
+    gButtonRetryTexturePressed.free();
+    gScoreCounter.free();
+    
+    TTF_CloseFont(gFont);
     
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
