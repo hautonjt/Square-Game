@@ -165,8 +165,9 @@ public:
     
     //Maximum axis velocity of the dot
     static const int SQ_VEL = 10;
-    static const int SQ_ACC = 1;
-    static const int MAX_VEL = 5;
+    int SQ_ACC = 1;
+    
+    int MAX_VEL = 5;
     
     //Initializes the variables
     Square();
@@ -368,8 +369,8 @@ class ButtonBouncySelect
 {
 public:
     //Dimensions
-    int BSTART_WIDTH = 310;
-    int BSTART_HEIGHT = 70;
+    int BSTART_WIDTH = 265;
+    int BSTART_HEIGHT = 340;
     //Initializes the variables
     ButtonBouncySelect();
     
@@ -390,8 +391,8 @@ class ButtonStickySelect
 {
 public:
     //Dimensions
-    int BSTART_WIDTH = 310;
-    int BSTART_HEIGHT = 70;
+    int BSTART_WIDTH = 265;
+    int BSTART_HEIGHT = 340;
     //Initializes the variables
     ButtonStickySelect();
     
@@ -942,7 +943,7 @@ void ButtonHelp::render(){
 }
 
 void ButtonClose::render(){
-    if (helpPressed) {
+    if (closePressed) {
         gButtonClosePressedTexture.render(mPosX, mPosY);
     }
     else{
@@ -1478,10 +1479,10 @@ void Square::handleEvent( SDL_Event& e )
         //Adjust the acceleration
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mAccY -= SQ_ACC; break;
-            case SDLK_DOWN: mAccY += SQ_ACC; break;
-            case SDLK_LEFT: mAccX -= SQ_ACC; break;
-            case SDLK_RIGHT: mAccX += SQ_ACC; break;
+            case SDLK_UP: mAccY = -SQ_ACC; break;
+            case SDLK_DOWN: mAccY = SQ_ACC; break;
+            case SDLK_LEFT: mAccX = -SQ_ACC; break;
+            case SDLK_RIGHT: mAccX = SQ_ACC; break;
         }
     }
     //If a key was released
@@ -1495,16 +1496,26 @@ void Square::handleEvent( SDL_Event& e )
 //            case SDLK_LEFT: mAccX += SQ_ACC; break;
 //            case SDLK_RIGHT: mAccX -= SQ_ACC; break;
                 
-            case SDLK_UP: mAccY += SQ_ACC; break;
-            case SDLK_DOWN: mAccY -= SQ_ACC; break;
-            case SDLK_LEFT: mAccX += SQ_ACC; break;
-            case SDLK_RIGHT: mAccX -= SQ_ACC; break;
+            case SDLK_UP: mAccY = 0; break;
+            case SDLK_DOWN: mAccY = 0; break;
+            case SDLK_LEFT: mAccX = 0; break;
+            case SDLK_RIGHT: mAccX = 0; break;
         }
     }
 }
 
 void Square::move()
 {
+    if (defeat) {
+        mPosX = SCREEN_WIDTH/2;
+        mPosY = SCREEN_HEIGHT/2;
+        mVelX = 0;
+        mVelY = 0;
+        mAccX = 0;
+        mAccY = 0;
+        SQ_ACC = 1;
+        MAX_VEL = 5;
+    }
     //Move the square left or right
     mVelX += mAccX;
     mPosX += mVelX;
@@ -1520,10 +1531,11 @@ void Square::move()
     {
         //Use conservation of momentum to rebound
         if (bouncy) {
-            mVelX = -mVelX+1;
+            mVelX = -mVelX+SQ_ACC;
         }
         else{
             mVelX = 0;
+            mPosX = 0;
         }
         
     }
@@ -1531,10 +1543,11 @@ void Square::move()
     {
         //Use conservation of momentum to rebound
         if (bouncy) {
-            mVelX = -mVelX-1;
+            mVelX = -mVelX-SQ_ACC;
         }
         else{
             mVelX = 0;
+            mPosX = SCREEN_WIDTH-SQUARE_WIDTH;
         }
         
     }
@@ -1554,10 +1567,11 @@ void Square::move()
     {
         //Use conservation of momentum to rebound
         if (bouncy) {
-            mVelY = -mVelY+1;
+            mVelY = -mVelY+SQ_ACC;
         }
         else{
             mVelY = 0;
+            mPosY = 0;
         }
         
       
@@ -1565,12 +1579,11 @@ void Square::move()
         //Use conservation of momentum to rebound
         if (bouncy) {
             
-            mVelY = -mVelY-1;
+            mVelY = -mVelY-SQ_ACC;
         }
         else{
-            
             mVelY = 0;
-            
+            mPosY = SCREEN_HEIGHT-SQUARE_HEIGHT;
         }
         
     }
@@ -1912,7 +1925,6 @@ int main( int argc, char* args[] )
 			//While application is running
 			while( !quit )
 			{
-                
 				//Handle events on queue
 				while( SDL_PollEvent( &e) != 0 )
 				{
@@ -1925,45 +1937,35 @@ int main( int argc, char* args[] )
                     if (e.key.keysym.sym == SDLK_d) {
                         defeat = true;
                     }
-
-                    if(started){
-                        //Handle input for the dot
-                        square.handleEvent( e );
-                    }
-                    
-                   
-                    
+         
                     if(!defeat && !started && !options && !help){
                         bStart.handleEvent( e );
                         bOptions.handleEvent(e);
                         bHelp.handleEvent(e);
-                    }
-                    
-                    if (help) {
-                        bClose.handleEvent(e);
-                    }
-                    
-                    if (options) {
+                    }else if (options) {
                         bBouncy.handleEvent(e);
                         bSticky.handleEvent(e);
+                    }else if (help) {
+                        bClose.handleEvent(e);
+                    }else if(started && !defeat){
+                        //Handle input for the dot
+                        square.handleEvent( e );
+                    }else if(defeat){
+                        rStart.handleEvent2( e );
                     }
-                    
-                    
+
 				}
                 
              
 
                 if(started)
                 {
-                    
-                    
-                    
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                             printf("Focus lost");
                     }
                     
                     else if(defeat){
-                        
+
                         //Clear screen
                         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                         SDL_RenderClear( gRenderer );
@@ -1974,18 +1976,16 @@ int main( int argc, char* args[] )
                             Uint8 alpha = fade;
                             gDefeatTexture.setAlpha(alpha);
                         }
-                        
-                            rStart.handleEvent2( e );
-                            lost.render();
-                            counter.render();
-                            rStart.render();
-                            square.SQUARE_WIDTH = 80;
-                            square.SQUARE_HEIGHT = 80;
-                            gSqTexture.mWidth = 80;
-                            gSqTexture.mHeight = 80;
-                            square.sqCollider.w = 80;
-                            square.sqCollider.h = 80;
-                        
+                        lost.render();
+                        counter.render();
+                        rStart.render();
+                        square.SQUARE_WIDTH = 80;
+                        square.SQUARE_HEIGHT = 80;
+                        gSqTexture.mWidth = 80;
+                        gSqTexture.mHeight = 80;
+                        square.sqCollider.w = 80;
+                        square.sqCollider.h = 80;
+                        square.move();
                         
                         //Update screen
                         SDL_RenderPresent( gRenderer );
@@ -2014,6 +2014,8 @@ int main( int argc, char* args[] )
                                 gSqTexture.mWidth = gSqTexture.mWidth + 2;
                                 gSqTexture.mHeight = gSqTexture.mHeight + 2;
                             }
+                            square.MAX_VEL = 10-100/(score+20);
+                            square.SQ_ACC = 5-70/(score+18);
                             score++;
 
                         }
