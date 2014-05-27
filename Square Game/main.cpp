@@ -14,7 +14,7 @@ const int SCREEN_HEIGHT = 480;
 bool defeat;
 bool started;
 bool options; //Whether the options screen is open
-bool bouncy; //Whether the game is bouncy
+bool bouncy = true; //Whether the game is bouncy
 bool help; // Whether the help screen is open
 bool pressed;
 bool retryPressed = false;
