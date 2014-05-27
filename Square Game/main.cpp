@@ -181,6 +181,11 @@ public:
     //Shows the square on the screen
     void render();
     
+    bool downPressed;
+    bool upPressed;
+    bool leftPressed;
+    bool rightPressed;
+    
     //collisions
     SDL_Rect sqCollider;
     
@@ -803,6 +808,11 @@ Square::Square()
     mVelY = 0;
     mAccX = 0;
     mAccY = 0;
+    
+    downPressed = false;
+    upPressed = false;
+    leftPressed = false;
+    rightPressed = false;
     
     sqCollider.w = SQUARE_WIDTH;
     sqCollider.h = SQUARE_HEIGHT;
@@ -1479,10 +1489,22 @@ void Square::handleEvent( SDL_Event& e )
         //Adjust the acceleration
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mAccY = -SQ_ACC; break;
-            case SDLK_DOWN: mAccY = SQ_ACC; break;
-            case SDLK_LEFT: mAccX = -SQ_ACC; break;
-            case SDLK_RIGHT: mAccX = SQ_ACC; break;
+            case SDLK_UP:
+                mAccY -= SQ_ACC;
+                upPressed = true;
+                break;
+            case SDLK_DOWN:
+                mAccY += SQ_ACC;
+                downPressed = true;
+                break;
+            case SDLK_LEFT:
+                mAccX -=SQ_ACC;
+                leftPressed = true;
+                break;
+            case SDLK_RIGHT:
+                mAccX += SQ_ACC;
+                rightPressed = true;
+                break;
         }
     }
     //If a key was released
@@ -1496,10 +1518,38 @@ void Square::handleEvent( SDL_Event& e )
 //            case SDLK_LEFT: mAccX += SQ_ACC; break;
 //            case SDLK_RIGHT: mAccX -= SQ_ACC; break;
                 
-            case SDLK_UP: mAccY = 0; break;
-            case SDLK_DOWN: mAccY = 0; break;
-            case SDLK_LEFT: mAccX = 0; break;
-            case SDLK_RIGHT: mAccX = 0; break;
+            case SDLK_UP:
+                if(!downPressed){
+                    mAccY = 0;
+                }else{
+                    mAccY=SQ_ACC;
+                };
+                upPressed = false;
+                break;
+            case SDLK_DOWN:
+                if(!upPressed){
+                    mAccY = 0;
+                }else{
+                    mAccY=-SQ_ACC;
+                };
+                downPressed = false;
+                break;
+            case SDLK_LEFT:
+                if(!rightPressed){
+                    mAccX = 0;
+                }else{
+                    mAccX=SQ_ACC;
+                };
+                leftPressed = false;
+                break;
+            case SDLK_RIGHT:
+                if(!leftPressed){
+                    mAccX = 0;
+                }else{
+                    mAccX=-SQ_ACC;
+                };
+                rightPressed = false;
+                break;
         }
     }
 }
@@ -1515,6 +1565,11 @@ void Square::move()
         mAccY = 0;
         SQ_ACC = 1;
         MAX_VEL = 5;
+        downPressed = false;
+        upPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+        
     }
     //Move the square left or right
     mVelX += mAccX;
