@@ -13,9 +13,12 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 bool defeat;
 bool started;
-bool restarted;
+bool options;
+bool help;
 bool pressed;
 bool retryPressed = false;
+bool optionsPressed = false;
+bool helpPressed = false;
 float fade = 0;
 int score = 0;
 
@@ -284,6 +287,50 @@ public:
     
     //Shows the image on the screen
     void render();
+    
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
+class ButtonOptions
+{
+public:
+    //Dimensions
+    int BSTART_WIDTH = 310;
+    int BSTART_HEIGHT = 70;
+    //Initializes the variables
+    ButtonOptions();
+    
+    //Handles mouse event
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the image on the screen
+    void render();
+    
+    
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
+class ButtonHelp
+{
+public:
+    //Dimensions
+    int BSTART_WIDTH = 310;
+    int BSTART_HEIGHT = 70;
+    //Initializes the variables
+    ButtonHelp();
+    
+    //Handles mouse event
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the image on the screen
+    void render();
+    
     
     
 private:
@@ -719,6 +766,16 @@ RetryStart::RetryStart(){
     mPosY = 350;
 }
 
+ButtonOptions::ButtonOptions(){
+    mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
+    mPosY = 280;
+}
+
+ButtonHelp::ButtonHelp(){
+    mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
+    mPosY = 360;
+}
+
 ScoreCounter::ScoreCounter(){
     
     
@@ -767,6 +824,26 @@ void RetryStart::render(){
         gButtonRetryTexture.render(mPosX, mPosY);
         
     }
+}
+
+void ButtonOptions::render(){
+    if (optionsPressed) {
+        gButtonOptionsPressedTexture.render(mPosX, mPosY);
+    }else{
+        gButtonOptionsTexture.render(mPosX, mPosY);
+        
+    }
+}
+
+void ButtonHelp::render(){
+    if (helpPressed) {
+        gButtonHelpPressedTexture.render(mPosX, mPosY);
+    }
+    else{
+        
+        gButtonHelpTexture.render(mPosX, mPosY);
+    }
+    
 }
 
 void ScoreCounter::render(){
@@ -948,6 +1025,128 @@ void RetryStart::handleEvent2( SDL_Event& e)
         }
     }
     
+}
+
+void ButtonOptions::handleEvent( SDL_Event& e)
+{
+    //If mouse event happened
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < mPosX )
+        {
+            inside = false;
+            
+        }
+        //Mouse is right of the button
+        else if( x > mPosX + BSTART_WIDTH )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < mPosY )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > mPosY + BSTART_HEIGHT )
+        {
+            inside = false;
+        }
+        //Mouse is outside button
+        if( !inside )
+        {
+            optionsPressed = false;
+        }
+        //Mouse is inside button
+        else
+        {
+            //Set mouse over sprite
+            switch( e.type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                    optionsPressed = true;
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    options = true;
+                    optionsPressed = false;
+                    
+                    
+                    break;
+            }
+            
+            
+        }
+    }
+}
+
+void ButtonHelp::handleEvent( SDL_Event& e)
+{
+    //If mouse event happened
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < mPosX )
+        {
+            inside = false;
+            
+        }
+        //Mouse is right of the button
+        else if( x > mPosX + BSTART_WIDTH )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < mPosY )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > mPosY + BSTART_HEIGHT )
+        {
+            inside = false;
+        }
+        //Mouse is outside button
+        if( !inside )
+        {
+            helpPressed = false;
+        }
+        //Mouse is inside button
+        else
+        {
+            //Set mouse over sprite
+            switch( e.type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                    helpPressed = true;
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    help = true;
+                    helpPressed = false;
+                    
+                    
+                    break;
+            }
+            
+            
+        }
+    }
 }
 
 
@@ -1205,6 +1404,24 @@ bool loadMedia()
         printf("Failed to load button retry texture!\n");
     }
     
+    if (!gButtonOptionsTexture.loadFromFile("sprites/options.png")) {
+        printf("Failed to load button options texture!\n");
+    }
+    
+    if (!gButtonOptionsPressedTexture.loadFromFile("sprites/optionsPressed.png")) {
+        printf("Failed to load button options texture!\n");
+    }
+    
+    if (!gButtonHelpTexture.loadFromFile("sprites/help.png")) {
+        printf("Failed to load button help texture!\n");
+    }
+    
+    if (!gButtonHelpPressedTexture.loadFromFile("sprites/helpPressed.png")) {
+        printf("Failed to load button help texture!\n");
+    }
+    
+  
+    
     //Initialize PNG loading
     int imgFlags = IMG_INIT_PNG;
     if( !( IMG_Init( imgFlags ) & imgFlags ) )
@@ -1310,6 +1527,8 @@ int main( int argc, char* args[] )
             Defeat lost;
             RetryStart rStart;
             ButtonStart bStart;
+            ButtonOptions bOptions;
+            ButtonHelp bHelp;
             Start start;
             Background background;
             ScoreCounter counter;
@@ -1339,6 +1558,8 @@ int main( int argc, char* args[] )
                     
                     if(!defeat && !started){
                         bStart.handleEvent( e );
+                        bOptions.handleEvent(e);
+                        bHelp.handleEvent(e);
                     }
                     
                     
@@ -1420,6 +1641,9 @@ int main( int argc, char* args[] )
                     SDL_RenderClear( gRenderer );
                     start.render();
                     bStart.render();
+                    bOptions.render();
+                    bHelp.render();
+                    
                     //Update screen
                     SDL_RenderPresent( gRenderer );
                 }
