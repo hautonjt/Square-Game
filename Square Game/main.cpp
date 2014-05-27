@@ -368,8 +368,8 @@ class ButtonBouncySelect
 {
 public:
     //Dimensions
-    int BSTART_WIDTH = 310;
-    int BSTART_HEIGHT = 70;
+    int BSTART_WIDTH = 265;
+    int BSTART_HEIGHT = 340;
     //Initializes the variables
     ButtonBouncySelect();
     
@@ -390,8 +390,8 @@ class ButtonStickySelect
 {
 public:
     //Dimensions
-    int BSTART_WIDTH = 310;
-    int BSTART_HEIGHT = 70;
+    int BSTART_WIDTH = 265;
+    int BSTART_HEIGHT = 340;
     //Initializes the variables
     ButtonStickySelect();
     
@@ -1523,7 +1523,7 @@ void Square::move()
             mVelX = -mVelX+1;
         }
         else{
-            mVelX = 0;
+            mVelX = -mVelX/1000;
         }
         
     }
@@ -1534,7 +1534,7 @@ void Square::move()
             mVelX = -mVelX-1;
         }
         else{
-            mVelX = 0;
+            mVelX = -mVelX/1000;
         }
         
     }
