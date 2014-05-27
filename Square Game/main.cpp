@@ -19,6 +19,7 @@ bool pressed;
 bool retryPressed = false;
 bool optionsPressed = false;
 bool helpPressed = false;
+bool closePressed = false;
 float fade = 0;
 int score = 0;
 
@@ -338,6 +339,28 @@ private:
     int mPosX, mPosY;
 };
 
+class ButtonClose
+{
+public:
+    //Dimensions
+    int BSTART_WIDTH = 310;
+    int BSTART_HEIGHT = 70;
+    //Initializes the variables
+    ButtonClose();
+    
+    //Handles mouse event
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the image on the screen
+    void render();
+    
+    
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
 class ScoreCounter
 {
 public:
@@ -396,9 +419,12 @@ FTexture gButtonHelpPressedTexture;
 FTexture gDefeatTexture;
 FTexture gButtonRetryTexture;
 FTexture gButtonRetryTexturePressed;
+FTexture gButtonCloseTexture;
+FTexture gButtonClosePressedTexture;
 FTexture gRetryTexture;
 FTexture gStartTexture;
 FTexture gScoreCounter;
+FTexture gHelpScreen;
 
 //Font
 TTF_Font *gFont;
@@ -776,6 +802,11 @@ ButtonHelp::ButtonHelp(){
     mPosY = 360;
 }
 
+ButtonClose::ButtonClose(){
+    mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
+    mPosY = 400;
+}
+
 ScoreCounter::ScoreCounter(){
     
     
@@ -842,6 +873,17 @@ void ButtonHelp::render(){
     else{
         
         gButtonHelpTexture.render(mPosX, mPosY);
+    }
+    
+}
+
+void ButtonClose::render(){
+    if (helpPressed) {
+        gButtonClosePressedTexture.render(mPosX, mPosY);
+    }
+    else{
+        
+        gButtonCloseTexture.render(mPosX, mPosY);
     }
     
 }
@@ -1149,6 +1191,67 @@ void ButtonHelp::handleEvent( SDL_Event& e)
     }
 }
 
+void ButtonClose::handleEvent( SDL_Event& e)
+{
+    //If mouse event happened
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < mPosX )
+        {
+            inside = false;
+            
+        }
+        //Mouse is right of the button
+        else if( x > mPosX + BSTART_WIDTH )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < mPosY )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > mPosY + BSTART_HEIGHT )
+        {
+            inside = false;
+        }
+        //Mouse is outside button
+        if( !inside )
+        {
+            closePressed = false;
+        }
+        //Mouse is inside button
+        else
+        {
+            //Set mouse over sprite
+            switch( e.type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                    closePressed = true;
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    help = false;
+                    closePressed = false;
+                    
+                    
+                    break;
+            }
+            
+            
+        }
+    }
+}
+
 
 
 
@@ -1416,8 +1519,20 @@ bool loadMedia()
         printf("Failed to load button help texture!\n");
     }
     
+    if (!gButtonCloseTexture.loadFromFile("sprites/close.png")) {
+        printf("Failed to load close button!\n");
+    }
+    
+    if (!gButtonClosePressedTexture.loadFromFile("sprites/closePressed.png")) {
+        printf("Failed to load close button!\n");
+    }
+    
     if (!gButtonHelpPressedTexture.loadFromFile("sprites/helpPressed.png")) {
         printf("Failed to load button help texture!\n");
+    }
+    
+    if (!gHelpScreen.loadFromFile("sprites/helpscreen.png")) {
+        printf("Failed to load button help screen!\n");
     }
     
   
@@ -1529,6 +1644,7 @@ int main( int argc, char* args[] )
             ButtonStart bStart;
             ButtonOptions bOptions;
             ButtonHelp bHelp;
+            ButtonClose bClose;
             Start start;
             Background background;
             ScoreCounter counter;
@@ -1556,7 +1672,11 @@ int main( int argc, char* args[] )
                         square.handleEvent( e );
                     }
                     
-                    if(!defeat && !started){
+                    if (help) {
+                        bClose.handleEvent(e);
+                    }
+                    
+                    if(!defeat && !started && !options && !help){
                         bStart.handleEvent( e );
                         bOptions.handleEvent(e);
                         bHelp.handleEvent(e);
@@ -1564,9 +1684,14 @@ int main( int argc, char* args[] )
                     
                     
 				}
+                
+             
 
                 if(started)
                 {
+                    
+                    
+                    
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
                             printf("Focus lost");
                     }
@@ -1599,6 +1724,7 @@ int main( int argc, char* args[] )
                         //Update screen
                         SDL_RenderPresent( gRenderer );
                     }
+                   
                     else{
                         
                         //Move the dot
@@ -1636,7 +1762,16 @@ int main( int argc, char* args[] )
                         //Update screen
                         SDL_RenderPresent( gRenderer );
                     }
-                }else{
+                }
+                
+                else if (help) {
+                    gHelpScreen.render(0, 0);
+                    bClose.render();
+                    
+                    SDL_RenderPresent(gRenderer);
+                }
+                
+                else{
                     SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                     SDL_RenderClear( gRenderer );
                     start.render();
@@ -1647,6 +1782,8 @@ int main( int argc, char* args[] )
                     //Update screen
                     SDL_RenderPresent( gRenderer );
                 }
+                
+               
                 
             }
             
