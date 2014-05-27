@@ -13,13 +13,16 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 bool defeat;
 bool started;
-bool options;
-bool help;
+bool options; //Whether the options screen is open
+bool bouncy; //Whether the game is bouncy
+bool help; // Whether the help screen is open
 bool pressed;
 bool retryPressed = false;
 bool optionsPressed = false;
 bool helpPressed = false;
 bool closePressed = false;
+bool bouncyPressed = false;
+bool stickyPressed = false;
 float fade = 0;
 int score = 0;
 
@@ -361,6 +364,52 @@ private:
     int mPosX, mPosY;
 };
 
+class ButtonBouncySelect
+{
+public:
+    //Dimensions
+    int BSTART_WIDTH = 310;
+    int BSTART_HEIGHT = 70;
+    //Initializes the variables
+    ButtonBouncySelect();
+    
+    //Handles mouse event
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the image on the screen
+    void render();
+    
+    
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
+class ButtonStickySelect
+{
+public:
+    //Dimensions
+    int BSTART_WIDTH = 310;
+    int BSTART_HEIGHT = 70;
+    //Initializes the variables
+    ButtonStickySelect();
+    
+    //Handles mouse event
+    void handleEvent( SDL_Event& e );
+    
+    //Shows the image on the screen
+    void render();
+    
+    
+    
+private:
+    //The X and Y offsets
+    int mPosX, mPosY;
+};
+
+
+
 class ScoreCounter
 {
 public:
@@ -425,6 +474,11 @@ FTexture gRetryTexture;
 FTexture gStartTexture;
 FTexture gScoreCounter;
 FTexture gHelpScreen;
+FTexture gOptionsScreen;
+FTexture gButtonBouncySelect;
+FTexture gButtonBouncySelectPressed;
+FTexture gButtonStickySelect;
+FTexture gButtonStickySelectPressed;
 
 //Font
 TTF_Font *gFont;
@@ -807,6 +861,16 @@ ButtonClose::ButtonClose(){
     mPosY = 400;
 }
 
+ButtonBouncySelect::ButtonBouncySelect(){
+    mPosX = 30;
+    mPosY = 100;
+}
+
+ButtonStickySelect::ButtonStickySelect(){
+    mPosX = 350;
+    mPosY = 100;
+}
+
 ScoreCounter::ScoreCounter(){
     
     
@@ -884,6 +948,28 @@ void ButtonClose::render(){
     else{
         
         gButtonCloseTexture.render(mPosX, mPosY);
+    }
+    
+}
+
+void ButtonBouncySelect::render(){
+    if (bouncyPressed) {
+        gButtonBouncySelectPressed.render(mPosX, mPosY);
+    }
+    else{
+        
+        gButtonBouncySelect.render(mPosX, mPosY);
+    }
+    
+}
+
+void ButtonStickySelect::render(){
+    if (stickyPressed) {
+        gButtonStickySelectPressed.render(mPosX, mPosY);
+    }
+    else{
+        
+        gButtonStickySelect.render(mPosX, mPosY);
     }
     
 }
@@ -1240,8 +1326,9 @@ void ButtonClose::handleEvent( SDL_Event& e)
                     break;
                     
                 case SDL_MOUSEBUTTONUP:
-                    help = false;
                     closePressed = false;
+                    help = false;
+                   
                     
                     
                     break;
@@ -1251,6 +1338,129 @@ void ButtonClose::handleEvent( SDL_Event& e)
         }
     }
 }
+
+void ButtonBouncySelect::handleEvent( SDL_Event& e)
+{
+    //If mouse event happened
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < mPosX )
+        {
+            inside = false;
+            
+        }
+        //Mouse is right of the button
+        else if( x > mPosX + BSTART_WIDTH )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < mPosY )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > mPosY + BSTART_HEIGHT )
+        {
+            inside = false;
+        }
+        //Mouse is outside button
+        if( !inside )
+        {
+            bouncyPressed = false;
+        }
+        //Mouse is inside button
+        else
+        {
+            //Set mouse over sprite
+            switch( e.type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                    bouncyPressed = true;
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    bouncyPressed = false;
+                    options = false;
+                    bouncy = true;
+                    
+                    break;
+            }
+            
+            
+        }
+    }
+}
+
+void ButtonStickySelect::handleEvent( SDL_Event& e)
+{
+    //If mouse event happened
+    if(e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < mPosX )
+        {
+            inside = false;
+            
+        }
+        //Mouse is right of the button
+        else if( x > mPosX + BSTART_WIDTH )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < mPosY )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > mPosY + BSTART_HEIGHT )
+        {
+            inside = false;
+        }
+        //Mouse is outside button
+        if( !inside )
+        {
+            stickyPressed = false;
+        }
+        //Mouse is inside button
+        else
+        {
+            //Set mouse over sprite
+            switch( e.type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                    stickyPressed = true;
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    stickyPressed = false;
+                    options = false;
+                    bouncy = false;
+                    break;
+            }
+            
+            
+        }
+    }
+}
+
+
 
 
 
@@ -1309,12 +1519,24 @@ void Square::move()
     if(mPosX < 0)
     {
         //Use conservation of momentum to rebound
-        mVelX = -mVelX+1;
+        if (bouncy) {
+            mVelX = -mVelX+1;
+        }
+        else{
+            mVelX = 0;
+        }
+        
     }
     else if (mPosX + SQUARE_WIDTH > SCREEN_WIDTH)
     {
         //Use conservation of momentum to rebound
-        mVelX = -mVelX-1;
+        if (bouncy) {
+            mVelX = -mVelX-1;
+        }
+        else{
+            mVelX = 0;
+        }
+        
     }
     
     //Move the dot up or down
@@ -1331,11 +1553,26 @@ void Square::move()
     if(mPosY < 0)
     {
         //Use conservation of momentum to rebound
-        mVelY = -mVelY+1;
+        if (bouncy) {
+            mVelY = -mVelY+1;
+        }
+        else{
+            mVelY = 0;
+        }
+        
       
     }else if (mPosY + SQUARE_HEIGHT > SCREEN_HEIGHT){
         //Use conservation of momentum to rebound
-        mVelY = -mVelY-1;
+        if (bouncy) {
+            
+            mVelY = -mVelY-1;
+        }
+        else{
+            
+            mVelY = 0;
+            
+        }
+        
     }
 }
 
@@ -1532,7 +1769,27 @@ bool loadMedia()
     }
     
     if (!gHelpScreen.loadFromFile("sprites/helpscreen.png")) {
-        printf("Failed to load button help screen!\n");
+        printf("Failed to load help screen!\n");
+    }
+    
+    if (!gOptionsScreen.loadFromFile("sprites/levelSelect.png")) {
+        printf("Failed to load options screen!\n");
+    }
+    
+    if (!gButtonBouncySelect.loadFromFile("sprites/bouncySelect.png")) {
+        printf("Failed to load options screen!\n");
+    }
+    
+    if (!gButtonBouncySelectPressed.loadFromFile("sprites/bouncySelectPressed.png")) {
+        printf("Failed to load options screen!\n");
+    }
+    
+    if (!gButtonStickySelect.loadFromFile("sprites/stickySelect.png")) {
+        printf("Failed to load options screen!\n");
+    }
+    
+    if (!gButtonStickySelectPressed.loadFromFile("sprites/stickySelectPressed.png")) {
+        printf("Failed to load options screen!\n");
     }
     
   
@@ -1648,6 +1905,8 @@ int main( int argc, char* args[] )
             Start start;
             Background background;
             ScoreCounter counter;
+            ButtonBouncySelect bBouncy;
+            ButtonStickySelect bSticky;
             
             
 			//While application is running
@@ -1672,14 +1931,21 @@ int main( int argc, char* args[] )
                         square.handleEvent( e );
                     }
                     
-                    if (help) {
-                        bClose.handleEvent(e);
-                    }
+                   
                     
                     if(!defeat && !started && !options && !help){
                         bStart.handleEvent( e );
                         bOptions.handleEvent(e);
                         bHelp.handleEvent(e);
+                    }
+                    
+                    if (help) {
+                        bClose.handleEvent(e);
+                    }
+                    
+                    if (options) {
+                        bBouncy.handleEvent(e);
+                        bSticky.handleEvent(e);
                     }
                     
                     
@@ -1765,10 +2031,25 @@ int main( int argc, char* args[] )
                 }
                 
                 else if (help) {
+                    SDL_RenderClear(gRenderer);
+                    
                     gHelpScreen.render(0, 0);
                     bClose.render();
                     
                     SDL_RenderPresent(gRenderer);
+                }
+                
+                else if (options) {
+                    SDL_RenderClear(gRenderer);
+                    
+                   
+                    gOptionsScreen.render(0, 0);
+                    bBouncy.render();
+                    bSticky.render();
+                    
+                    SDL_RenderPresent(gRenderer);
+                    
+                    
                 }
                 
                 else{
