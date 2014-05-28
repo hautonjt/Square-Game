@@ -2058,7 +2058,7 @@ int main( int argc, char* args[] )
                 if(started)
                 {
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                            printf("Focus lost");
+                        
                     }
                     
                     else if(defeat){
