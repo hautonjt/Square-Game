@@ -1025,7 +1025,7 @@ void ScoreCounter::render(){
         gScoreCounter.render((SCREEN_WIDTH/2)-60, (SCREEN_HEIGHT/2)-75);
     }
     
-    gScoreCounter.setAlpha(0.5);
+    gScoreCounter.setAlpha(3);
     
     
 }
@@ -1788,7 +1788,7 @@ bool loadMedia()
 	bool success = true;
     
 	//Load dot texture
-	if( !gSqTexture.loadFromFile( "sprites/square.bmp" ) )
+	if( !gSqTexture.loadFromFile( "sprites/square.png" ) )
 	{
 		printf( "Failed to load square texture!\n" );
 		success = false;
@@ -2099,9 +2099,8 @@ int main( int argc, char* args[] )
                         //Render objects
                         background.render();
                         counter.render();
-                        square.render();
                         food.render();
-                        
+                        square.render();
                         
                         if(checkCollision(square.sqCollider, food.foodCollider)){
                             food.move();
@@ -2111,20 +2110,20 @@ int main( int argc, char* args[] )
                                 gSqTexture.mWidth = gSqTexture.mWidth + 2;
                                 gSqTexture.mHeight = gSqTexture.mHeight + 2;
                             }
+                            Uint8 red = rand()%255;
+                            Uint8 blue = rand()%255;
+                            Uint8 green = rand()%255;
+                            gSqTexture.setColor(red ,green,blue);
                             square.MAX_VEL = 10-100/(score+20);
                             square.SQ_ACC = 5-70/(score+18);
                             score++;
                             Mix_PlayChannel(-1, collided, 0);
 
                         }
+                        
                         //Update Score Counter
                         counter.update();
-                        
-                        
-                        //Print statements
-                        printf("score: %d\n", score);
-                        printf("square: %d\n", square.SQUARE_WIDTH);
-                        printf("texture: %d\n", gSqTexture.mWidth);
+
                         //Update screen
                         SDL_RenderPresent( gRenderer );
                     }
