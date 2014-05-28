@@ -18,12 +18,14 @@ bool options; //Whether the options screen is open
 bool bouncy = true; //Whether the game is bouncy
 bool help; // Whether the help screen is open
 bool pressed;
+bool mute;
 bool retryPressed = false;
 bool optionsPressed = false;
 bool helpPressed = false;
 bool closePressed = false;
 bool bouncyPressed = false;
 bool stickyPressed = false;
+bool playOnce;
 float fade = 0;
 int score = 0;
 
@@ -486,6 +488,10 @@ FTexture gButtonBouncySelect;
 FTexture gButtonBouncySelectPressed;
 FTexture gButtonStickySelect;
 FTexture gButtonStickySelectPressed;
+
+//The music that will be played
+Mix_Music *gMusic = NULL;
+Mix_Chunk *collided = NULL;
 
 //Font
 TTF_Font *gFont;
@@ -1093,7 +1099,7 @@ void ButtonStart::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONUP:
                     started = true;
                     pressed = false;
-                    
+                    Mix_PauseMusic();
                     
                     break;
             }
@@ -1158,6 +1164,9 @@ void RetryStart::handleEvent2( SDL_Event& e)
                     score = 0;
                     fade = 0;
                     retryPressed = false;
+                    if(!mute){
+                        Mix_PlayMusic( gMusic, -1 );
+                    }
                     break;
             }
             
@@ -1340,9 +1349,6 @@ void ButtonClose::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONUP:
                     closePressed = false;
                     help = false;
-                   
-                    
-                    
                     break;
             }
             
@@ -1716,7 +1722,7 @@ bool init()
 	bool success = true;
     
 	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
 	{
 		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
 		success = false;
@@ -1763,6 +1769,12 @@ bool init()
 					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 					success = false;
 				}
+                //Initialize SDL_mixer
+                if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+                {
+                    printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+                    success = false;
+                }
 			}
 		}
 	}
@@ -1861,7 +1873,19 @@ bool loadMedia()
         printf("Failed to load options screen!\n");
     }
     
-  
+    //Load music
+    gMusic = Mix_LoadMUS( "sfx/square.wav" );
+    if( gMusic == NULL )
+    {
+        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
+    
+    collided = Mix_LoadWAV( "sfx/collided.wav" );
+    if( collided == NULL){
+        printf( "Failed to load collided sfx music! SDL_mixer Error: %s\n", Mix_GetError() );
+        return false;
+    }
     
     //Initialize PNG loading
     int imgFlags = IMG_INIT_PNG;
@@ -1878,7 +1902,7 @@ bool loadMedia()
         success = false;
     }
     //Open the font
-    gFont = TTF_OpenFont( "sprites/Track.ttf", 200 );
+    gFont = TTF_OpenFont( "fonts/Track.ttf", 200 );
     if( gFont == NULL )
     {
         printf( "Failed to load  font! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -1923,6 +1947,11 @@ void close()
     gButtonRetryTexture.free();
     gButtonRetryTexturePressed.free();
     gScoreCounter.free();
+    
+    //Free the music
+    Mix_FreeMusic( gMusic );
+    Mix_FreeChunk(collided);
+    gMusic = NULL;
     
     TTF_CloseFont(gFont);
     
@@ -1998,6 +2027,7 @@ int main( int argc, char* args[] )
                         bStart.handleEvent( e );
                         bOptions.handleEvent(e);
                         bHelp.handleEvent(e);
+
                     }else if (options) {
                         bBouncy.handleEvent(e);
                         bSticky.handleEvent(e);
@@ -2008,6 +2038,17 @@ int main( int argc, char* args[] )
                         square.handleEvent( e );
                     }else if(defeat){
                         rStart.handleEvent2( e );
+                    }
+                    
+                    if (e.key.keysym.sym == SDLK_m && e.type == SDL_KEYUP) {
+                        if(!mute){
+                            Mix_PauseMusic();
+                            mute = true;
+
+                        }else{
+                            Mix_PlayMusic( gMusic, -1 );
+                            mute = false;
+                        }
                     }
 
 				}
@@ -2073,6 +2114,7 @@ int main( int argc, char* args[] )
                             square.MAX_VEL = 10-100/(score+20);
                             square.SQ_ACC = 5-70/(score+18);
                             score++;
+                            Mix_PlayChannel(-1, collided, 0);
 
                         }
                         //Update Score Counter
@@ -2117,6 +2159,11 @@ int main( int argc, char* args[] )
                     bStart.render();
                     bOptions.render();
                     bHelp.render();
+                
+                    if(!playOnce){
+                        Mix_PlayMusic( gMusic, -1 );
+                        playOnce = true;
+                    }
                     
                     //Update screen
                     SDL_RenderPresent( gRenderer );
