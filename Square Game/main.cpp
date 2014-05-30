@@ -7,7 +7,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <sstream>
-#include "mysql.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;

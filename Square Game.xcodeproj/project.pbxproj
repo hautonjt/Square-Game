@@ -33,14 +33,17 @@
 		171AD5961935652A00F672F2 /* DarkistheNight.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5941935652A00F672F2 /* DarkistheNight.ttf */; };
 		171AD5971935652A00F672F2 /* Track.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5951935652A00F672F2 /* Track.ttf */; };
 		171AD59A1935655F00F672F2 /* square.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5991935655F00F672F2 /* square.wav */; };
-		174E3AE71935A4C2004A5366 /* libmysqlclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 171AD5601934C0B500F672F2 /* libmysqlclient.a */; };
+		172227ED1937433B003677AA /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAA79261932D099004A5604 /* SDL2_mixer.framework */; };
+		172227EE1937433B003677AA /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAA79271932D099004A5604 /* SDL2_ttf.framework */; };
+		172227EF1937433B003677AA /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD78A834190A279800E2360C /* SDL2_image.framework */; };
+		172227F01937433B003677AA /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD78A835190A279800E2360C /* SDL2.framework */; };
+		172227F119374476003677AA /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADAA79261932D099004A5604 /* SDL2_mixer.framework */; };
+		172227F219374476003677AA /* SDL2_ttf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADAA79271932D099004A5604 /* SDL2_ttf.framework */; };
+		172227F319374476003677AA /* SDL2_image.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD78A834190A279800E2360C /* SDL2_image.framework */; };
+		172227F419374476003677AA /* SDL2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD78A835190A279800E2360C /* SDL2.framework */; };
 		174E3AE91935A635004A5366 /* collided.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = 174E3AE81935A635004A5366 /* collided.wav */; };
 		174E3AEB1935E056004A5366 /* square.png in Copy Files */ = {isa = PBXBuildFile; fileRef = 174E3AEA1935E056004A5366 /* square.png */; };
 		17C5981A17FD1EA70034DC39 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17C5981917FD1EA70034DC39 /* main.cpp */; };
-		AD78A836190A279800E2360C /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD78A834190A279800E2360C /* SDL2_image.framework */; };
-		AD78A837190A279800E2360C /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD78A835190A279800E2360C /* SDL2.framework */; };
-		ADAA79281932D099004A5604 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAA79261932D099004A5604 /* SDL2_mixer.framework */; };
-		ADAA79291932D099004A5604 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAA79271932D099004A5604 /* SDL2_ttf.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +66,19 @@
 			files = (
 				174E3AE91935A635004A5366 /* collided.wav in CopyFiles */,
 				171AD59A1935655F00F672F2 /* square.wav in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		172227E4193719C5003677AA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				172227F119374476003677AA /* SDL2_mixer.framework in CopyFiles */,
+				172227F219374476003677AA /* SDL2_ttf.framework in CopyFiles */,
+				172227F319374476003677AA /* SDL2_image.framework in CopyFiles */,
+				172227F419374476003677AA /* SDL2.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +119,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		171AD5601934C0B500F672F2 /* libmysqlclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmysqlclient.a; path = "Square Game/lib/libmysqlclient.a"; sourceTree = "<group>"; };
 		171AD5661935650A00F672F2 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		171AD5671935650A00F672F2 /* bouncySelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncySelect.png; sourceTree = "<group>"; };
 		171AD5681935650A00F672F2 /* bouncySelectPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncySelectPressed.png; sourceTree = "<group>"; };
@@ -145,11 +160,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADAA79281932D099004A5604 /* SDL2_mixer.framework in Frameworks */,
-				ADAA79291932D099004A5604 /* SDL2_ttf.framework in Frameworks */,
-				AD78A836190A279800E2360C /* SDL2_image.framework in Frameworks */,
-				AD78A837190A279800E2360C /* SDL2.framework in Frameworks */,
-				174E3AE71935A4C2004A5366 /* libmysqlclient.a in Frameworks */,
+				172227ED1937433B003677AA /* SDL2_mixer.framework in Frameworks */,
+				172227EE1937433B003677AA /* SDL2_ttf.framework in Frameworks */,
+				172227EF1937433B003677AA /* SDL2_image.framework in Frameworks */,
+				172227F01937433B003677AA /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +222,6 @@
 		17C5980D17FD1EA70034DC39 = {
 			isa = PBXGroup;
 			children = (
-				171AD5601934C0B500F672F2 /* libmysqlclient.a */,
 				ADAA79261932D099004A5604 /* SDL2_mixer.framework */,
 				ADAA79271932D099004A5604 /* SDL2_ttf.framework */,
 				AD78A834190A279800E2360C /* SDL2_image.framework */,
@@ -246,6 +259,7 @@
 			buildPhases = (
 				17C5981217FD1EA70034DC39 /* Sources */,
 				17C5981317FD1EA70034DC39 /* Frameworks */,
+				172227E4193719C5003677AA /* CopyFiles */,
 				17C5981417FD1EA70034DC39 /* Copy Files */,
 				171AD565193564F300F672F2 /* CopyFiles */,
 				171AD5981935654F00F672F2 /* CopyFiles */,
@@ -379,6 +393,7 @@
 					/usr/local/include,
 					"$(SRCROOT)/Square\\ Game/include",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					/opt/local/lib,
 					/usr/lib,
@@ -414,6 +429,7 @@
 					/usr/include,
 					/usr/local/include,
 				);
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					/opt/local/lib,
 					/usr/lib,
