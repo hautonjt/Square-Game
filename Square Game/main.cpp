@@ -1,13 +1,19 @@
-#include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
-#include <SDL2_mixer/SDL_mixer.h>
-#include <SDL2_ttf/SDL_ttf.h>
 #include <stdio.h>
 #include <string>
 #include <time.h>
 #include <stdlib.h>
 #include <sstream>
-
+#ifdef __APPLE__
+    #include <SDL2/SDL.h>
+    #include <SDL2_image/SDL_image.h>
+    #include <SDL2_mixer/SDL_mixer.h>
+    #include <SDL2_ttf/SDL_ttf.h>
+#elif defined _WIN32 || defined _WIN64
+    #include "SDL2/SDL.h"
+    #include "SDL2/SDL_image.h"
+    #include "SDL2/SDL_mixer.h"
+    #include "SDL2/SDL_ttf.h"
+#endif
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -34,46 +40,46 @@ class LTexture
 public:
     //Initializes variables
     LTexture();
-    
+
     //Deallocates memory
     ~LTexture();
-    
+
     //Loads image at specified path
     bool loadFromFile( std::string path );
-    
+
 #ifdef _SDL_TTF_H
     //Creates image from font string
     bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
 #endif
-    
+
     //Deallocates texture
     void free();
-    
+
     //Set color modulation
     void setColor( Uint8 red, Uint8 green, Uint8 blue );
-    
+
     //Set blending
     void setBlendMode( SDL_BlendMode blending );
-    
+
     //Set alpha modulation
     void setAlpha( Uint8 alpha );
-    
+
     //Renders texture at given point
     void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
-    
+
     //Gets image dimensions
     int getWidth();
     int getHeight();
     //Image dimensions
     int mWidth;
     int mHeight;
-    
+
     int counter;
-    
+
 private:
     //The actual hardware texture
     SDL_Texture* mTexture;
-    
+
 
 };
 
@@ -83,40 +89,40 @@ class FTexture
 public:
     //Initializes variables
     FTexture();
-    
+
     //Deallocates memory
     ~FTexture();
-    
+
     //Loads image at specified path
     bool loadFromFile( std::string path );
-    
+
 #ifdef _SDL_TTF_H
     //Creates image from font string
     bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
 #endif
-    
+
     //Deallocates texture
     void free();
-    
+
     //Set color modulation
     void setColor( Uint8 red, Uint8 green, Uint8 blue );
-    
+
     //Set blending
     void setBlendMode( SDL_BlendMode blending );
-    
+
     //Set alpha modulation
     void setAlpha( Uint8 alpha );
-    
+
     //Renders texture at given point
     void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
-    
+
     //Gets image dimensions
     int getWidth();
     int getHeight();
     //Image dimensions
     int mWidth;
     int mHeight;
-    
+
 private:
     //The actual hardware texture
     SDL_Texture* mTexture;
@@ -128,27 +134,27 @@ class LTimer
 public:
     //Initializes variables
     LTimer();
-    
+
     //The various clock actions
     void start();
     void stop();
     void pause();
     void unpause();
-    
+
     //Gets the timer's time
     Uint32 getTicks();
-    
+
     //Checks the status of the timer
     bool isStarted();
     bool isPaused();
-    
+
 private:
     //The clock time when the timer started
     Uint32 mStartTicks;
-    
+
     //The ticks stored when the timer was paused
     Uint32 mPausedTicks;
-    
+
     //The timer status
     bool mPaused;
     bool mStarted;
@@ -161,46 +167,46 @@ public:
     //The dimensions of the square
     int SQUARE_WIDTH = 80;
     int SQUARE_HEIGHT = 80;
-    
+
     //counter
     int squareCounter = 0;
-    
+
     //Maximum axis velocity of the dot
     static const int SQ_VEL = 10;
     int SQ_ACC = 1;
-    
+
     int MAX_VEL = 5;
-    
+
     //Initializes the variables
     Square();
-    
+
     //Takes key presses and adjusts the dot's velocity
     void handleEvent( SDL_Event& e );
-    
+
     //Moves the square
     void move();
-    
+
     //Shows the square on the screen
     void render();
-    
+
     bool downPressed;
     bool upPressed;
     bool leftPressed;
     bool rightPressed;
-    
+
     //collisions
     SDL_Rect sqCollider;
-    
+
 private:
     //The X and Y offsets of the dot
     int mPosX, mPosY;
-    
+
     //The velocity of the dot
     int mVelX, mVelY;
-    
+
     //The acceleration of the dot
     int mAccX, mAccY;
-    
+
 
 };
 
@@ -210,23 +216,23 @@ public:
     //The dimensions of the food
     int FOOD_WIDTH = 20;
     int FOOD_HEIGHT = 20;
-    
+
     //Initializes the variables
     Food();
-    
+
     //Shows the food on the screen
     void render();
-    
+
     //Moves the food
     void move();
-    
+
     //collisions
     SDL_Rect foodCollider;
-    
+
 private:
     //The X and Y offsets of the food
     int mPosX, mPosY;
-    
+
 };
 
 class Defeat
@@ -237,7 +243,7 @@ public:
     int DEFEAT_HEIGHT = SCREEN_HEIGHT;
     //Initializes the variables
     Defeat();
-    
+
     //Shows the image on the screen
     void render();
 
@@ -254,10 +260,10 @@ public:
     int START_HEIGHT = SCREEN_HEIGHT;
     //Initializes the variables
     Start();
-    
+
     //Shows the image on the screen
     void render();
-    
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -271,15 +277,15 @@ public:
     int BSTART_HEIGHT = 70;
     //Initializes the variables
     ButtonStart();
-    
+
     //Handles mouse event
     void handleEvent( SDL_Event& e );
-    
+
     //Shows the image on the screen
     void render();
-    
 
-    
+
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -293,14 +299,14 @@ public:
     int BSTART_HEIGHT = 70;
     //Initializes the variables
     RetryStart();
-    
+
     //Handles mouse event
     void handleEvent2( SDL_Event& e );
-    
+
     //Shows the image on the screen
     void render();
-    
-    
+
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -314,15 +320,15 @@ public:
     int BSTART_HEIGHT = 70;
     //Initializes the variables
     ButtonOptions();
-    
+
     //Handles mouse event
     void handleEvent( SDL_Event& e );
-    
+
     //Shows the image on the screen
     void render();
-    
-    
-    
+
+
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -336,15 +342,15 @@ public:
     int BSTART_HEIGHT = 70;
     //Initializes the variables
     ButtonHelp();
-    
+
     //Handles mouse event
     void handleEvent( SDL_Event& e );
-    
+
     //Shows the image on the screen
     void render();
-    
-    
-    
+
+
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -358,15 +364,15 @@ public:
     int BSTART_HEIGHT = 70;
     //Initializes the variables
     ButtonClose();
-    
+
     //Handles mouse event
     void handleEvent( SDL_Event& e );
-    
+
     //Shows the image on the screen
     void render();
-    
-    
-    
+
+
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -380,15 +386,15 @@ public:
     int BSTART_HEIGHT = 340;
     //Initializes the variables
     ButtonBouncySelect();
-    
+
     //Handles mouse event
     void handleEvent( SDL_Event& e );
-    
+
     //Shows the image on the screen
     void render();
-    
-    
-    
+
+
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -402,15 +408,15 @@ public:
     int BSTART_HEIGHT = 340;
     //Initializes the variables
     ButtonStickySelect();
-    
+
     //Handles mouse event
     void handleEvent( SDL_Event& e );
-    
+
     //Shows the image on the screen
     void render();
-    
-    
-    
+
+
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -422,9 +428,9 @@ class ScoreCounter
 {
 public:
     ScoreCounter();
-    
+
     void render();
-    
+
     void update();
 };
 
@@ -436,10 +442,10 @@ public:
     int BG_HEIGHT = SCREEN_HEIGHT;
     //Initializes the variables
     Background();
-    
+
     //Shows the image on the screen
     void render();
-    
+
 private:
     //The X and Y offsets
     int mPosX, mPosY;
@@ -529,10 +535,10 @@ bool LTexture::loadFromFile( std::string path )
 {
 	//Get rid of preexisting texture
 	free();
-    
+
 	//The final texture
 	SDL_Texture* newTexture = NULL;
-    
+
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
@@ -543,7 +549,7 @@ bool LTexture::loadFromFile( std::string path )
 	{
 		//Color key image
 		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
-        
+
 		//Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
 		if( newTexture == NULL )
@@ -556,11 +562,11 @@ bool LTexture::loadFromFile( std::string path )
 			mWidth = loadedSurface->w;
 			mHeight = loadedSurface->h;
 		}
-        
+
 		//Get rid of old loaded surface
 		SDL_FreeSurface( loadedSurface );
 	}
-    
+
 	//Return success
 	mTexture = newTexture;
 	return mTexture != NULL;
@@ -570,10 +576,10 @@ bool FTexture::loadFromFile( std::string path )
 {
 	//Get rid of preexisting texture
 	free();
-    
+
 	//The final texture
 	SDL_Texture* newTexture = NULL;
-    
+
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
@@ -584,7 +590,7 @@ bool FTexture::loadFromFile( std::string path )
 	{
 		//Color key image
 		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
-        
+
 		//Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
 		if( newTexture == NULL )
@@ -597,11 +603,11 @@ bool FTexture::loadFromFile( std::string path )
 			mWidth = loadedSurface->w;
 			mHeight = loadedSurface->h;
 		}
-        
+
 		//Get rid of old loaded surface
 		SDL_FreeSurface( loadedSurface );
 	}
-    
+
 	//Return success
 	mTexture = newTexture;
 	return mTexture != NULL;
@@ -613,7 +619,7 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 {
 	//Get rid of preexisting texture
 	free();
-    
+
 	//Render text surface
 	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
 	if( textSurface != NULL )
@@ -630,7 +636,7 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 			mWidth = textSurface->w;
 			mHeight = textSurface->h;
 		}
-        
+
 		//Get rid of old surface
 		SDL_FreeSurface( textSurface );
 	}
@@ -638,8 +644,8 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 	{
 		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
 	}
-    
-	
+
+
 	//Return success
 	return mTexture != NULL;
 }
@@ -648,7 +654,7 @@ bool FTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 {
 	//Get rid of preexisting texture
 	free();
-    
+
 	//Render text surface
 	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
 	if( textSurface != NULL )
@@ -665,7 +671,7 @@ bool FTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 			mWidth = textSurface->w;
 			mHeight = textSurface->h;
 		}
-        
+
 		//Get rid of old surface
 		SDL_FreeSurface( textSurface );
 	}
@@ -673,8 +679,8 @@ bool FTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 	{
 		printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
 	}
-    
-	
+
+
 	//Return success
 	return mTexture != NULL;
 }
@@ -717,19 +723,19 @@ void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* ce
             mWidth--;
             mHeight--;
     }
-   
+
 
 
 	//Set rendering space and render to screen
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-    
+
 	//Set clip rendering dimensions
 	if( clip != NULL )
 	{
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}
-    
+
 	//Render to screen
 	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
 }
@@ -779,14 +785,14 @@ void FTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* ce
 {
 	//Set rendering space and render to screen
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-    
+
 	//Set clip rendering dimensions
 	if( clip != NULL )
 	{
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}
-    
+
 	//Render to screen
 	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
 }
@@ -808,21 +814,21 @@ Square::Square()
     //Initialize the offsets
     mPosX = 240;
     mPosY = 320;
-    
+
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
     mAccX = 0;
     mAccY = 0;
-    
+
     downPressed = false;
     upPressed = false;
     leftPressed = false;
     rightPressed = false;
-    
+
     sqCollider.w = SQUARE_WIDTH;
     sqCollider.h = SQUARE_HEIGHT;
-    
+
 }
 
 Food::Food()
@@ -831,7 +837,7 @@ Food::Food()
     printf("srand called");
     mPosX = rand()%(640-FOOD_WIDTH);
     mPosY = rand()%(480-FOOD_HEIGHT);
-    
+
     foodCollider.w = FOOD_WIDTH;
     foodCollider.h = FOOD_HEIGHT;
     foodCollider.x = mPosX;
@@ -889,8 +895,8 @@ ButtonStickySelect::ButtonStickySelect(){
 }
 
 ScoreCounter::ScoreCounter(){
-    
-    
+
+
 }
 
 void Food::move()
@@ -934,7 +940,7 @@ void RetryStart::render(){
        gButtonRetryTexturePressed.render(mPosX, mPosY);
     }else{
         gButtonRetryTexture.render(mPosX, mPosY);
-        
+
     }
 }
 
@@ -943,7 +949,7 @@ void ButtonOptions::render(){
         gButtonOptionsPressedTexture.render(mPosX, mPosY);
     }else{
         gButtonOptionsTexture.render(mPosX, mPosY);
-        
+
     }
 }
 
@@ -952,10 +958,10 @@ void ButtonHelp::render(){
         gButtonHelpPressedTexture.render(mPosX, mPosY);
     }
     else{
-        
+
         gButtonHelpTexture.render(mPosX, mPosY);
     }
-    
+
 }
 
 void ButtonClose::render(){
@@ -963,10 +969,10 @@ void ButtonClose::render(){
         gButtonClosePressedTexture.render(mPosX, mPosY);
     }
     else{
-        
+
         gButtonCloseTexture.render(mPosX, mPosY);
     }
-    
+
 }
 
 void ButtonBouncySelect::render(){
@@ -974,10 +980,10 @@ void ButtonBouncySelect::render(){
         gButtonBouncySelectPressed.render(mPosX, mPosY);
     }
     else{
-        
+
         gButtonBouncySelect.render(mPosX, mPosY);
     }
-    
+
 }
 
 void ButtonStickySelect::render(){
@@ -985,28 +991,28 @@ void ButtonStickySelect::render(){
         gButtonStickySelectPressed.render(mPosX, mPosY);
     }
     else{
-        
+
         gButtonStickySelect.render(mPosX, mPosY);
     }
-    
+
 }
 
 void ScoreCounter::render(){
-    
+
     int imgFlags = IMG_INIT_PNG;
     if( !( IMG_Init( imgFlags ) & imgFlags ) )
     {
         printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-        
+
     }
-    
+
     //Initialize SDL_ttf
     if( TTF_Init() == -1 )
     {
         printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
-        
+
     }
-    
+
     std::string scoreString;
     std::ostringstream stream;
     stream << score;
@@ -1016,21 +1022,21 @@ void ScoreCounter::render(){
     {
         printf( "Failed to render text texture!\n" );
     }
-    
+
     if (score>9) {
         gScoreCounter.render((SCREEN_WIDTH/3)-5, (SCREEN_HEIGHT/2)-75);
     }
     else{
         gScoreCounter.render((SCREEN_WIDTH/2)-60, (SCREEN_HEIGHT/2)-75);
     }
-    
+
     gScoreCounter.setAlpha(3);
-    
-    
+
+
 }
 
 void ScoreCounter::update(){
-    
+
     std::string scoreString;
     std::ostringstream stream;
     stream << score;
@@ -1041,7 +1047,7 @@ void ScoreCounter::update(){
         printf( "Failed to render text texture!\n" );
     }
 
-    
+
 
 }
 
@@ -1055,15 +1061,15 @@ void ButtonStart::handleEvent( SDL_Event& e)
         //Get mouse position
         int x, y;
         SDL_GetMouseState( &x, &y );
-        
+
         //Check if mouse is in button
         bool inside = true;
-        
+
         //Mouse is left of the button
         if( x < mPosX )
         {
             inside = false;
-            
+
         }
         //Mouse is right of the button
         else if( x > mPosX + BSTART_WIDTH )
@@ -1094,16 +1100,16 @@ void ButtonStart::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONDOWN:
                     pressed = true;
                     break;
-                    
+
                 case SDL_MOUSEBUTTONUP:
                     started = true;
                     pressed = false;
                     Mix_PauseMusic();
-                    
+
                     break;
             }
 
-            
+
         }
     }
 }
@@ -1117,15 +1123,15 @@ void RetryStart::handleEvent2( SDL_Event& e)
         //Get mouse position
         int x, y;
         SDL_GetMouseState( &x, &y );
-        
+
         //Check if mouse is in button
         bool inside = true;
-        
+
         //Mouse is left of the button
         if( x < mPosX )
         {
             inside = false;
-            
+
         }
         //Mouse is right of the button
         else if( x > mPosX + BSTART_WIDTH )
@@ -1156,7 +1162,7 @@ void RetryStart::handleEvent2( SDL_Event& e)
                 case SDL_MOUSEBUTTONDOWN:
                     retryPressed = true;
                     break;
-                    
+
                 case SDL_MOUSEBUTTONUP:
                     started = false;
                     defeat = false;
@@ -1168,11 +1174,11 @@ void RetryStart::handleEvent2( SDL_Event& e)
                     }
                     break;
             }
-            
-            
+
+
         }
     }
-    
+
 }
 
 void ButtonOptions::handleEvent( SDL_Event& e)
@@ -1183,15 +1189,15 @@ void ButtonOptions::handleEvent( SDL_Event& e)
         //Get mouse position
         int x, y;
         SDL_GetMouseState( &x, &y );
-        
+
         //Check if mouse is in button
         bool inside = true;
-        
+
         //Mouse is left of the button
         if( x < mPosX )
         {
             inside = false;
-            
+
         }
         //Mouse is right of the button
         else if( x > mPosX + BSTART_WIDTH )
@@ -1222,16 +1228,16 @@ void ButtonOptions::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONDOWN:
                     optionsPressed = true;
                     break;
-                    
+
                 case SDL_MOUSEBUTTONUP:
                     options = true;
                     optionsPressed = false;
-                    
-                    
+
+
                     break;
             }
-            
-            
+
+
         }
     }
 }
@@ -1244,15 +1250,15 @@ void ButtonHelp::handleEvent( SDL_Event& e)
         //Get mouse position
         int x, y;
         SDL_GetMouseState( &x, &y );
-        
+
         //Check if mouse is in button
         bool inside = true;
-        
+
         //Mouse is left of the button
         if( x < mPosX )
         {
             inside = false;
-            
+
         }
         //Mouse is right of the button
         else if( x > mPosX + BSTART_WIDTH )
@@ -1283,16 +1289,16 @@ void ButtonHelp::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONDOWN:
                     helpPressed = true;
                     break;
-                    
+
                 case SDL_MOUSEBUTTONUP:
                     help = true;
                     helpPressed = false;
-                    
-                    
+
+
                     break;
             }
-            
-            
+
+
         }
     }
 }
@@ -1305,15 +1311,15 @@ void ButtonClose::handleEvent( SDL_Event& e)
         //Get mouse position
         int x, y;
         SDL_GetMouseState( &x, &y );
-        
+
         //Check if mouse is in button
         bool inside = true;
-        
+
         //Mouse is left of the button
         if( x < mPosX )
         {
             inside = false;
-            
+
         }
         //Mouse is right of the button
         else if( x > mPosX + BSTART_WIDTH )
@@ -1344,14 +1350,14 @@ void ButtonClose::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONDOWN:
                     closePressed = true;
                     break;
-                    
+
                 case SDL_MOUSEBUTTONUP:
                     closePressed = false;
                     help = false;
                     break;
             }
-            
-            
+
+
         }
     }
 }
@@ -1364,15 +1370,15 @@ void ButtonBouncySelect::handleEvent( SDL_Event& e)
         //Get mouse position
         int x, y;
         SDL_GetMouseState( &x, &y );
-        
+
         //Check if mouse is in button
         bool inside = true;
-        
+
         //Mouse is left of the button
         if( x < mPosX )
         {
             inside = false;
-            
+
         }
         //Mouse is right of the button
         else if( x > mPosX + BSTART_WIDTH )
@@ -1403,16 +1409,16 @@ void ButtonBouncySelect::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONDOWN:
                     bouncyPressed = true;
                     break;
-                    
+
                 case SDL_MOUSEBUTTONUP:
                     bouncyPressed = false;
                     options = false;
                     bouncy = true;
-                    
+
                     break;
             }
-            
-            
+
+
         }
     }
 }
@@ -1425,15 +1431,15 @@ void ButtonStickySelect::handleEvent( SDL_Event& e)
         //Get mouse position
         int x, y;
         SDL_GetMouseState( &x, &y );
-        
+
         //Check if mouse is in button
         bool inside = true;
-        
+
         //Mouse is left of the button
         if( x < mPosX )
         {
             inside = false;
-            
+
         }
         //Mouse is right of the button
         else if( x > mPosX + BSTART_WIDTH )
@@ -1464,15 +1470,15 @@ void ButtonStickySelect::handleEvent( SDL_Event& e)
                 case SDL_MOUSEBUTTONDOWN:
                     stickyPressed = true;
                     break;
-                    
+
                 case SDL_MOUSEBUTTONUP:
                     stickyPressed = false;
                     options = false;
                     bouncy = false;
                     break;
             }
-            
-            
+
+
         }
     }
 }
@@ -1523,7 +1529,7 @@ void Square::handleEvent( SDL_Event& e )
 //            case SDLK_DOWN: mAccY -= SQ_ACC; break;
 //            case SDLK_LEFT: mAccX += SQ_ACC; break;
 //            case SDLK_RIGHT: mAccX -= SQ_ACC; break;
-                
+
             case SDLK_UP:
                 if(!downPressed){
                     mAccY = 0;
@@ -1575,7 +1581,7 @@ void Square::move()
         upPressed = false;
         leftPressed = false;
         rightPressed = false;
-        
+
     }
     //Move the square left or right
     mVelX += mAccX;
@@ -1586,7 +1592,7 @@ void Square::move()
     }else if (mVelX >=MAX_VEL){
         mVelX = MAX_VEL;
     }
-    
+
     //If the square went too far to the left or right
     if(mPosX < 0)
     {
@@ -1598,7 +1604,7 @@ void Square::move()
             mVelX = 0;
             mPosX = 0;
         }
-        
+
     }
     else if (mPosX + SQUARE_WIDTH > SCREEN_WIDTH)
     {
@@ -1610,9 +1616,9 @@ void Square::move()
             mVelX = 0;
             mPosX = SCREEN_WIDTH-SQUARE_WIDTH;
         }
-        
+
     }
-    
+
     //Move the dot up or down
     mVelY += mAccY;
     mPosY += mVelY;
@@ -1622,7 +1628,7 @@ void Square::move()
     }else if (mVelY >=MAX_VEL){
         mVelY = MAX_VEL;
     }
-    
+
     //If the dot went too far up or down
     if(mPosY < 0)
     {
@@ -1634,19 +1640,19 @@ void Square::move()
             mVelY = 0;
             mPosY = 0;
         }
-        
-      
+
+
     }else if (mPosY + SQUARE_HEIGHT > SCREEN_HEIGHT){
         //Use conservation of momentum to rebound
         if (bouncy) {
-            
+
             mVelY = -mVelY-SQ_ACC;
         }
         else{
             mVelY = 0;
             mPosY = SCREEN_HEIGHT-SQUARE_HEIGHT;
         }
-        
+
     }
 }
 
@@ -1667,7 +1673,7 @@ void Square::render()
 
     //Show the square
 	gSqTexture.render( mPosX, mPosY );
-    
+
 }
 
 bool checkCollision( SDL_Rect collider1, SDL_Rect collider2 )
@@ -1677,40 +1683,40 @@ bool checkCollision( SDL_Rect collider1, SDL_Rect collider2 )
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-    
+
     //Calculate the sides of rect A
     leftA = collider1.x;
     rightA = collider1.x + collider1.w;
     topA = collider1.y;
     bottomA = collider1.y + collider1.h;
-    
+
     //Calculate the sides of rect B
     leftB = collider2.x;
     rightB = collider2.x + collider2.w;
     topB = collider2.y;
     bottomB = collider2.y + collider2.h;
-    
+
     //If any of the sides from A are outside of B
     if( bottomA <= topB )
     {
         return false;
     }
-    
+
     if( topA >= bottomB )
     {
         return false;
     }
-    
+
     if( rightA <= leftB )
     {
         return false;
     }
-    
+
     if( leftA >= rightB )
     {
         return false;
     }
-    
+
     //If none of the sides from A are outside B
     return true;
 }
@@ -1719,7 +1725,7 @@ bool init()
 {
 	//Initialization flag
 	bool success = true;
-    
+
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
 	{
@@ -1733,13 +1739,13 @@ bool init()
 		{
 			printf( "Warning: VSync not enabled!" );
 		}
-        
+
 		//Set texture filtering to linear
 		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 		{
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
-        
+
 		//Create window
 		gWindow = SDL_CreateWindow( "Square", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
@@ -1760,7 +1766,7 @@ bool init()
 			{
 				//Initialize renderer color
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-                
+
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
 				if( !( IMG_Init( imgFlags ) & imgFlags ) )
@@ -1777,7 +1783,7 @@ bool init()
 			}
 		}
 	}
-    
+
 	return success;
 }
 
@@ -1785,7 +1791,7 @@ bool loadMedia()
 {
 	//Loading success flag
 	bool success = true;
-    
+
 	//Load dot texture
 	if( !gSqTexture.loadFromFile( "sprites/square.png" ) )
 	{
@@ -1819,59 +1825,59 @@ bool loadMedia()
     if (!gButtonRetryTexture.loadFromFile("sprites/retry.png")) {
         printf("Failed to load button retry texture!\n");
     }
-    
+
     if (!gButtonRetryTexturePressed.loadFromFile("sprites/retryPressed.png")) {
         printf("Failed to load button retry texture!\n");
     }
-    
+
     if (!gButtonOptionsTexture.loadFromFile("sprites/options.png")) {
         printf("Failed to load button options texture!\n");
     }
-    
+
     if (!gButtonOptionsPressedTexture.loadFromFile("sprites/optionsPressed.png")) {
         printf("Failed to load button options texture!\n");
     }
-    
+
     if (!gButtonHelpTexture.loadFromFile("sprites/help.png")) {
         printf("Failed to load button help texture!\n");
     }
-    
+
     if (!gButtonCloseTexture.loadFromFile("sprites/close.png")) {
         printf("Failed to load close button!\n");
     }
-    
+
     if (!gButtonClosePressedTexture.loadFromFile("sprites/closePressed.png")) {
         printf("Failed to load close button!\n");
     }
-    
+
     if (!gButtonHelpPressedTexture.loadFromFile("sprites/helpPressed.png")) {
         printf("Failed to load button help texture!\n");
     }
-    
+
     if (!gHelpScreen.loadFromFile("sprites/helpscreen.png")) {
         printf("Failed to load help screen!\n");
     }
-    
+
     if (!gOptionsScreen.loadFromFile("sprites/levelSelect.png")) {
         printf("Failed to load options screen!\n");
     }
-    
+
     if (!gButtonBouncySelect.loadFromFile("sprites/bouncySelect.png")) {
         printf("Failed to load options screen!\n");
     }
-    
+
     if (!gButtonBouncySelectPressed.loadFromFile("sprites/bouncySelectPressed.png")) {
         printf("Failed to load options screen!\n");
     }
-    
+
     if (!gButtonStickySelect.loadFromFile("sprites/stickySelect.png")) {
         printf("Failed to load options screen!\n");
     }
-    
+
     if (!gButtonStickySelectPressed.loadFromFile("sprites/stickySelectPressed.png")) {
         printf("Failed to load options screen!\n");
     }
-    
+
     //Load music
     gMusic = Mix_LoadMUS( "sfx/square.wav" );
     if( gMusic == NULL )
@@ -1879,13 +1885,13 @@ bool loadMedia()
         printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
         success = false;
     }
-    
+
     collided = Mix_LoadWAV( "sfx/collided.wav" );
     if( collided == NULL){
         printf( "Failed to load collided sfx music! SDL_mixer Error: %s\n", Mix_GetError() );
         return false;
     }
-    
+
     //Initialize PNG loading
     int imgFlags = IMG_INIT_PNG;
     if( !( IMG_Init( imgFlags ) & imgFlags ) )
@@ -1893,7 +1899,7 @@ bool loadMedia()
         printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
         success = false;
     }
-    
+
     //Initialize SDL_ttf
     if( TTF_Init() == -1 )
     {
@@ -1909,12 +1915,12 @@ bool loadMedia()
     }
     else
     {
-        
+
         std::string scoreString;
         std::ostringstream stream;
         stream << score;
         scoreString = stream.str();
-        
+
         //Render text
         SDL_Color textColor = { 0, 0, 0 };
         if( !gScoreCounter.loadFromRenderedText( scoreString, textColor ) )
@@ -1923,8 +1929,8 @@ bool loadMedia()
             success = false;
         }
     }
-   
-    
+
+
 	return success;
 }
 
@@ -1946,20 +1952,20 @@ void close()
     gButtonRetryTexture.free();
     gButtonRetryTexturePressed.free();
     gScoreCounter.free();
-    
+
     //Free the music
     Mix_FreeMusic( gMusic );
     Mix_FreeChunk(collided);
     gMusic = NULL;
-    
+
     TTF_CloseFont(gFont);
-    
+
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 	gRenderer = NULL;
-    
+
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
@@ -1983,13 +1989,13 @@ int main( int argc, char* args[] )
 		{
 			//Main loop flag
 			bool quit = false;
-            
-            
-            
+
+
+
 			//Event handler
 			SDL_Event e;
-          
-            
+
+
 			//The square that will be moving around on the screen
 			Square square;
             Food food;
@@ -2004,8 +2010,8 @@ int main( int argc, char* args[] )
             ScoreCounter counter;
             ButtonBouncySelect bBouncy;
             ButtonStickySelect bSticky;
-            
-            
+
+
 			//While application is running
 			while( !quit )
 			{
@@ -2017,11 +2023,11 @@ int main( int argc, char* args[] )
 					{
 						quit = true;
 					}
-                    
+
                     if (e.key.keysym.sym == SDLK_d) {
                         defeat = true;
                     }
-         
+
                     if(!defeat && !started && !options && !help){
                         bStart.handleEvent( e );
                         bOptions.handleEvent(e);
@@ -2038,7 +2044,7 @@ int main( int argc, char* args[] )
                     }else if(defeat){
                         rStart.handleEvent2( e );
                     }
-                    
+
                     if (e.key.keysym.sym == SDLK_m && e.type == SDL_KEYUP) {
                         if(!mute){
                             Mix_PauseMusic();
@@ -2051,21 +2057,21 @@ int main( int argc, char* args[] )
                     }
 
 				}
-                
-             
+
+
 
                 if(started)
                 {
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                        
+
                     }
-                    
+
                     else if(defeat){
 
                         //Clear screen
                         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                         SDL_RenderClear( gRenderer );
-                        
+
                         //Render defeat
                         fade = fade + 3.4f;
                         if(fade < 256){
@@ -2082,25 +2088,25 @@ int main( int argc, char* args[] )
                         square.sqCollider.w = 80;
                         square.sqCollider.h = 80;
                         square.move();
-                        
+
                         //Update screen
                         SDL_RenderPresent( gRenderer );
                     }
-                   
+
                     else{
-                        
+
                         //Move the dot
                         square.move();
                         //Clear screen
                         SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                         SDL_RenderClear( gRenderer );
-                        
+
                         //Render objects
                         background.render();
                         counter.render();
                         food.render();
                         square.render();
-                        
+
                         if(checkCollision(square.sqCollider, food.foodCollider)){
                             food.move();
                             if (square.SQUARE_WIDTH + score/2 < 80) {
@@ -2119,7 +2125,7 @@ int main( int argc, char* args[] )
                             Mix_PlayChannel(-1, collided, 0);
 
                         }
-                        
+
                         //Update Score Counter
                         counter.update();
 
@@ -2127,29 +2133,29 @@ int main( int argc, char* args[] )
                         SDL_RenderPresent( gRenderer );
                     }
                 }
-                
+
                 else if (help) {
                     SDL_RenderClear(gRenderer);
-                    
+
                     gHelpScreen.render(0, 0);
                     bClose.render();
-                    
+
                     SDL_RenderPresent(gRenderer);
                 }
-                
+
                 else if (options) {
                     SDL_RenderClear(gRenderer);
-                    
-                   
+
+
                     gOptionsScreen.render(0, 0);
                     bBouncy.render();
                     bSticky.render();
-                    
+
                     SDL_RenderPresent(gRenderer);
-                    
-                    
+
+
                 }
-                
+
                 else{
                     SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                     SDL_RenderClear( gRenderer );
@@ -2157,26 +2163,26 @@ int main( int argc, char* args[] )
                     bStart.render();
                     bOptions.render();
                     bHelp.render();
-                
+
                     if(!playOnce){
                         Mix_PlayMusic( gMusic, -1 );
                         playOnce = true;
                     }
-                    
+
                     //Update screen
                     SDL_RenderPresent( gRenderer );
                 }
-                
-               
-                
+
+
+
             }
-            
+
 		}
 	}
-    
+
 	//Free resources and close SDL
 	close();
-    
+
 	return 0;
-    
+
 }
