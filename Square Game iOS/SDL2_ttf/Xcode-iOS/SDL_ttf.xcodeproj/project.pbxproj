@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1706B4201944109000F88B8C /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B41F1944109000F88B8C /* libSDL2.a */; };
 		AA8087721764F92F00F24AFF /* autofit.c in Sources */ = {isa = PBXBuildFile; fileRef = AA8087711764F92F00F24AFF /* autofit.c */; };
 		AA8087891764F9C500F24AFF /* ftbase.c in Sources */ = {isa = PBXBuildFile; fileRef = AA8087731764F9C500F24AFF /* ftbase.c */; };
 		AA80878A1764F9C500F24AFF /* ftbbox.c in Sources */ = {isa = PBXBuildFile; fileRef = AA8087741764F9C500F24AFF /* ftbbox.c */; };
@@ -55,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		1014BAEA010A4B677F000001 /* SDL_ttf.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SDL_ttf.h; path = ../SDL_ttf.h; sourceTree = SOURCE_ROOT; };
+		1706B41F1944109000F88B8C /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = "../../SDL2/Xcode-iOS/SDL/build/Debug-iphoneos/libSDL2.a"; sourceTree = "<group>"; };
 		AA8087711764F92F00F24AFF /* autofit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = autofit.c; path = src/autofit/autofit.c; sourceTree = "<group>"; };
 		AA8087731764F9C500F24AFF /* ftbase.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ftbase.c; path = src/base/ftbase.c; sourceTree = "<group>"; };
 		AA8087741764F9C500F24AFF /* ftbbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ftbbox.c; path = src/base/ftbbox.c; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1706B4201944109000F88B8C /* libSDL2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +136,7 @@
 		0867D691FE84028FC02AAC07 /* SDL_ttfFramework */ = {
 			isa = PBXGroup;
 			children = (
+				1706B41F1944109000F88B8C /* libSDL2.a */,
 				0153844A006D81B07F000001 /* Public Headers */,
 				08FB77ACFE841707C02AAC07 /* Library Source */,
 				034768DDFF38A45A11DB9C8B /* Products */,
@@ -338,9 +342,20 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = FT2_BUILD_LIBRARY;
+				HEADER_SEARCH_PATHS = (
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_2)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/s140401/Square-Game/Square",
+					Game,
+					"iOS/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos",
+				);
 				LIBRARY_STYLE = STATIC;
 				PRODUCT_NAME = SDL2_ttf;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../SDL2/include\"";
 			};
 			name = Debug;
 		};
@@ -350,16 +365,27 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = FT2_BUILD_LIBRARY;
+				HEADER_SEARCH_PATHS = (
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_2)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/s140401/Square-Game/Square",
+					Game,
+					"iOS/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos",
+				);
 				LIBRARY_STYLE = STATIC;
 				PRODUCT_NAME = SDL2_ttf;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../SDL2/include\"";
 			};
 			name = Release;
 		};
 		00B7E1F6097E26C600826121 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
@@ -368,7 +394,7 @@
 				);
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_1 = "\"$(SRCROOT)/../../SDL/include\"";
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_2 = "\"$(SRCROOT)/../external/freetype-2.4.12/include\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -377,7 +403,7 @@
 		00B7E1F7097E26C600826121 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
@@ -386,7 +412,7 @@
 				);
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_1 = "\"$(SRCROOT)/../../SDL/include\"";
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_2 = "\"$(SRCROOT)/../external/freetype-2.4.12/include\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

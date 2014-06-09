@@ -7,6 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1706B3A5194402B800F88B8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3A4194402B800F88B8C /* Foundation.framework */; };
+		1706B3A7194402B800F88B8C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3A6194402B800F88B8C /* CoreGraphics.framework */; };
+		1706B3AF194402B800F88B8C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1706B3AD194402B800F88B8C /* InfoPlist.strings */; };
+		1706B3BE194402B800F88B8C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3BD194402B800F88B8C /* XCTest.framework */; };
+		1706B3BF194402B800F88B8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3A4194402B800F88B8C /* Foundation.framework */; };
+		1706B3C0194402B800F88B8C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3A8194402B800F88B8C /* UIKit.framework */; };
+		1706B4081944052E00F88B8C /* libSDL2_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3F31944049400F88B8C /* libSDL2_image.a */; };
+		1706B4091944052E00F88B8C /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3F9194404D700F88B8C /* libSDL2_mixer.a */; };
+		1706B40A1944052E00F88B8C /* libSDL2_ttf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B3FF194404FA00F88B8C /* libSDL2_ttf.a */; };
+		1706B41E19440CEE00F88B8C /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B41B194406E800F88B8C /* libSDL2.a */; };
+		1706B4261944134900F88B8C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B4251944134900F88B8C /* CoreAudio.framework */; };
+		1706B42D1944144900F88B8C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B42C1944144900F88B8C /* AudioToolbox.framework */; };
+		1706B42F19449D0700F88B8C /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B42E19449D0700F88B8C /* CoreImage.framework */; };
+		1706B43319449D2200F88B8C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B43219449D2200F88B8C /* OpenGLES.framework */; };
+		1706B43519449DA800F88B8C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B43419449DA800F88B8C /* ImageIO.framework */; };
+		1706B43719449DCE00F88B8C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B43619449DCE00F88B8C /* MobileCoreServices.framework */; };
+		1706B43919449DF800F88B8C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B43819449DF800F88B8C /* QuartzCore.framework */; };
+		1706B43B19449E5400F88B8C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B43A19449E5300F88B8C /* UIKit.framework */; };
+		1706B47819449EB300F88B8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1706B3B6194402B800F88B8C /* Images.xcassets */; };
+		1706B47919449ED500F88B8C /* collided.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1706B44019449E8000F88B8C /* collided.wav */; };
+		1706B47A19449ED700F88B8C /* square.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1706B44119449E8000F88B8C /* square.wav */; };
+		1706B47C19449EED00F88B8C /* Track.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5951935652A00F672F2 /* Track.ttf */; };
+		1706B47D19449EEF00F88B8C /* DarkistheNight.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5941935652A00F672F2 /* DarkistheNight.ttf */; };
+		1706B47F19449F1700F88B8C /* square.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 174E3AEA1935E056004A5366 /* square.png */; };
+		1706B48019449F1900F88B8C /* background.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5661935650A00F672F2 /* background.png */; };
+		1706B48119449F1A00F88B8C /* bouncySelect.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5671935650A00F672F2 /* bouncySelect.png */; };
+		1706B48219449F1D00F88B8C /* bouncySelectPressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5681935650A00F672F2 /* bouncySelectPressed.png */; };
+		1706B48319449F2000F88B8C /* close.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5691935650A00F672F2 /* close.png */; };
+		1706B48419449F2300F88B8C /* closePressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD56A1935650A00F672F2 /* closePressed.png */; };
+		1706B48519449F2600F88B8C /* defeated.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD56B1935650A00F672F2 /* defeated.png */; };
+		1706B48619449F2900F88B8C /* dot.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD56C1935650A00F672F2 /* dot.png */; };
+		1706B48719449F2A00F88B8C /* dot2.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD56D1935650A00F672F2 /* dot2.bmp */; };
+		1706B48819449F2C00F88B8C /* dot3.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD56E1935650A00F672F2 /* dot3.bmp */; };
+		1706B48919449F2E00F88B8C /* help.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD56F1935650A00F672F2 /* help.png */; };
+		1706B48A19449F3000F88B8C /* helpPressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5701935650A00F672F2 /* helpPressed.png */; };
+		1706B48B19449F3300F88B8C /* helpscreen.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5711935650A00F672F2 /* helpscreen.png */; };
+		1706B48C19449F3500F88B8C /* levelSelect.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5721935650A00F672F2 /* levelSelect.png */; };
+		1706B48D19449F3600F88B8C /* opening.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5731935650A00F672F2 /* opening.png */; };
+		1706B48E19449F3800F88B8C /* options.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5741935650A00F672F2 /* options.png */; };
+		1706B48F19449F3900F88B8C /* optionsPressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5751935650A00F672F2 /* optionsPressed.png */; };
+		1706B49019449F3A00F88B8C /* retry.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5761935650A00F672F2 /* retry.png */; };
+		1706B49119449F3C00F88B8C /* retryPressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5771935650A00F672F2 /* retryPressed.png */; };
+		1706B49219449F3D00F88B8C /* square.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5781935650A00F672F2 /* square.bmp */; };
+		1706B49319449F3E00F88B8C /* start.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD5791935650A00F672F2 /* start.png */; };
+		1706B49419449F3F00F88B8C /* startPressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD57A1935650A00F672F2 /* startPressed.png */; };
+		1706B49519449F4000F88B8C /* stickySelect.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD57B1935650A00F672F2 /* stickySelect.png */; };
+		1706B49619449F4200F88B8C /* stickySelectPressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 171AD57C1935650A00F672F2 /* stickySelectPressed.png */; };
+		1706B49A1944A35300F88B8C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1706B4991944A35300F88B8C /* main.cpp */; };
 		171AD57D1935650A00F672F2 /* background.png in Copy Files */ = {isa = PBXBuildFile; fileRef = 171AD5661935650A00F672F2 /* background.png */; };
 		171AD57E1935650A00F672F2 /* bouncySelect.png in Copy Files */ = {isa = PBXBuildFile; fileRef = 171AD5671935650A00F672F2 /* bouncySelect.png */; };
 		171AD57F1935650A00F672F2 /* bouncySelectPressed.png in Copy Files */ = {isa = PBXBuildFile; fileRef = 171AD5681935650A00F672F2 /* bouncySelectPressed.png */; };
@@ -43,10 +91,131 @@
 		172227F419374476003677AA /* SDL2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD78A835190A279800E2360C /* SDL2.framework */; };
 		174E3AE91935A635004A5366 /* collided.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = 174E3AE81935A635004A5366 /* collided.wav */; };
 		174E3AEB1935E056004A5366 /* square.png in Copy Files */ = {isa = PBXBuildFile; fileRef = 174E3AEA1935E056004A5366 /* square.png */; };
-		17C5981A17FD1EA70034DC39 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17C5981917FD1EA70034DC39 /* main.cpp */; };
+		17691B971944A46700AD5BB1 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 17691B961944A46700AD5BB1 /* main.mm */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1706B3C1194402B800F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17C5980E17FD1EA70034DC39 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1706B3A1194402B800F88B8C;
+			remoteInfo = "Square Game iOS";
+		};
+		1706B3F21944049400F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B3EE1944049400F88B8C /* SDL_image.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE1FA74107AF4C45004B6283;
+			remoteInfo = libSDL_image;
+		};
+		1706B3F8194404D700F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B3F4194404D700F88B8C /* SDL_mixer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE1FA95407AF96B2004B6283;
+			remoteInfo = "Static Library";
+		};
+		1706B3FE194404FA00F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B3FA194404FA00F88B8C /* SDL_ttf.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE48FD6E07AFA17000BB41DA;
+			remoteInfo = "Static Library";
+		};
+		1706B4001944051800F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B3FA194404FA00F88B8C /* SDL_ttf.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BE48FD6807AFA17000BB41DA;
+			remoteInfo = "Static Library";
+		};
+		1706B4021944051B00F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B3F4194404D700F88B8C /* SDL_mixer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BE1FA90707AF96B2004B6283;
+			remoteInfo = "Static Library";
+		};
+		1706B4041944051E00F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B3EE1944049400F88B8C /* SDL_image.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BE1FA72F07AF4C45004B6283;
+			remoteInfo = libSDL_image;
+		};
+		1706B41A194406E800F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B415194406E800F88B8C /* SDL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FD6526630DE8FCCB002AD96B;
+			remoteInfo = libSDL;
+		};
+		1706B41C19440CE900F88B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1706B415194406E800F88B8C /* SDL.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = FD6526620DE8FCCB002AD96B;
+			remoteInfo = libSDL;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		1706B47719449EA100F88B8C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = sfx;
+			dstSubfolderSpec = 7;
+			files = (
+				1706B47919449ED500F88B8C /* collided.wav in CopyFiles */,
+				1706B47A19449ED700F88B8C /* square.wav in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1706B47B19449EDF00F88B8C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				1706B47C19449EED00F88B8C /* Track.ttf in CopyFiles */,
+				1706B47D19449EEF00F88B8C /* DarkistheNight.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1706B47E19449EF500F88B8C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = sprites;
+			dstSubfolderSpec = 7;
+			files = (
+				1706B48819449F2C00F88B8C /* dot3.bmp in CopyFiles */,
+				1706B48919449F2E00F88B8C /* help.png in CopyFiles */,
+				1706B48A19449F3000F88B8C /* helpPressed.png in CopyFiles */,
+				1706B48C19449F3500F88B8C /* levelSelect.png in CopyFiles */,
+				1706B49219449F3D00F88B8C /* square.bmp in CopyFiles */,
+				1706B49419449F3F00F88B8C /* startPressed.png in CopyFiles */,
+				1706B49519449F4000F88B8C /* stickySelect.png in CopyFiles */,
+				1706B49619449F4200F88B8C /* stickySelectPressed.png in CopyFiles */,
+				1706B49319449F3E00F88B8C /* start.png in CopyFiles */,
+				1706B49119449F3C00F88B8C /* retryPressed.png in CopyFiles */,
+				1706B48D19449F3600F88B8C /* opening.png in CopyFiles */,
+				1706B49019449F3A00F88B8C /* retry.png in CopyFiles */,
+				1706B48F19449F3900F88B8C /* optionsPressed.png in CopyFiles */,
+				1706B48E19449F3800F88B8C /* options.png in CopyFiles */,
+				1706B48B19449F3300F88B8C /* helpscreen.png in CopyFiles */,
+				1706B48719449F2A00F88B8C /* dot2.bmp in CopyFiles */,
+				1706B48619449F2900F88B8C /* dot.png in CopyFiles */,
+				1706B48519449F2600F88B8C /* defeated.png in CopyFiles */,
+				1706B48319449F2000F88B8C /* close.png in CopyFiles */,
+				1706B48419449F2300F88B8C /* closePressed.png in CopyFiles */,
+				1706B47F19449F1700F88B8C /* square.png in CopyFiles */,
+				1706B48019449F1900F88B8C /* background.png in CopyFiles */,
+				1706B48119449F1A00F88B8C /* bouncySelect.png in CopyFiles */,
+				1706B48219449F1D00F88B8C /* bouncySelectPressed.png in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		171AD565193564F300F672F2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -119,6 +288,58 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1706B3A2194402B800F88B8C /* Square Game iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Square Game iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1706B3A4194402B800F88B8C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1706B3A6194402B800F88B8C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1706B3A8194402B800F88B8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		1706B3AC194402B800F88B8C /* Square Game iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Square Game iOS-Info.plist"; path = "Square Game iOS/Square Game iOS-Info.plist"; sourceTree = "<group>"; };
+		1706B3AE194402B800F88B8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1706B3B6194402B800F88B8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Square Game iOS/Images.xcassets"; sourceTree = "<group>"; };
+		1706B3BC194402B800F88B8C /* Square Game iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Square Game iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1706B3BD194402B800F88B8C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1706B3EE1944049400F88B8C /* SDL_image.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL_image.xcodeproj; path = "Square Game iOS/SDLSRC/Xcode-iOS/SDL/../../../SDL2_image/Xcode-iOS/SDL_image.xcodeproj"; sourceTree = "<group>"; };
+		1706B3F4194404D700F88B8C /* SDL_mixer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL_mixer.xcodeproj; path = "Square Game iOS/SDL2_mixer/Xcode-iOS/SDL_mixer.xcodeproj"; sourceTree = "<group>"; };
+		1706B3FA194404FA00F88B8C /* SDL_ttf.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL_ttf.xcodeproj; path = "Square Game iOS/SDL2_ttf/Xcode-iOS/SDL_ttf.xcodeproj"; sourceTree = "<group>"; };
+		1706B415194406E800F88B8C /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "Square Game iOS/SDL2/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
+		1706B4251944134900F88B8C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
+		1706B42A1944143F00F88B8C /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioUnit.framework; sourceTree = DEVELOPER_DIR; };
+		1706B42C1944144900F88B8C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		1706B42E19449D0700F88B8C /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreImage.framework; sourceTree = DEVELOPER_DIR; };
+		1706B43019449D1500F88B8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		1706B43219449D2200F88B8C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		1706B43419449DA800F88B8C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
+		1706B43619449DCE00F88B8C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		1706B43819449DF800F88B8C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		1706B43A19449E5300F88B8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		1706B43D19449E8000F88B8C /* DarkistheNight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DarkistheNight.ttf; sourceTree = "<group>"; };
+		1706B43E19449E8000F88B8C /* Track.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Track.ttf; sourceTree = "<group>"; };
+		1706B44019449E8000F88B8C /* collided.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collided.wav; sourceTree = "<group>"; };
+		1706B44119449E8000F88B8C /* square.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = square.wav; sourceTree = "<group>"; };
+		1706B44319449E8000F88B8C /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		1706B44419449E8000F88B8C /* bouncySelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncySelect.png; sourceTree = "<group>"; };
+		1706B44519449E8000F88B8C /* bouncySelectPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncySelectPressed.png; sourceTree = "<group>"; };
+		1706B44619449E8000F88B8C /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		1706B44719449E8000F88B8C /* closePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closePressed.png; sourceTree = "<group>"; };
+		1706B44819449E8000F88B8C /* defeated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defeated.png; sourceTree = "<group>"; };
+		1706B44919449E8000F88B8C /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
+		1706B44A19449E8000F88B8C /* dot2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = dot2.bmp; sourceTree = "<group>"; };
+		1706B44B19449E8000F88B8C /* dot3.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = dot3.bmp; sourceTree = "<group>"; };
+		1706B44C19449E8000F88B8C /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
+		1706B44D19449E8000F88B8C /* helpPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpPressed.png; sourceTree = "<group>"; };
+		1706B44E19449E8000F88B8C /* helpscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpscreen.png; sourceTree = "<group>"; };
+		1706B44F19449E8000F88B8C /* levelSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = levelSelect.png; sourceTree = "<group>"; };
+		1706B45019449E8000F88B8C /* opening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opening.png; sourceTree = "<group>"; };
+		1706B45119449E8000F88B8C /* options.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = options.png; sourceTree = "<group>"; };
+		1706B45219449E8000F88B8C /* optionsPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = optionsPressed.png; sourceTree = "<group>"; };
+		1706B45319449E8000F88B8C /* retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retry.png; sourceTree = "<group>"; };
+		1706B45419449E8000F88B8C /* retryPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retryPressed.png; sourceTree = "<group>"; };
+		1706B45519449E8000F88B8C /* square.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = square.bmp; sourceTree = "<group>"; };
+		1706B45619449E8000F88B8C /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
+		1706B45719449E8000F88B8C /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
+		1706B45819449E8000F88B8C /* startPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startPressed.png; sourceTree = "<group>"; };
+		1706B45919449E8000F88B8C /* stickySelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stickySelect.png; sourceTree = "<group>"; };
+		1706B45A19449E8000F88B8C /* stickySelectPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stickySelectPressed.png; sourceTree = "<group>"; };
+		1706B4991944A35300F88B8C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "Square Game/main.cpp"; sourceTree = "<group>"; };
 		171AD5661935650A00F672F2 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		171AD5671935650A00F672F2 /* bouncySelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncySelect.png; sourceTree = "<group>"; };
 		171AD5681935650A00F672F2 /* bouncySelectPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncySelectPressed.png; sourceTree = "<group>"; };
@@ -147,15 +368,46 @@
 		171AD5991935655F00F672F2 /* square.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = square.wav; path = sfx/square.wav; sourceTree = "<group>"; };
 		174E3AE81935A635004A5366 /* collided.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = collided.wav; path = sfx/collided.wav; sourceTree = "<group>"; };
 		174E3AEA1935E056004A5366 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
+		17691B961944A46700AD5BB1 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "Square Game iOS/main.mm"; sourceTree = "<group>"; };
 		17C5981617FD1EA70034DC39 /* Square Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Square Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		17C5981917FD1EA70034DC39 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		AD78A834190A279800E2360C /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
-		AD78A835190A279800E2360C /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
-		ADAA79261932D099004A5604 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
-		ADAA79271932D099004A5604 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
+		AD78A834190A279800E2360C /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = /Library/Frameworks/SDL2_image.framework; sourceTree = "<absolute>"; };
+		AD78A835190A279800E2360C /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = /Library/Frameworks/SDL2.framework; sourceTree = "<absolute>"; };
+		ADAA79261932D099004A5604 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = /Library/Frameworks/SDL2_mixer.framework; sourceTree = "<absolute>"; };
+		ADAA79271932D099004A5604 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = /Library/Frameworks/SDL2_ttf.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1706B39F194402B800F88B8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1706B43B19449E5400F88B8C /* UIKit.framework in Frameworks */,
+				1706B43919449DF800F88B8C /* QuartzCore.framework in Frameworks */,
+				1706B43719449DCE00F88B8C /* MobileCoreServices.framework in Frameworks */,
+				1706B43519449DA800F88B8C /* ImageIO.framework in Frameworks */,
+				1706B43319449D2200F88B8C /* OpenGLES.framework in Frameworks */,
+				1706B42F19449D0700F88B8C /* CoreImage.framework in Frameworks */,
+				1706B42D1944144900F88B8C /* AudioToolbox.framework in Frameworks */,
+				1706B4261944134900F88B8C /* CoreAudio.framework in Frameworks */,
+				1706B41E19440CEE00F88B8C /* libSDL2.a in Frameworks */,
+				1706B4081944052E00F88B8C /* libSDL2_image.a in Frameworks */,
+				1706B4091944052E00F88B8C /* libSDL2_mixer.a in Frameworks */,
+				1706B40A1944052E00F88B8C /* libSDL2_ttf.a in Frameworks */,
+				1706B3A7194402B800F88B8C /* CoreGraphics.framework in Frameworks */,
+				1706B3A5194402B800F88B8C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1706B3B9194402B800F88B8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1706B3BE194402B800F88B8C /* XCTest.framework in Frameworks */,
+				1706B3C0194402B800F88B8C /* UIKit.framework in Frameworks */,
+				1706B3BF194402B800F88B8C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		17C5981317FD1EA70034DC39 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,13 +422,167 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1706B3A3194402B800F88B8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1706B43219449D2200F88B8C /* OpenGLES.framework */,
+				1706B43019449D1500F88B8C /* GLKit.framework */,
+				1706B42E19449D0700F88B8C /* CoreImage.framework */,
+				1706B42C1944144900F88B8C /* AudioToolbox.framework */,
+				1706B42A1944143F00F88B8C /* AudioUnit.framework */,
+				1706B4251944134900F88B8C /* CoreAudio.framework */,
+				1706B3A4194402B800F88B8C /* Foundation.framework */,
+				1706B3A6194402B800F88B8C /* CoreGraphics.framework */,
+				1706B3A8194402B800F88B8C /* UIKit.framework */,
+				1706B3BD194402B800F88B8C /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1706B3AA194402B800F88B8C /* Square Game iOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Square Game iOS";
+			sourceTree = "<group>";
+		};
+		1706B3AB194402B800F88B8C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Supporting Files";
+			path = "Square Game iOS";
+			sourceTree = "<group>";
+		};
+		1706B3D11944030100F88B8C /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1706B43C19449E8000F88B8C /* fonts */,
+				1706B43F19449E8000F88B8C /* sfx */,
+				1706B44219449E8000F88B8C /* sprites */,
+				1706B415194406E800F88B8C /* SDL.xcodeproj */,
+				1706B3FA194404FA00F88B8C /* SDL_ttf.xcodeproj */,
+				1706B3F4194404D700F88B8C /* SDL_mixer.xcodeproj */,
+				1706B3EE1944049400F88B8C /* SDL_image.xcodeproj */,
+				1706B3AA194402B800F88B8C /* Square Game iOS */,
+				1706B3B6194402B800F88B8C /* Images.xcassets */,
+				1706B3AB194402B800F88B8C /* Supporting Files */,
+				1706B3AC194402B800F88B8C /* Square Game iOS-Info.plist */,
+				1706B3AD194402B800F88B8C /* InfoPlist.strings */,
+				17691B961944A46700AD5BB1 /* main.mm */,
+				1706B3A3194402B800F88B8C /* Frameworks */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		1706B3D21944031200F88B8C /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				1706B4991944A35300F88B8C /* main.cpp */,
+				171AD59B1935656900F672F2 /* sfx */,
+				171AD5621935648E00F672F2 /* fonts */,
+				17483F0B192E218E00A8EF03 /* sprites */,
+				ADAA79261932D099004A5604 /* SDL2_mixer.framework */,
+				ADAA79271932D099004A5604 /* SDL2_ttf.framework */,
+				AD78A834190A279800E2360C /* SDL2_image.framework */,
+				AD78A835190A279800E2360C /* SDL2.framework */,
+				17C5981817FD1EA70034DC39 /* Square Game */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+		1706B3EF1944049400F88B8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1706B3F31944049400F88B8C /* libSDL2_image.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1706B3F5194404D700F88B8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1706B3F9194404D700F88B8C /* libSDL2_mixer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1706B3FB194404FA00F88B8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1706B3FF194404FA00F88B8C /* libSDL2_ttf.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1706B416194406E800F88B8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1706B41B194406E800F88B8C /* libSDL2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1706B43C19449E8000F88B8C /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1706B43D19449E8000F88B8C /* DarkistheNight.ttf */,
+				1706B43E19449E8000F88B8C /* Track.ttf */,
+			);
+			name = fonts;
+			path = "Square Game iOS/fonts";
+			sourceTree = "<group>";
+		};
+		1706B43F19449E8000F88B8C /* sfx */ = {
+			isa = PBXGroup;
+			children = (
+				1706B44019449E8000F88B8C /* collided.wav */,
+				1706B44119449E8000F88B8C /* square.wav */,
+			);
+			name = sfx;
+			path = "Square Game iOS/sfx";
+			sourceTree = "<group>";
+		};
+		1706B44219449E8000F88B8C /* sprites */ = {
+			isa = PBXGroup;
+			children = (
+				1706B44319449E8000F88B8C /* background.png */,
+				1706B44419449E8000F88B8C /* bouncySelect.png */,
+				1706B44519449E8000F88B8C /* bouncySelectPressed.png */,
+				1706B44619449E8000F88B8C /* close.png */,
+				1706B44719449E8000F88B8C /* closePressed.png */,
+				1706B44819449E8000F88B8C /* defeated.png */,
+				1706B44919449E8000F88B8C /* dot.png */,
+				1706B44A19449E8000F88B8C /* dot2.bmp */,
+				1706B44B19449E8000F88B8C /* dot3.bmp */,
+				1706B44C19449E8000F88B8C /* help.png */,
+				1706B44D19449E8000F88B8C /* helpPressed.png */,
+				1706B44E19449E8000F88B8C /* helpscreen.png */,
+				1706B44F19449E8000F88B8C /* levelSelect.png */,
+				1706B45019449E8000F88B8C /* opening.png */,
+				1706B45119449E8000F88B8C /* options.png */,
+				1706B45219449E8000F88B8C /* optionsPressed.png */,
+				1706B45319449E8000F88B8C /* retry.png */,
+				1706B45419449E8000F88B8C /* retryPressed.png */,
+				1706B45519449E8000F88B8C /* square.bmp */,
+				1706B45619449E8000F88B8C /* square.png */,
+				1706B45719449E8000F88B8C /* start.png */,
+				1706B45819449E8000F88B8C /* startPressed.png */,
+				1706B45919449E8000F88B8C /* stickySelect.png */,
+				1706B45A19449E8000F88B8C /* stickySelectPressed.png */,
+			);
+			name = sprites;
+			path = "Square Game iOS/sprites";
+			sourceTree = "<group>";
+		};
 		171AD5621935648E00F672F2 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
 				171AD5941935652A00F672F2 /* DarkistheNight.ttf */,
 				171AD5951935652A00F672F2 /* Track.ttf */,
 			);
-			path = fonts;
+			name = fonts;
+			path = "Square Game/fonts";
 			sourceTree = "<group>";
 		};
 		171AD59B1935656900F672F2 /* sfx */ = {
@@ -186,6 +592,7 @@
 				171AD5991935655F00F672F2 /* square.wav */,
 			);
 			name = sfx;
+			path = "Square Game";
 			sourceTree = "<group>";
 		};
 		17483F0B192E218E00A8EF03 /* sprites */ = {
@@ -216,17 +623,19 @@
 				171AD57B1935650A00F672F2 /* stickySelect.png */,
 				171AD57C1935650A00F672F2 /* stickySelectPressed.png */,
 			);
-			path = sprites;
+			name = sprites;
+			path = "Square Game/sprites";
 			sourceTree = "<group>";
 		};
 		17C5980D17FD1EA70034DC39 = {
 			isa = PBXGroup;
 			children = (
-				ADAA79261932D099004A5604 /* SDL2_mixer.framework */,
-				ADAA79271932D099004A5604 /* SDL2_ttf.framework */,
-				AD78A834190A279800E2360C /* SDL2_image.framework */,
-				AD78A835190A279800E2360C /* SDL2.framework */,
-				17C5981817FD1EA70034DC39 /* Square Game */,
+				1706B43A19449E5300F88B8C /* UIKit.framework */,
+				1706B43819449DF800F88B8C /* QuartzCore.framework */,
+				1706B43619449DCE00F88B8C /* MobileCoreServices.framework */,
+				1706B43419449DA800F88B8C /* ImageIO.framework */,
+				1706B3D21944031200F88B8C /* Mac */,
+				1706B3D11944030100F88B8C /* iOS */,
 				17C5981717FD1EA70034DC39 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -235,6 +644,8 @@
 			isa = PBXGroup;
 			children = (
 				17C5981617FD1EA70034DC39 /* Square Game.app */,
+				1706B3A2194402B800F88B8C /* Square Game iOS.app */,
+				1706B3BC194402B800F88B8C /* Square Game iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,10 +653,6 @@
 		17C5981817FD1EA70034DC39 /* Square Game */ = {
 			isa = PBXGroup;
 			children = (
-				171AD59B1935656900F672F2 /* sfx */,
-				171AD5621935648E00F672F2 /* fonts */,
-				17C5981917FD1EA70034DC39 /* main.cpp */,
-				17483F0B192E218E00A8EF03 /* sprites */,
 			);
 			path = "Square Game";
 			sourceTree = "<group>";
@@ -253,6 +660,48 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1706B3A1194402B800F88B8C /* Square Game iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1706B3CB194402B800F88B8C /* Build configuration list for PBXNativeTarget "Square Game iOS" */;
+			buildPhases = (
+				1706B39E194402B800F88B8C /* Sources */,
+				1706B39F194402B800F88B8C /* Frameworks */,
+				1706B3A0194402B800F88B8C /* Resources */,
+				1706B47719449EA100F88B8C /* CopyFiles */,
+				1706B47B19449EDF00F88B8C /* CopyFiles */,
+				1706B47E19449EF500F88B8C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1706B41D19440CE900F88B8C /* PBXTargetDependency */,
+				1706B4051944051E00F88B8C /* PBXTargetDependency */,
+				1706B4031944051B00F88B8C /* PBXTargetDependency */,
+				1706B4011944051800F88B8C /* PBXTargetDependency */,
+			);
+			name = "Square Game iOS";
+			productName = "Square Game iOS";
+			productReference = 1706B3A2194402B800F88B8C /* Square Game iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1706B3BB194402B800F88B8C /* Square Game iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1706B3CE194402B800F88B8C /* Build configuration list for PBXNativeTarget "Square Game iOSTests" */;
+			buildPhases = (
+				1706B3B8194402B800F88B8C /* Sources */,
+				1706B3B9194402B800F88B8C /* Frameworks */,
+				1706B3BA194402B800F88B8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1706B3C2194402B800F88B8C /* PBXTargetDependency */,
+			);
+			name = "Square Game iOSTests";
+			productName = "Square Game iOSTests";
+			productReference = 1706B3BC194402B800F88B8C /* Square Game iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		17C5981517FD1EA70034DC39 /* Square Game */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 17C5981D17FD1EA70034DC39 /* Build configuration list for PBXNativeTarget "Square Game" */;
@@ -281,6 +730,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Hauton TSANG";
+				TargetAttributes = {
+					1706B3BB194402B800F88B8C = {
+						TestTargetID = 17C5981517FD1EA70034DC39;
+					};
+				};
 			};
 			buildConfigurationList = 17C5981117FD1EA70034DC39 /* Build configuration list for PBXProject "Square Game" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -292,25 +746,250 @@
 			mainGroup = 17C5980D17FD1EA70034DC39;
 			productRefGroup = 17C5981717FD1EA70034DC39 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1706B416194406E800F88B8C /* Products */;
+					ProjectRef = 1706B415194406E800F88B8C /* SDL.xcodeproj */;
+				},
+				{
+					ProductGroup = 1706B3EF1944049400F88B8C /* Products */;
+					ProjectRef = 1706B3EE1944049400F88B8C /* SDL_image.xcodeproj */;
+				},
+				{
+					ProductGroup = 1706B3F5194404D700F88B8C /* Products */;
+					ProjectRef = 1706B3F4194404D700F88B8C /* SDL_mixer.xcodeproj */;
+				},
+				{
+					ProductGroup = 1706B3FB194404FA00F88B8C /* Products */;
+					ProjectRef = 1706B3FA194404FA00F88B8C /* SDL_ttf.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				17C5981517FD1EA70034DC39 /* Square Game */,
+				1706B3A1194402B800F88B8C /* Square Game iOS */,
+				1706B3BB194402B800F88B8C /* Square Game iOSTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		1706B3F31944049400F88B8C /* libSDL2_image.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDL2_image.a;
+			remoteRef = 1706B3F21944049400F88B8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1706B3F9194404D700F88B8C /* libSDL2_mixer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDL2_mixer.a;
+			remoteRef = 1706B3F8194404D700F88B8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1706B3FF194404FA00F88B8C /* libSDL2_ttf.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDL2_ttf.a;
+			remoteRef = 1706B3FE194404FA00F88B8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1706B41B194406E800F88B8C /* libSDL2.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDL2.a;
+			remoteRef = 1706B41A194406E800F88B8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1706B3A0194402B800F88B8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1706B3AF194402B800F88B8C /* InfoPlist.strings in Resources */,
+				1706B47819449EB300F88B8C /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1706B3BA194402B800F88B8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		1706B39E194402B800F88B8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17691B971944A46700AD5BB1 /* main.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1706B3B8194402B800F88B8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		17C5981217FD1EA70034DC39 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17C5981A17FD1EA70034DC39 /* main.cpp in Sources */,
+				1706B49A1944A35300F88B8C /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1706B3C2194402B800F88B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1706B3A1194402B800F88B8C /* Square Game iOS */;
+			targetProxy = 1706B3C1194402B800F88B8C /* PBXContainerItemProxy */;
+		};
+		1706B4011944051800F88B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Static Library";
+			targetProxy = 1706B4001944051800F88B8C /* PBXContainerItemProxy */;
+		};
+		1706B4031944051B00F88B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Static Library";
+			targetProxy = 1706B4021944051B00F88B8C /* PBXContainerItemProxy */;
+		};
+		1706B4051944051E00F88B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libSDL_image;
+			targetProxy = 1706B4041944051E00F88B8C /* PBXContainerItemProxy */;
+		};
+		1706B41D19440CE900F88B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libSDL;
+			targetProxy = 1706B41C19440CE900F88B8C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1706B3AD194402B800F88B8C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1706B3AE194402B800F88B8C /* en */,
+			);
+			name = InfoPlist.strings;
+			path = "Square Game iOS";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		1706B3CC194402B800F88B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Square Game iOS/Square Game iOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Square Game iOS/Square Game iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Square\\ Game\\ iOS/SDL2/include $(SRCROOT)/Square\\ Game\\ iOS/SDL2_image $(SRCROOT)/Square\\ Game\\ iOS/SDL2_mixer $(SRCROOT)/Square\\ Game\\ iOS/SDL2_ttf";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1706B3CD194402B800F88B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Square Game iOS/Square Game iOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Square Game iOS/Square Game iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Square\\ Game\\ iOS/SDL2/include $(SRCROOT)/Square\\ Game\\ iOS/SDL2_image $(SRCROOT)/Square\\ Game\\ iOS/SDL2_mixer $(SRCROOT)/Square\\ Game\\ iOS/SDL2_ttf";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1706B3CF194402B800F88B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Square Game.app/Contents/MacOS/Square Game";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Square Game iOS/Square Game iOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Square Game iOSTests/Square Game iOSTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		1706B3D0194402B800F88B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Square Game.app/Contents/MacOS/Square Game";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Square Game iOS/Square Game iOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Square Game iOSTests/Square Game iOSTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		17C5981B17FD1EA70034DC39 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -412,6 +1091,8 @@
 					SDL2_image,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
+				SUPPORTED_PLATFORMS = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -448,6 +1129,8 @@
 					SDL2_image,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
+				SUPPORTED_PLATFORMS = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
@@ -455,6 +1138,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1706B3CB194402B800F88B8C /* Build configuration list for PBXNativeTarget "Square Game iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1706B3CC194402B800F88B8C /* Debug */,
+				1706B3CD194402B800F88B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1706B3CE194402B800F88B8C /* Build configuration list for PBXNativeTarget "Square Game iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1706B3CF194402B800F88B8C /* Debug */,
+				1706B3D0194402B800F88B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		17C5981117FD1EA70034DC39 /* Build configuration list for PBXProject "Square Game" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

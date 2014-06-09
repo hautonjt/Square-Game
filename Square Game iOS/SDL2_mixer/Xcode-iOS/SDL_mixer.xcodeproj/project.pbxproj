@@ -14,6 +14,7 @@
 		00938E57108A397A0009CF19 /* dynamic_ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 00938E4D108A397A0009CF19 /* dynamic_ogg.h */; };
 		04A8FCA60A19CAEC0046373F /* dynamic_mp3.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A8FCA40A19CAEC0046373F /* dynamic_mp3.c */; };
 		04A8FCAB0A19CB070046373F /* dynamic_ogg.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A8FCA90A19CB070046373F /* dynamic_ogg.c */; };
+		1706B4221944109E00F88B8C /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B4211944109E00F88B8C /* libSDL2.a */; };
 		AA5F0F0914B6A6490036992F /* dynamic_fluidsynth.c in Sources */ = {isa = PBXBuildFile; fileRef = AA5F0F0214B6A6490036992F /* dynamic_fluidsynth.c */; };
 		AA5F0F0A14B6A6490036992F /* dynamic_fluidsynth.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5F0F0314B6A6490036992F /* dynamic_fluidsynth.h */; };
 		AA5F0F0B14B6A6490036992F /* dynamic_mod.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5F0F0414B6A6490036992F /* dynamic_mod.h */; };
@@ -153,6 +154,7 @@
 		04A8FCA40A19CAEC0046373F /* dynamic_mp3.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = dynamic_mp3.c; path = ../dynamic_mp3.c; sourceTree = SOURCE_ROOT; };
 		04A8FCA90A19CB070046373F /* dynamic_ogg.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = dynamic_ogg.c; path = ../dynamic_ogg.c; sourceTree = SOURCE_ROOT; };
 		1014BAEA010A4B677F000001 /* SDL_mixer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SDL_mixer.h; path = ../SDL_mixer.h; sourceTree = SOURCE_ROOT; };
+		1706B4211944109E00F88B8C /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = "../../SDL2/Xcode-iOS/SDL/build/Debug-iphoneos/libSDL2.a"; sourceTree = "<group>"; };
 		5CC1B879012FB8CD7F000001 /* mixer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = mixer.c; path = ../mixer.c; sourceTree = "<group>"; };
 		5CC1B87A012FB8CD7F000001 /* music_cmd.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = music_cmd.c; path = ../music_cmd.c; sourceTree = "<group>"; };
 		5CC1B87B012FB8CD7F000001 /* music_cmd.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = music_cmd.h; path = ../music_cmd.h; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1706B4221944109E00F88B8C /* libSDL2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +310,7 @@
 		0867D691FE84028FC02AAC07 /* SDL_mixerFramework */ = {
 			isa = PBXGroup;
 			children = (
+				1706B4211944109E00F88B8C /* libSDL2.a */,
 				0153844A006D81B07F000001 /* Public Headers */,
 				08FB77ACFE841707C02AAC07 /* Library Source */,
 				034768DDFF38A45A11DB9C8B /* Products */,
@@ -703,10 +707,17 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/s140401/Square-Game/Square",
+					Game,
+					"iOS/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos",
+				);
 				LIBRARY_STYLE = STATIC;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = SDL2_mixer;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../SDL2/include\"";
 			};
 			name = Release;
 		};
@@ -715,17 +726,24 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/s140401/Square-Game/Square",
+					Game,
+					"iOS/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos",
+				);
 				LIBRARY_STYLE = STATIC;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = SDL2_mixer;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../SDL2/include\"";
 			};
 			name = Debug;
 		};
 		00B7E498097EC6B300826121 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WAV_MUSIC,
@@ -744,7 +762,7 @@
 				);
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_1 = "\"$(SRCROOT)/../../SDL/include\"";
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_2 = "\"$(SRCROOT)/../external/libmodplug-0.8.8.4/src\" \"$(SRCROOT)/../external/libmodplug-0.8.8.4/src/libmodplug\" \"$(SRCROOT)/../external/libvorbisidec-1.2.1\" \"$(SRCROOT)/../external/libogg-1.3.1/include\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -753,7 +771,7 @@
 		00B7E499097EC6B300826121 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WAV_MUSIC,
@@ -772,7 +790,7 @@
 				);
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_1 = "\"$(SRCROOT)/../../SDL/include\"";
 				HEADER_SEARCH_PATHS_QUOTED_FOR_PROJECT_2 = "\"$(SRCROOT)/../external/libmodplug-0.8.8.4/src\" \"$(SRCROOT)/../external/libmodplug-0.8.8.4/src/libmodplug\" \"$(SRCROOT)/../external/libvorbisidec-1.2.1\" \"$(SRCROOT)/../external/libogg-1.3.1/include\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

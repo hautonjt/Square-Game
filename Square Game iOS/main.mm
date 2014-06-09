@@ -11,8 +11,9 @@
 //Screen dimension constants
 CGRect screenRect = [[UIScreen mainScreen] bounds];
 
-const int SCREEN_WIDTH = (int)screenRect.size.width;
-const int SCREEN_HEIGHT = (int)screenRect.size.height;
+const int SCREEN_WIDTH = (int)screenRect.size.height*2;
+const int SCREEN_HEIGHT = (int)screenRect.size.width*2;
+
 bool defeat;
 bool started;
 bool options; //Whether the options screen is open
@@ -831,8 +832,8 @@ Food::Food()
 {
     srand((int)time(NULL));
     printf("srand called");
-    mPosX = rand()%(640-FOOD_WIDTH);
-    mPosY = rand()%(480-FOOD_HEIGHT);
+    mPosX = rand()%(SCREEN_WIDTH-FOOD_WIDTH);
+    mPosY = rand()%(SCREEN_HEIGHT-FOOD_HEIGHT);
     
     foodCollider.w = FOOD_WIDTH;
     foodCollider.h = FOOD_HEIGHT;
@@ -857,37 +858,37 @@ Start::Start(){
 
 ButtonStart::ButtonStart(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 200;
+    mPosY = 230;
 }
 
 RetryStart::RetryStart(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 350;
+    mPosY = 380;
 }
 
 ButtonOptions::ButtonOptions(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 280;
+    mPosY = 340;
 }
 
 ButtonHelp::ButtonHelp(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 360;
+    mPosY = 450;
 }
 
 ButtonClose::ButtonClose(){
     mPosX = (SCREEN_WIDTH-BSTART_WIDTH)/2;
-    mPosY = 400;
+    mPosY = 490;
 }
 
 ButtonBouncySelect::ButtonBouncySelect(){
-    mPosX = 30;
-    mPosY = 100;
+    mPosX = (SCREEN_WIDTH-3*BSTART_WIDTH)/2;
+    mPosY = 120;
 }
 
 ButtonStickySelect::ButtonStickySelect(){
-    mPosX = 350;
-    mPosY = 100;
+    mPosX = (SCREEN_WIDTH+BSTART_WIDTH)/2;
+    mPosY = 120;
 }
 
 ScoreCounter::ScoreCounter(){
@@ -897,8 +898,8 @@ ScoreCounter::ScoreCounter(){
 
 void Food::move()
 {
-    int x = rand()%(640-FOOD_WIDTH);
-    int y = rand()%(480-FOOD_HEIGHT);
+    int x = rand()%(SCREEN_WIDTH-FOOD_WIDTH);
+    int y = rand()%(SCREEN_HEIGHT-FOOD_HEIGHT);
     if(x>mPosX+30 || x<mPosX-30){
         mPosX = x;
         mPosY = y;
@@ -912,14 +913,20 @@ void Food::move()
 
 void Defeat::render(){
     gDefeatTexture.render(mPosX, mPosY);
+    gDefeatTexture.mWidth = SCREEN_WIDTH;
+    gDefeatTexture.mHeight = SCREEN_HEIGHT;
 }
 
 void Background::render(){
-    gBackgroundTexture.render(mPosX, mPosY);
+    gBackgroundTexture.render(0, 0);
+    gBackgroundTexture.mWidth = SCREEN_WIDTH;
+    gBackgroundTexture.mHeight = SCREEN_HEIGHT;
 }
 
 void Start::render(){
     gStartTexture.render(mPosX, mPosY);
+    gStartTexture.mWidth = SCREEN_WIDTH;
+    gStartTexture.mHeight = SCREEN_HEIGHT;
 }
 
 void ButtonStart::render(){
@@ -1073,12 +1080,12 @@ void ButtonStart::handleEvent( SDL_Event& e)
             inside = false;
         }
         //Mouse above the button
-        else if( y < mPosY )
+        else if( y-40 < mPosY )
         {
             inside = false;
         }
         //Mouse below the button
-        else if( y > mPosY + BSTART_HEIGHT )
+        else if( y-40 > mPosY + BSTART_HEIGHT )
         {
             inside = false;
         }
@@ -1135,12 +1142,12 @@ void RetryStart::handleEvent2( SDL_Event& e)
             inside = false;
         }
         //Mouse above the button
-        else if( y < mPosY )
+        else if( y-40 < mPosY )
         {
             inside = false;
         }
         //Mouse below the button
-        else if( y > mPosY + BSTART_HEIGHT )
+        else if( y-40 > mPosY + BSTART_HEIGHT )
         {
             inside = false;
         }
@@ -1201,12 +1208,12 @@ void ButtonOptions::handleEvent( SDL_Event& e)
             inside = false;
         }
         //Mouse above the button
-        else if( y < mPosY )
+        else if( y-40 < mPosY )
         {
             inside = false;
         }
         //Mouse below the button
-        else if( y > mPosY + BSTART_HEIGHT )
+        else if( y-40 > mPosY + BSTART_HEIGHT )
         {
             inside = false;
         }
@@ -1262,12 +1269,12 @@ void ButtonHelp::handleEvent( SDL_Event& e)
             inside = false;
         }
         //Mouse above the button
-        else if( y < mPosY )
+        else if( y-40 < mPosY )
         {
             inside = false;
         }
         //Mouse below the button
-        else if( y > mPosY + BSTART_HEIGHT )
+        else if( y-40 > mPosY + BSTART_HEIGHT )
         {
             inside = false;
         }
@@ -1323,12 +1330,12 @@ void ButtonClose::handleEvent( SDL_Event& e)
             inside = false;
         }
         //Mouse above the button
-        else if( y < mPosY )
+        else if( y-40 < mPosY )
         {
             inside = false;
         }
         //Mouse below the button
-        else if( y > mPosY + BSTART_HEIGHT )
+        else if( y-40 > mPosY + BSTART_HEIGHT )
         {
             inside = false;
         }
@@ -1382,12 +1389,12 @@ void ButtonBouncySelect::handleEvent( SDL_Event& e)
             inside = false;
         }
         //Mouse above the button
-        else if( y < mPosY )
+        else if( y-40 < mPosY )
         {
             inside = false;
         }
         //Mouse below the button
-        else if( y > mPosY + BSTART_HEIGHT )
+        else if( y-40 > mPosY + BSTART_HEIGHT )
         {
             inside = false;
         }
@@ -1443,12 +1450,12 @@ void ButtonStickySelect::handleEvent( SDL_Event& e)
             inside = false;
         }
         //Mouse above the button
-        else if( y < mPosY )
+        else if( y-40 < mPosY )
         {
             inside = false;
         }
         //Mouse below the button
-        else if( y > mPosY + BSTART_HEIGHT )
+        else if( y-40 > mPosY + BSTART_HEIGHT )
         {
             inside = false;
         }
@@ -1969,6 +1976,7 @@ void close()
 
 int main( int argc, char* args[] )
 {
+
 	//Start up SDL and create window
 	if( !init() )
 	{
@@ -2134,6 +2142,8 @@ int main( int argc, char* args[] )
                     SDL_RenderClear(gRenderer);
                     
                     gHelpScreen.render(0, 0);
+                    gHelpScreen.mWidth = SCREEN_WIDTH;
+                    gHelpScreen.mHeight = SCREEN_HEIGHT;
                     bClose.render();
                     
                     SDL_RenderPresent(gRenderer);
@@ -2144,6 +2154,8 @@ int main( int argc, char* args[] )
                     
                     
                     gOptionsScreen.render(0, 0);
+                    gOptionsScreen.mWidth = SCREEN_WIDTH;
+                    gOptionsScreen.mHeight = SCREEN_HEIGHT;
                     bBouncy.render();
                     bSticky.render();
                     

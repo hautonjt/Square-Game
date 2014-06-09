@@ -4,14 +4,29 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Square Game iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>Square Game.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1706B3A1194402B800F88B8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1706B3BB194402B800F88B8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>17C5981517FD1EA70034DC39</key>
 		<dict>
 			<key>primary</key>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00A06D7812FFBFD5009F1A11 /* SDL_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 1014BAEA010A4B677F000001 /* SDL_image.h */; };
+		1706B424194410AB00F88B8C /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1706B423194410AB00F88B8C /* libSDL2.a */; };
 		AA126A9A1617A4A4005ABC8F /* IMG_bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = AA126A891617A4A4005ABC8F /* IMG_bmp.c */; };
 		AA126A9B1617A4A4005ABC8F /* IMG_gif.c in Sources */ = {isa = PBXBuildFile; fileRef = AA126A8A1617A4A4005ABC8F /* IMG_gif.c */; };
 		AA126A9C1617A4A4005ABC8F /* IMG_ImageIO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA126A8B1617A4A4005ABC8F /* IMG_ImageIO.m */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		1014BAEA010A4B677F000001 /* SDL_image.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SDL_image.h; path = ../SDL_image.h; sourceTree = SOURCE_ROOT; };
+		1706B423194410AB00F88B8C /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = "../../SDL2/Xcode-iOS/SDL/build/Debug-iphoneos/libSDL2.a"; sourceTree = "<group>"; };
 		AA126A891617A4A4005ABC8F /* IMG_bmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = IMG_bmp.c; path = ../IMG_bmp.c; sourceTree = "<group>"; };
 		AA126A8A1617A4A4005ABC8F /* IMG_gif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = IMG_gif.c; path = ../IMG_gif.c; sourceTree = "<group>"; };
 		AA126A8B1617A4A4005ABC8F /* IMG_ImageIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMG_ImageIO.m; path = ../IMG_ImageIO.m; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1706B424194410AB00F88B8C /* libSDL2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +81,7 @@
 		0867D691FE84028FC02AAC07 /* SDL_imageFramework */ = {
 			isa = PBXGroup;
 			children = (
+				1706B423194410AB00F88B8C /* libSDL2.a */,
 				0153844A006D81B07F000001 /* Public Headers */,
 				08FB77ACFE841707C02AAC07 /* Library Source */,
 				034768DDFF38A45A11DB9C8B /* Products */,
@@ -153,6 +157,8 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 00B7E3B6097EB73D00826121 /* Build configuration list for PBXProject "SDL_image" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -213,7 +219,7 @@
 		007288110F0DA5BA00C302A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -231,7 +237,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../SDL/include";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -243,17 +249,25 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../SDL2/include\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/s140401/Square-Game/Square",
+					Game,
+					"iOS/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos",
+				);
 				LIBRARY_STYLE = STATIC;
 				PRODUCT_NAME = SDL2_image;
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		007288150F0DA5C400C302A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					LOAD_BMP,
@@ -270,7 +284,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../SDL/include";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -282,10 +296,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../SDL2/include\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/s140401/Square-Game/Square",
+					Game,
+					"iOS/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos",
+				);
 				LIBRARY_STYLE = STATIC;
 				PRODUCT_NAME = SDL2_image;
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
