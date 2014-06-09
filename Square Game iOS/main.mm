@@ -883,12 +883,12 @@ ButtonClose::ButtonClose(){
 
 ButtonBouncySelect::ButtonBouncySelect(){
     mPosX = (SCREEN_WIDTH-3*BSTART_WIDTH)/2;
-    mPosY = 120;
+    mPosY = 150;
 }
 
 ButtonStickySelect::ButtonStickySelect(){
     mPosX = (SCREEN_WIDTH+BSTART_WIDTH)/2;
-    mPosY = 120;
+    mPosY = 150;
 }
 
 ScoreCounter::ScoreCounter(){
